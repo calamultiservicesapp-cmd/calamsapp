@@ -17,6 +17,7 @@ export async function getProjectDetail(id: string) {
         orderBy: { createdAt: "asc" },
       },
       proposal: true,
+      invoice: true,
     },
   });
 }
