@@ -1,0 +1,273 @@
+// ObraFlow — Prisma Schema
+// Modelo de datos completo según BLUEPRINT.md
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum Role {
+  superadmin
+  operador
+  tecnico
+}
+
+enum PersonnelType {
+  contratista
+  tecnico_novato
+  tecnico_experto
+}
+
+enum ProjectStatus {
+  cita
+  caminata
+  propuesta
+  aprobado
+  asignado
+  en_ejecucion
+  informe
+  facturado
+  cerrado
+}
+
+enum ProposalStatus {
+  borrador
+  enviada
+  aprobada
+  rechazada
+}
+
+enum ReportItemStatus {
+  completado
+  con_desviacion
+  no_completado
+}
+
+enum InvoiceStatus {
+  pendiente
+  pagada
+}
+
+// ─── Models ───────────────────────────────────────────────────────────────────
+
+model Profile {
+  id        String   @id @default(uuid()) @db.Uuid
+  fullName  String   @map("full_name")
+  role      Role
+  phone     String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  assignments    ProjectAssignment[]
+  fieldReports   FieldReport[]
+  projectsCreated Project[] @relation("ProjectCreator")
+  auditLogs      AuditLog[]
+
+  @@map("profiles")
+}
+
+model Client {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String
+  contactName String?  @map("contact_name")
+  email       String?
+  phone       String?
+  address     String?
+  deletedAt   DateTime? @map("deleted_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  projects Project[]
+
+  @@map("clients")
+}
+
+model PricingConfig {
+  id                  String   @id @default(uuid()) @db.Uuid
+  contractorDayRate   Decimal  @default(500) @map("contractor_day_rate") @db.Decimal(10, 2)
+  noviceTechDayRate   Decimal  @default(160) @map("novice_tech_day_rate") @db.Decimal(10, 2)
+  expertTechDayRate   Decimal  @default(250) @map("expert_tech_day_rate") @db.Decimal(10, 2)
+  standardHoursPerDay Decimal  @default(8) @map("standard_hours_per_day") @db.Decimal(5, 2)
+  overheadPerProject  Decimal  @default(199) @map("overhead_per_project") @db.Decimal(10, 2)
+  profitMargin        Decimal  @default(15) @map("profit_margin") @db.Decimal(5, 2)
+  updatedById         String   @map("updated_by") @db.Uuid
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@map("pricing_config")
+}
+
+model Activity {
+  id                   String        @id @default(uuid()) @db.Uuid
+  nameEs               String        @map("name_es")
+  nameEn               String        @map("name_en")
+  descriptionEs        String        @map("description_es")
+  descriptionEn        String        @map("description_en")
+  defaultPersonnelType PersonnelType @map("default_personnel_type")
+  minHours             Decimal       @map("min_hours") @db.Decimal(5, 2)
+  deletedAt            DateTime?     @map("deleted_at")
+  createdAt            DateTime      @default(now()) @map("created_at")
+  updatedAt            DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  walkthroughItems WalkthroughItem[]
+
+  @@map("activities")
+}
+
+model Project {
+  id          String        @id @default(uuid()) @db.Uuid
+  clientId    String        @map("client_id") @db.Uuid
+  name        String
+  status      ProjectStatus @default(cita)
+  createdById String        @map("created_by") @db.Uuid
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  client           Client              @relation(fields: [clientId], references: [id])
+  createdBy        Profile             @relation("ProjectCreator", fields: [createdById], references: [id])
+  appointment      Appointment?
+  walkthroughItems WalkthroughItem[]
+  proposal         Proposal?
+  assignments      ProjectAssignment[]
+  fieldReport      FieldReport?
+  invoice          Invoice?
+
+  @@map("projects")
+}
+
+model Appointment {
+  id          String   @id @default(uuid()) @db.Uuid
+  projectId   String   @unique @map("project_id") @db.Uuid
+  scheduledAt DateTime @map("scheduled_at")
+  notes       String?
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@map("appointments")
+}
+
+model WalkthroughItem {
+  id            String        @id @default(uuid()) @db.Uuid
+  projectId     String        @map("project_id") @db.Uuid
+  activityId    String        @map("activity_id") @db.Uuid
+  personnelType PersonnelType @map("personnel_type")
+  hours         Decimal       @db.Decimal(5, 2)
+  rateSnapshot  Decimal       @map("rate_snapshot") @db.Decimal(10, 2)
+  computedPrice Decimal       @map("computed_price") @db.Decimal(10, 2)
+  notes         String?
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  project         Project          @relation(fields: [projectId], references: [id])
+  activity        Activity         @relation(fields: [activityId], references: [id])
+  fieldReportItem FieldReportItem?
+
+  @@map("walkthrough_items")
+}
+
+model Proposal {
+  id               String         @id @default(uuid()) @db.Uuid
+  projectId        String         @unique @map("project_id") @db.Uuid
+  listPrice        Decimal        @map("list_price") @db.Decimal(10, 2)
+  floorPrice       Decimal        @map("floor_price") @db.Decimal(10, 2)
+  discountApplied  Decimal        @default(0) @map("discount_applied") @db.Decimal(10, 2)
+  finalPrice       Decimal        @map("final_price") @db.Decimal(10, 2)
+  status           ProposalStatus @default(borrador)
+  pdfUrlEs         String?        @map("pdf_url_es")
+  pdfUrlEn         String?        @map("pdf_url_en")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  approvedAt       DateTime?      @map("approved_at")
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@map("proposals")
+}
+
+model ProjectAssignment {
+  id           String   @id @default(uuid()) @db.Uuid
+  projectId    String   @map("project_id") @db.Uuid
+  technicianId String   @map("technician_id") @db.Uuid
+  startDate    DateTime @map("start_date") @db.Date
+  endDate      DateTime @map("end_date") @db.Date
+  notes        String?
+
+  // Relations
+  project    Project @relation(fields: [projectId], references: [id])
+  technician Profile @relation(fields: [technicianId], references: [id])
+
+  @@map("project_assignments")
+}
+
+model FieldReport {
+  id          String    @id @default(uuid()) @db.Uuid
+  projectId   String    @unique @map("project_id") @db.Uuid
+  submittedBy String    @map("submitted_by") @db.Uuid
+  submittedAt DateTime? @map("submitted_at")
+  pdfUrlEs    String?   @map("pdf_url_es")
+  pdfUrlEn    String?   @map("pdf_url_en")
+
+  // Relations
+  project   Project           @relation(fields: [projectId], references: [id])
+  submitter Profile            @relation(fields: [submittedBy], references: [id])
+  items     FieldReportItem[]
+
+  @@map("field_reports")
+}
+
+model FieldReportItem {
+  id                String           @id @default(uuid()) @db.Uuid
+  fieldReportId     String           @map("field_report_id") @db.Uuid
+  walkthroughItemId String           @unique @map("walkthrough_item_id") @db.Uuid
+  status            ReportItemStatus
+  notes             String?
+
+  // Relations
+  fieldReport     FieldReport     @relation(fields: [fieldReportId], references: [id])
+  walkthroughItem WalkthroughItem @relation(fields: [walkthroughItemId], references: [id])
+
+  @@map("field_report_items")
+}
+
+model Invoice {
+  id            String        @id @default(uuid()) @db.Uuid
+  projectId     String        @unique @map("project_id") @db.Uuid
+  invoiceNumber String        @unique @map("invoice_number")
+  amount        Decimal       @db.Decimal(10, 2)
+  status        InvoiceStatus @default(pendiente)
+  pdfUrlEs      String?       @map("pdf_url_es")
+  pdfUrlEn      String?       @map("pdf_url_en")
+  issuedAt      DateTime      @default(now()) @map("issued_at")
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@map("invoices")
+}
+
+model AuditLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String   @map("user_id") @db.Uuid
+  action     String
+  entityType String   @map("entity_type")
+  entityId   String   @map("entity_id") @db.Uuid
+  metadata   Json?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user Profile @relation(fields: [userId], references: [id])
+
+  @@map("audit_log")
+}
