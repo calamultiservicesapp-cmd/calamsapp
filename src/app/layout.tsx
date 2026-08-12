@@ -1,0 +1,35 @@
+import type { Metadata } from "next";
+import { Bebas_Neue, Poppins } from "next/font/google";
+import "./globals.css";
+
+const bebasNeue = Bebas_Neue({
+  variable: "--font-heading",
+  weight: "400",
+  subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "CALA Multiservices",
+  description: "Plataforma integral de gestión de proyectos y presupuestos",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html
+      lang="es"
+      className={`${bebasNeue.variable} ${poppins.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col font-sans">{children}</body>
+    </html>
+  );
+}
