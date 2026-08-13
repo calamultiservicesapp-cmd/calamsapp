@@ -194,6 +194,7 @@ model Project {
   walkthroughItems WalkthroughItem[]
   fieldEvaluation  FieldEvaluation?
   proposal         Proposal?
+  proposalRevisions ProposalRevision[]
   assignments      ProjectAssignment[]
   fieldReport      FieldReport?
   invoice          Invoice?
@@ -298,6 +299,21 @@ model Proposal {
   project Project @relation(fields: [projectId], references: [id])
 
   @@map("proposals")
+}
+
+model ProposalRevision {
+  id               String         @id @default(uuid()) @db.Uuid
+  projectId        String         @map("project_id") @db.Uuid
+  listPrice        Decimal        @map("list_price") @db.Decimal(10, 2)
+  floorPrice       Decimal        @map("floor_price") @db.Decimal(10, 2)
+  discountApplied  Decimal        @map("discount_applied") @db.Decimal(10, 2)
+  finalPrice       Decimal        @map("final_price") @db.Decimal(10, 2)
+  rejectedAt       DateTime       @default(now()) @map("rejected_at")
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@map("proposal_revisions")
 }
 
 model ProjectAssignment {
