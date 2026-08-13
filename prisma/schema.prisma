@@ -88,7 +88,6 @@ model Profile {
   fieldReports        FieldReport[]
   projectsCreated     Project[]            @relation("ProjectCreator")
   auditLogs           AuditLog[]
-  technicianAssignments ProjectAssignment[] @relation("TechnicianAssignments")
 
   @@map("profiles")
 }
@@ -154,6 +153,7 @@ model Personnel {
 
   // Relations
   category    PersonnelCategory?  @relation(fields: [personnelCategoryId], references: [id])
+  assignments ProjectAssignment[]
 
   @@map("personnel")
 }
@@ -309,8 +309,8 @@ model ProjectAssignment {
   notes        String?
 
   // Relations
-  project   Project @relation(fields: [projectId], references: [id])
-  technician Profile @relation("TechnicianAssignments", fields: [technicianId], references: [id])
+  project    Project   @relation(fields: [projectId], references: [id])
+  technician Personnel @relation(fields: [technicianId], references: [id])
 
   @@map("project_assignments")
 }

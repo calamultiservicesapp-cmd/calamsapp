@@ -7,8 +7,9 @@ import { Plus, Trash2, Calendar, User, Loader2, AlertCircle, Clock, Briefcase, P
 type PersonnelMember = {
   id: string;
   fullName: string;
-  role: string;
+  position: string | null;
   phone: string | null;
+  category?: { labelEs: string } | null;
 };
 
 type Assignment = {
@@ -19,7 +20,8 @@ type Assignment = {
   technician: {
     id: string;
     fullName: string;
-    role: string;
+    position: string | null;
+    category?: { labelEs: string } | null;
   };
 };
 
@@ -72,20 +74,17 @@ export function AssignmentBoard({
               <>
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                    Técnico / Personal
+                    Técnico / Personal (Puedes seleccionar varios)
                   </label>
-                    <select
-                    name="technicianId"
-                    required
-                    className="w-full h-10 px-3 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 text-slate-700 dark:text-slate-300"
-                  >
-                    <option value="">Selecciona una persona...</option>
+                  <div className="max-h-48 overflow-y-auto border border-slate-300 dark:border-slate-700 rounded-md p-2 bg-white dark:bg-slate-950 space-y-1">
                     {personnel.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.fullName}
-                      </option>
+                      <label key={p.id} className="flex items-center gap-2 p-1.5 hover:bg-slate-50 dark:hover:bg-slate-900 rounded cursor-pointer">
+                        <input type="checkbox" name="technicianIds" value={p.id} className="rounded border-slate-300 text-orange-500 focus:ring-orange-500" />
+                        <span className="text-sm text-slate-700 dark:text-slate-300 flex-1">{p.fullName}</span>
+                        <span className="text-xs text-slate-500">{p.position || p.category?.labelEs || "Personal"}</span>
+                      </label>
                     ))}
-                  </select>
+                  </div>
                 </div>
 
                 <div className="space-y-1.5">
@@ -143,9 +142,9 @@ export function AssignmentBoard({
                         </div>
                         <div>
                           <p className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{a.technician.fullName}</p>
-                          {a.technician.role === "tecnico" && (
-                            <p className="text-xs text-slate-500">Técnico</p>
-                          )}
+                          <p className="text-xs text-slate-500">
+                            {a.technician.position || a.technician.category?.labelEs || "Personal"}
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 text-xs text-slate-500 pl-10">

@@ -6,8 +6,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function getPersonnel() {
-  return await prisma.profile.findMany({
-    where: { role: "tecnico" },
+  return await prisma.personnel.findMany({
+    where: { isActive: true },
+    include: { category: true },
     orderBy: { fullName: "asc" },
   });
 }
@@ -15,7 +16,11 @@ export async function getPersonnel() {
 export async function getAssignments(projectId: string) {
   return await prisma.projectAssignment.findMany({
     where: { projectId },
-    include: { technician: true },
+    include: {
+      technician: {
+        include: { category: true }
+      }
+    },
     orderBy: { startDate: "asc" },
   });
 }
@@ -25,20 +30,27 @@ export async function createAssignment(state: any, formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };
 
-  const projectId    = formData.get("projectId") as string;
-  const technicianId = formData.get("technicianId") as string;
-  const startDate    = formData.get("startDate") as string;
-  const endDate      = formData.get("endDate") as string;
-  const notes        = formData.get("notes") as string | null;
+  const projectId     = formData.get("projectId") as string;
+  const technicianIds = formData.getAll("technicianIds") as string[];
+  const startDate     = formData.get("startDate") as string;
+  const endDate       = formData.get("endDate") as string;
+  const notes         = formData.get("notes") as string | null;
 
-  if (!projectId || !technicianId || !startDate || !endDate) {
-    return { error: "Faltan campos obligatorios" };
+  if (!projectId || technicianIds.length === 0 || !startDate || !endDate) {
+    return { error: "Faltan campos obligatorios o no has seleccionado personal" };
   }
 
   try {
     await prisma.$transaction(async (tx) => {
-      await tx.projectAssignment.create({
-        data: { projectId, technicianId, startDate: new Date(startDate), endDate: new Date(endDate), notes },
+      // Create assignments for all selected technicians
+      await tx.projectAssignment.createMany({
+        data: technicianIds.map((id) => ({
+          projectId,
+          technicianId: id,
+          startDate: new Date(startDate),
+          endDate: new Date(endDate),
+          notes,
+        })),
       });
 
       const project = await tx.project.findUnique({ where: { id: projectId } });

@@ -193,7 +193,6 @@ export type ProfileWhereInput = {
   fieldReports?: Prisma.FieldReportListRelationFilter
   projectsCreated?: Prisma.ProjectListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
-  technicianAssignments?: Prisma.ProjectAssignmentListRelationFilter
 }
 
 export type ProfileOrderByWithRelationInput = {
@@ -206,7 +205,6 @@ export type ProfileOrderByWithRelationInput = {
   fieldReports?: Prisma.FieldReportOrderByRelationAggregateInput
   projectsCreated?: Prisma.ProjectOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
-  technicianAssignments?: Prisma.ProjectAssignmentOrderByRelationAggregateInput
 }
 
 export type ProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -222,7 +220,6 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   fieldReports?: Prisma.FieldReportListRelationFilter
   projectsCreated?: Prisma.ProjectListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
-  technicianAssignments?: Prisma.ProjectAssignmentListRelationFilter
 }, "id">
 
 export type ProfileOrderByWithAggregationInput = {
@@ -259,7 +256,6 @@ export type ProfileCreateInput = {
   fieldReports?: Prisma.FieldReportCreateNestedManyWithoutSubmitterInput
   projectsCreated?: Prisma.ProjectCreateNestedManyWithoutCreatedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  technicianAssignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutTechnicianInput
 }
 
 export type ProfileUncheckedCreateInput = {
@@ -272,7 +268,6 @@ export type ProfileUncheckedCreateInput = {
   fieldReports?: Prisma.FieldReportUncheckedCreateNestedManyWithoutSubmitterInput
   projectsCreated?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  technicianAssignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutTechnicianInput
 }
 
 export type ProfileUpdateInput = {
@@ -285,7 +280,6 @@ export type ProfileUpdateInput = {
   fieldReports?: Prisma.FieldReportUpdateManyWithoutSubmitterNestedInput
   projectsCreated?: Prisma.ProjectUpdateManyWithoutCreatedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  technicianAssignments?: Prisma.ProjectAssignmentUpdateManyWithoutTechnicianNestedInput
 }
 
 export type ProfileUncheckedUpdateInput = {
@@ -298,7 +292,6 @@ export type ProfileUncheckedUpdateInput = {
   fieldReports?: Prisma.FieldReportUncheckedUpdateManyWithoutSubmitterNestedInput
   projectsCreated?: Prisma.ProjectUncheckedUpdateManyWithoutCreatedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  technicianAssignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutTechnicianNestedInput
 }
 
 export type ProfileCreateManyInput = {
@@ -390,20 +383,6 @@ export type ProfileUpdateOneRequiredWithoutProjectsCreatedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutProjectsCreatedInput, Prisma.ProfileUpdateWithoutProjectsCreatedInput>, Prisma.ProfileUncheckedUpdateWithoutProjectsCreatedInput>
 }
 
-export type ProfileCreateNestedOneWithoutTechnicianAssignmentsInput = {
-  create?: Prisma.XOR<Prisma.ProfileCreateWithoutTechnicianAssignmentsInput, Prisma.ProfileUncheckedCreateWithoutTechnicianAssignmentsInput>
-  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutTechnicianAssignmentsInput
-  connect?: Prisma.ProfileWhereUniqueInput
-}
-
-export type ProfileUpdateOneRequiredWithoutTechnicianAssignmentsNestedInput = {
-  create?: Prisma.XOR<Prisma.ProfileCreateWithoutTechnicianAssignmentsInput, Prisma.ProfileUncheckedCreateWithoutTechnicianAssignmentsInput>
-  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutTechnicianAssignmentsInput
-  upsert?: Prisma.ProfileUpsertWithoutTechnicianAssignmentsInput
-  connect?: Prisma.ProfileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutTechnicianAssignmentsInput, Prisma.ProfileUpdateWithoutTechnicianAssignmentsInput>, Prisma.ProfileUncheckedUpdateWithoutTechnicianAssignmentsInput>
-}
-
 export type ProfileCreateNestedOneWithoutFieldReportsInput = {
   create?: Prisma.XOR<Prisma.ProfileCreateWithoutFieldReportsInput, Prisma.ProfileUncheckedCreateWithoutFieldReportsInput>
   connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutFieldReportsInput
@@ -441,7 +420,6 @@ export type ProfileCreateWithoutProjectsCreatedInput = {
   updatedAt?: Date | string
   fieldReports?: Prisma.FieldReportCreateNestedManyWithoutSubmitterInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  technicianAssignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutTechnicianInput
 }
 
 export type ProfileUncheckedCreateWithoutProjectsCreatedInput = {
@@ -453,7 +431,6 @@ export type ProfileUncheckedCreateWithoutProjectsCreatedInput = {
   updatedAt?: Date | string
   fieldReports?: Prisma.FieldReportUncheckedCreateNestedManyWithoutSubmitterInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  technicianAssignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutTechnicianInput
 }
 
 export type ProfileCreateOrConnectWithoutProjectsCreatedInput = {
@@ -481,7 +458,6 @@ export type ProfileUpdateWithoutProjectsCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fieldReports?: Prisma.FieldReportUpdateManyWithoutSubmitterNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  technicianAssignments?: Prisma.ProjectAssignmentUpdateManyWithoutTechnicianNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutProjectsCreatedInput = {
@@ -492,71 +468,6 @@ export type ProfileUncheckedUpdateWithoutProjectsCreatedInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fieldReports?: Prisma.FieldReportUncheckedUpdateManyWithoutSubmitterNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  technicianAssignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutTechnicianNestedInput
-}
-
-export type ProfileCreateWithoutTechnicianAssignmentsInput = {
-  id?: string
-  fullName: string
-  role: $Enums.Role
-  phone?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  fieldReports?: Prisma.FieldReportCreateNestedManyWithoutSubmitterInput
-  projectsCreated?: Prisma.ProjectCreateNestedManyWithoutCreatedByInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-}
-
-export type ProfileUncheckedCreateWithoutTechnicianAssignmentsInput = {
-  id?: string
-  fullName: string
-  role: $Enums.Role
-  phone?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  fieldReports?: Prisma.FieldReportUncheckedCreateNestedManyWithoutSubmitterInput
-  projectsCreated?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatedByInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type ProfileCreateOrConnectWithoutTechnicianAssignmentsInput = {
-  where: Prisma.ProfileWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProfileCreateWithoutTechnicianAssignmentsInput, Prisma.ProfileUncheckedCreateWithoutTechnicianAssignmentsInput>
-}
-
-export type ProfileUpsertWithoutTechnicianAssignmentsInput = {
-  update: Prisma.XOR<Prisma.ProfileUpdateWithoutTechnicianAssignmentsInput, Prisma.ProfileUncheckedUpdateWithoutTechnicianAssignmentsInput>
-  create: Prisma.XOR<Prisma.ProfileCreateWithoutTechnicianAssignmentsInput, Prisma.ProfileUncheckedCreateWithoutTechnicianAssignmentsInput>
-  where?: Prisma.ProfileWhereInput
-}
-
-export type ProfileUpdateToOneWithWhereWithoutTechnicianAssignmentsInput = {
-  where?: Prisma.ProfileWhereInput
-  data: Prisma.XOR<Prisma.ProfileUpdateWithoutTechnicianAssignmentsInput, Prisma.ProfileUncheckedUpdateWithoutTechnicianAssignmentsInput>
-}
-
-export type ProfileUpdateWithoutTechnicianAssignmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  fieldReports?: Prisma.FieldReportUpdateManyWithoutSubmitterNestedInput
-  projectsCreated?: Prisma.ProjectUpdateManyWithoutCreatedByNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-}
-
-export type ProfileUncheckedUpdateWithoutTechnicianAssignmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  fieldReports?: Prisma.FieldReportUncheckedUpdateManyWithoutSubmitterNestedInput
-  projectsCreated?: Prisma.ProjectUncheckedUpdateManyWithoutCreatedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -569,7 +480,6 @@ export type ProfileCreateWithoutFieldReportsInput = {
   updatedAt?: Date | string
   projectsCreated?: Prisma.ProjectCreateNestedManyWithoutCreatedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  technicianAssignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutTechnicianInput
 }
 
 export type ProfileUncheckedCreateWithoutFieldReportsInput = {
@@ -581,7 +491,6 @@ export type ProfileUncheckedCreateWithoutFieldReportsInput = {
   updatedAt?: Date | string
   projectsCreated?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  technicianAssignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutTechnicianInput
 }
 
 export type ProfileCreateOrConnectWithoutFieldReportsInput = {
@@ -609,7 +518,6 @@ export type ProfileUpdateWithoutFieldReportsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectsCreated?: Prisma.ProjectUpdateManyWithoutCreatedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  technicianAssignments?: Prisma.ProjectAssignmentUpdateManyWithoutTechnicianNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutFieldReportsInput = {
@@ -621,7 +529,6 @@ export type ProfileUncheckedUpdateWithoutFieldReportsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectsCreated?: Prisma.ProjectUncheckedUpdateManyWithoutCreatedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  technicianAssignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutTechnicianNestedInput
 }
 
 export type ProfileCreateWithoutAuditLogsInput = {
@@ -633,7 +540,6 @@ export type ProfileCreateWithoutAuditLogsInput = {
   updatedAt?: Date | string
   fieldReports?: Prisma.FieldReportCreateNestedManyWithoutSubmitterInput
   projectsCreated?: Prisma.ProjectCreateNestedManyWithoutCreatedByInput
-  technicianAssignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutTechnicianInput
 }
 
 export type ProfileUncheckedCreateWithoutAuditLogsInput = {
@@ -645,7 +551,6 @@ export type ProfileUncheckedCreateWithoutAuditLogsInput = {
   updatedAt?: Date | string
   fieldReports?: Prisma.FieldReportUncheckedCreateNestedManyWithoutSubmitterInput
   projectsCreated?: Prisma.ProjectUncheckedCreateNestedManyWithoutCreatedByInput
-  technicianAssignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutTechnicianInput
 }
 
 export type ProfileCreateOrConnectWithoutAuditLogsInput = {
@@ -673,7 +578,6 @@ export type ProfileUpdateWithoutAuditLogsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fieldReports?: Prisma.FieldReportUpdateManyWithoutSubmitterNestedInput
   projectsCreated?: Prisma.ProjectUpdateManyWithoutCreatedByNestedInput
-  technicianAssignments?: Prisma.ProjectAssignmentUpdateManyWithoutTechnicianNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutAuditLogsInput = {
@@ -685,7 +589,6 @@ export type ProfileUncheckedUpdateWithoutAuditLogsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fieldReports?: Prisma.FieldReportUncheckedUpdateManyWithoutSubmitterNestedInput
   projectsCreated?: Prisma.ProjectUncheckedUpdateManyWithoutCreatedByNestedInput
-  technicianAssignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutTechnicianNestedInput
 }
 
 
@@ -697,14 +600,12 @@ export type ProfileCountOutputType = {
   fieldReports: number
   projectsCreated: number
   auditLogs: number
-  technicianAssignments: number
 }
 
 export type ProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fieldReports?: boolean | ProfileCountOutputTypeCountFieldReportsArgs
   projectsCreated?: boolean | ProfileCountOutputTypeCountProjectsCreatedArgs
   auditLogs?: boolean | ProfileCountOutputTypeCountAuditLogsArgs
-  technicianAssignments?: boolean | ProfileCountOutputTypeCountTechnicianAssignmentsArgs
 }
 
 /**
@@ -738,13 +639,6 @@ export type ProfileCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.AuditLogWhereInput
 }
 
-/**
- * ProfileCountOutputType without action
- */
-export type ProfileCountOutputTypeCountTechnicianAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectAssignmentWhereInput
-}
-
 
 export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -756,7 +650,6 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   fieldReports?: boolean | Prisma.Profile$fieldReportsArgs<ExtArgs>
   projectsCreated?: boolean | Prisma.Profile$projectsCreatedArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Profile$auditLogsArgs<ExtArgs>
-  technicianAssignments?: boolean | Prisma.Profile$technicianAssignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["profile"]>
 
@@ -792,7 +685,6 @@ export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   fieldReports?: boolean | Prisma.Profile$fieldReportsArgs<ExtArgs>
   projectsCreated?: boolean | Prisma.Profile$projectsCreatedArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Profile$auditLogsArgs<ExtArgs>
-  technicianAssignments?: boolean | Prisma.Profile$technicianAssignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -804,7 +696,6 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     fieldReports: Prisma.$FieldReportPayload<ExtArgs>[]
     projectsCreated: Prisma.$ProjectPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
-    technicianAssignments: Prisma.$ProjectAssignmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1210,7 +1101,6 @@ export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends runtime.
   fieldReports<T extends Prisma.Profile$fieldReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$fieldReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   projectsCreated<T extends Prisma.Profile$projectsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$projectsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.Profile$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  technicianAssignments<T extends Prisma.Profile$technicianAssignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$technicianAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1708,30 +1598,6 @@ export type Profile$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
-}
-
-/**
- * Profile.technicianAssignments
- */
-export type Profile$technicianAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProjectAssignment
-   */
-  select?: Prisma.ProjectAssignmentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProjectAssignment
-   */
-  omit?: Prisma.ProjectAssignmentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProjectAssignmentInclude<ExtArgs> | null
-  where?: Prisma.ProjectAssignmentWhereInput
-  orderBy?: Prisma.ProjectAssignmentOrderByWithRelationInput | Prisma.ProjectAssignmentOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectAssignmentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProjectAssignmentScalarFieldEnum | Prisma.ProjectAssignmentScalarFieldEnum[]
 }
 
 /**

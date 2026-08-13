@@ -191,7 +191,7 @@ export type ProjectAssignmentWhereInput = {
   endDate?: Prisma.DateTimeFilter<"ProjectAssignment"> | Date | string
   notes?: Prisma.StringNullableFilter<"ProjectAssignment"> | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
-  technician?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
+  technician?: Prisma.XOR<Prisma.PersonnelScalarRelationFilter, Prisma.PersonnelWhereInput>
 }
 
 export type ProjectAssignmentOrderByWithRelationInput = {
@@ -202,7 +202,7 @@ export type ProjectAssignmentOrderByWithRelationInput = {
   endDate?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
-  technician?: Prisma.ProfileOrderByWithRelationInput
+  technician?: Prisma.PersonnelOrderByWithRelationInput
 }
 
 export type ProjectAssignmentWhereUniqueInput = Prisma.AtLeast<{
@@ -216,7 +216,7 @@ export type ProjectAssignmentWhereUniqueInput = Prisma.AtLeast<{
   endDate?: Prisma.DateTimeFilter<"ProjectAssignment"> | Date | string
   notes?: Prisma.StringNullableFilter<"ProjectAssignment"> | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
-  technician?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
+  technician?: Prisma.XOR<Prisma.PersonnelScalarRelationFilter, Prisma.PersonnelWhereInput>
 }, "id">
 
 export type ProjectAssignmentOrderByWithAggregationInput = {
@@ -249,7 +249,7 @@ export type ProjectAssignmentCreateInput = {
   endDate: Date | string
   notes?: string | null
   project: Prisma.ProjectCreateNestedOneWithoutAssignmentsInput
-  technician: Prisma.ProfileCreateNestedOneWithoutTechnicianAssignmentsInput
+  technician: Prisma.PersonnelCreateNestedOneWithoutAssignmentsInput
 }
 
 export type ProjectAssignmentUncheckedCreateInput = {
@@ -267,7 +267,7 @@ export type ProjectAssignmentUpdateInput = {
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutAssignmentsNestedInput
-  technician?: Prisma.ProfileUpdateOneRequiredWithoutTechnicianAssignmentsNestedInput
+  technician?: Prisma.PersonnelUpdateOneRequiredWithoutAssignmentsNestedInput
 }
 
 export type ProjectAssignmentUncheckedUpdateInput = {
@@ -484,7 +484,7 @@ export type ProjectAssignmentCreateWithoutProjectInput = {
   startDate: Date | string
   endDate: Date | string
   notes?: string | null
-  technician: Prisma.ProfileCreateNestedOneWithoutTechnicianAssignmentsInput
+  technician: Prisma.PersonnelCreateNestedOneWithoutAssignmentsInput
 }
 
 export type ProjectAssignmentUncheckedCreateWithoutProjectInput = {
@@ -566,7 +566,7 @@ export type ProjectAssignmentUpdateWithoutProjectInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  technician?: Prisma.ProfileUpdateOneRequiredWithoutTechnicianAssignmentsNestedInput
+  technician?: Prisma.PersonnelUpdateOneRequiredWithoutAssignmentsNestedInput
 }
 
 export type ProjectAssignmentUncheckedUpdateWithoutProjectInput = {
@@ -595,7 +595,7 @@ export type ProjectAssignmentSelect<ExtArgs extends runtime.Types.Extensions.Int
   endDate?: boolean
   notes?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  technician?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectAssignment"]>
 
 export type ProjectAssignmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -606,7 +606,7 @@ export type ProjectAssignmentSelectCreateManyAndReturn<ExtArgs extends runtime.T
   endDate?: boolean
   notes?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  technician?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectAssignment"]>
 
 export type ProjectAssignmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -617,7 +617,7 @@ export type ProjectAssignmentSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   endDate?: boolean
   notes?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  technician?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectAssignment"]>
 
 export type ProjectAssignmentSelectScalar = {
@@ -632,22 +632,22 @@ export type ProjectAssignmentSelectScalar = {
 export type ProjectAssignmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "technicianId" | "startDate" | "endDate" | "notes", ExtArgs["result"]["projectAssignment"]>
 export type ProjectAssignmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  technician?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }
 export type ProjectAssignmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  technician?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }
 export type ProjectAssignmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  technician?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }
 
 export type $ProjectAssignmentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProjectAssignment"
   objects: {
     project: Prisma.$ProjectPayload<ExtArgs>
-    technician: Prisma.$ProfilePayload<ExtArgs>
+    technician: Prisma.$PersonnelPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1051,7 +1051,7 @@ readonly fields: ProjectAssignmentFieldRefs;
 export interface Prisma__ProjectAssignmentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  technician<T extends Prisma.ProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  technician<T extends Prisma.PersonnelDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonnelDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonnelClient<runtime.Types.Result.GetResult<Prisma.$PersonnelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
