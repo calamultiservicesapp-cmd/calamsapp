@@ -281,6 +281,7 @@ export function PersonnelList({
           </div>
         )}
       </div>
+    </div>
 
       {isCreating && (
         <PersonnelMemberForm
