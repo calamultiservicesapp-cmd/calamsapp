@@ -28,10 +28,14 @@ export type AggregateActivity = {
 
 export type ActivityAvgAggregateOutputType = {
   minHours: runtime.Decimal | null
+  minPrice: runtime.Decimal | null
+  maxPrice: runtime.Decimal | null
 }
 
 export type ActivitySumAggregateOutputType = {
   minHours: runtime.Decimal | null
+  minPrice: runtime.Decimal | null
+  maxPrice: runtime.Decimal | null
 }
 
 export type ActivityMinAggregateOutputType = {
@@ -42,6 +46,8 @@ export type ActivityMinAggregateOutputType = {
   descriptionEn: string | null
   defaultPersonnelType: $Enums.PersonnelType | null
   minHours: runtime.Decimal | null
+  minPrice: runtime.Decimal | null
+  maxPrice: runtime.Decimal | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -55,6 +61,8 @@ export type ActivityMaxAggregateOutputType = {
   descriptionEn: string | null
   defaultPersonnelType: $Enums.PersonnelType | null
   minHours: runtime.Decimal | null
+  minPrice: runtime.Decimal | null
+  maxPrice: runtime.Decimal | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -68,6 +76,8 @@ export type ActivityCountAggregateOutputType = {
   descriptionEn: number
   defaultPersonnelType: number
   minHours: number
+  minPrice: number
+  maxPrice: number
   deletedAt: number
   createdAt: number
   updatedAt: number
@@ -77,10 +87,14 @@ export type ActivityCountAggregateOutputType = {
 
 export type ActivityAvgAggregateInputType = {
   minHours?: true
+  minPrice?: true
+  maxPrice?: true
 }
 
 export type ActivitySumAggregateInputType = {
   minHours?: true
+  minPrice?: true
+  maxPrice?: true
 }
 
 export type ActivityMinAggregateInputType = {
@@ -91,6 +105,8 @@ export type ActivityMinAggregateInputType = {
   descriptionEn?: true
   defaultPersonnelType?: true
   minHours?: true
+  minPrice?: true
+  maxPrice?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -104,6 +120,8 @@ export type ActivityMaxAggregateInputType = {
   descriptionEn?: true
   defaultPersonnelType?: true
   minHours?: true
+  minPrice?: true
+  maxPrice?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -117,6 +135,8 @@ export type ActivityCountAggregateInputType = {
   descriptionEn?: true
   defaultPersonnelType?: true
   minHours?: true
+  minPrice?: true
+  maxPrice?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -217,6 +237,8 @@ export type ActivityGroupByOutputType = {
   descriptionEn: string
   defaultPersonnelType: $Enums.PersonnelType
   minHours: runtime.Decimal
+  minPrice: runtime.Decimal | null
+  maxPrice: runtime.Decimal | null
   deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
@@ -253,6 +275,8 @@ export type ActivityWhereInput = {
   descriptionEn?: Prisma.StringFilter<"Activity"> | string
   defaultPersonnelType?: Prisma.EnumPersonnelTypeFilter<"Activity"> | $Enums.PersonnelType
   minHours?: Prisma.DecimalFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: Prisma.DecimalNullableFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: Prisma.DecimalNullableFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Activity"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Activity"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Activity"> | Date | string
@@ -267,6 +291,8 @@ export type ActivityOrderByWithRelationInput = {
   descriptionEn?: Prisma.SortOrder
   defaultPersonnelType?: Prisma.SortOrder
   minHours?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -284,6 +310,8 @@ export type ActivityWhereUniqueInput = Prisma.AtLeast<{
   descriptionEn?: Prisma.StringFilter<"Activity"> | string
   defaultPersonnelType?: Prisma.EnumPersonnelTypeFilter<"Activity"> | $Enums.PersonnelType
   minHours?: Prisma.DecimalFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: Prisma.DecimalNullableFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: Prisma.DecimalNullableFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Activity"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Activity"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Activity"> | Date | string
@@ -298,6 +326,8 @@ export type ActivityOrderByWithAggregationInput = {
   descriptionEn?: Prisma.SortOrder
   defaultPersonnelType?: Prisma.SortOrder
   minHours?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -319,6 +349,8 @@ export type ActivityScalarWhereWithAggregatesInput = {
   descriptionEn?: Prisma.StringWithAggregatesFilter<"Activity"> | string
   defaultPersonnelType?: Prisma.EnumPersonnelTypeWithAggregatesFilter<"Activity"> | $Enums.PersonnelType
   minHours?: Prisma.DecimalWithAggregatesFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: Prisma.DecimalNullableWithAggregatesFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: Prisma.DecimalNullableWithAggregatesFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Activity"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Activity"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Activity"> | Date | string
@@ -332,6 +364,8 @@ export type ActivityCreateInput = {
   descriptionEn: string
   defaultPersonnelType: $Enums.PersonnelType
   minHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -346,6 +380,8 @@ export type ActivityUncheckedCreateInput = {
   descriptionEn: string
   defaultPersonnelType: $Enums.PersonnelType
   minHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -360,6 +396,8 @@ export type ActivityUpdateInput = {
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -374,6 +412,8 @@ export type ActivityUncheckedUpdateInput = {
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -388,6 +428,8 @@ export type ActivityCreateManyInput = {
   descriptionEn: string
   defaultPersonnelType: $Enums.PersonnelType
   minHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -401,6 +443,8 @@ export type ActivityUpdateManyMutationInput = {
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -414,6 +458,8 @@ export type ActivityUncheckedUpdateManyInput = {
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -427,6 +473,8 @@ export type ActivityCountOrderByAggregateInput = {
   descriptionEn?: Prisma.SortOrder
   defaultPersonnelType?: Prisma.SortOrder
   minHours?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrder
+  maxPrice?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -434,6 +482,8 @@ export type ActivityCountOrderByAggregateInput = {
 
 export type ActivityAvgOrderByAggregateInput = {
   minHours?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrder
+  maxPrice?: Prisma.SortOrder
 }
 
 export type ActivityMaxOrderByAggregateInput = {
@@ -444,6 +494,8 @@ export type ActivityMaxOrderByAggregateInput = {
   descriptionEn?: Prisma.SortOrder
   defaultPersonnelType?: Prisma.SortOrder
   minHours?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrder
+  maxPrice?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -457,6 +509,8 @@ export type ActivityMinOrderByAggregateInput = {
   descriptionEn?: Prisma.SortOrder
   defaultPersonnelType?: Prisma.SortOrder
   minHours?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrder
+  maxPrice?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -464,6 +518,8 @@ export type ActivityMinOrderByAggregateInput = {
 
 export type ActivitySumOrderByAggregateInput = {
   minHours?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrder
+  maxPrice?: Prisma.SortOrder
 }
 
 export type ActivityScalarRelationFilter = {
@@ -473,6 +529,14 @@ export type ActivityScalarRelationFilter = {
 
 export type EnumPersonnelTypeFieldUpdateOperationsInput = {
   set?: $Enums.PersonnelType
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type ActivityCreateNestedOneWithoutWalkthroughItemsInput = {
@@ -497,6 +561,8 @@ export type ActivityCreateWithoutWalkthroughItemsInput = {
   descriptionEn: string
   defaultPersonnelType: $Enums.PersonnelType
   minHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -510,6 +576,8 @@ export type ActivityUncheckedCreateWithoutWalkthroughItemsInput = {
   descriptionEn: string
   defaultPersonnelType: $Enums.PersonnelType
   minHours: runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -539,6 +607,8 @@ export type ActivityUpdateWithoutWalkthroughItemsInput = {
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -552,6 +622,8 @@ export type ActivityUncheckedUpdateWithoutWalkthroughItemsInput = {
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
   defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -596,6 +668,8 @@ export type ActivitySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   descriptionEn?: boolean
   defaultPersonnelType?: boolean
   minHours?: boolean
+  minPrice?: boolean
+  maxPrice?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -611,6 +685,8 @@ export type ActivitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   descriptionEn?: boolean
   defaultPersonnelType?: boolean
   minHours?: boolean
+  minPrice?: boolean
+  maxPrice?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -624,6 +700,8 @@ export type ActivitySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   descriptionEn?: boolean
   defaultPersonnelType?: boolean
   minHours?: boolean
+  minPrice?: boolean
+  maxPrice?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -637,12 +715,14 @@ export type ActivitySelectScalar = {
   descriptionEn?: boolean
   defaultPersonnelType?: boolean
   minHours?: boolean
+  minPrice?: boolean
+  maxPrice?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ActivityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nameEs" | "nameEn" | "descriptionEs" | "descriptionEn" | "defaultPersonnelType" | "minHours" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["activity"]>
+export type ActivityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nameEs" | "nameEn" | "descriptionEs" | "descriptionEn" | "defaultPersonnelType" | "minHours" | "minPrice" | "maxPrice" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["activity"]>
 export type ActivityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   walkthroughItems?: boolean | Prisma.Activity$walkthroughItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ActivityCountOutputTypeDefaultArgs<ExtArgs>
@@ -663,6 +743,8 @@ export type $ActivityPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     descriptionEn: string
     defaultPersonnelType: $Enums.PersonnelType
     minHours: runtime.Decimal
+    minPrice: runtime.Decimal | null
+    maxPrice: runtime.Decimal | null
     deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
@@ -1097,6 +1179,8 @@ export interface ActivityFieldRefs {
   readonly descriptionEn: Prisma.FieldRef<"Activity", 'String'>
   readonly defaultPersonnelType: Prisma.FieldRef<"Activity", 'PersonnelType'>
   readonly minHours: Prisma.FieldRef<"Activity", 'Decimal'>
+  readonly minPrice: Prisma.FieldRef<"Activity", 'Decimal'>
+  readonly maxPrice: Prisma.FieldRef<"Activity", 'Decimal'>
   readonly deletedAt: Prisma.FieldRef<"Activity", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Activity", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Activity", 'DateTime'>

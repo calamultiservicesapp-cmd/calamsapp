@@ -33,6 +33,11 @@ export type Client = Prisma.ClientModel
  */
 export type PricingConfig = Prisma.PricingConfigModel
 /**
+ * Model PersonnelCategory
+ * 
+ */
+export type PersonnelCategory = Prisma.PersonnelCategoryModel
+/**
  * Model Activity
  * 
  */

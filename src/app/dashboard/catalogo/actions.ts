@@ -3,8 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db/prisma";
 import { createClient } from "@/lib/supabase/server";
-import { PersonnelType } from "@/generated/prisma/client";
-import { Prisma } from "@/generated/prisma/client";
 
 export async function getActivities() {
   return await prisma.activity.findMany({
@@ -22,11 +20,13 @@ export async function createActivity(state: any, formData: FormData) {
   const nameEn = formData.get("nameEn") as string;
   const descriptionEs = formData.get("descriptionEs") as string;
   const descriptionEn = formData.get("descriptionEn") as string;
-  const defaultPersonnelType = formData.get("defaultPersonnelType") as PersonnelType;
+  const defaultPersonnelType = formData.get("defaultPersonnelType") as string;
   const minHours = formData.get("minHours") as string;
+  const minPrice = formData.get("minPrice") as string;
+  const maxPrice = formData.get("maxPrice") as string;
 
   if (!nameEs || !nameEn || !descriptionEs || !descriptionEn || !defaultPersonnelType || !minHours) {
-    return { error: "Todos los campos son requeridos." };
+    return { error: "Los campos de nombre, descripción, personal y horas mínimas son requeridos." };
   }
 
   try {
@@ -36,14 +36,16 @@ export async function createActivity(state: any, formData: FormData) {
         nameEn,
         descriptionEs,
         descriptionEn,
-        defaultPersonnelType,
-        minHours: new Prisma.Decimal(minHours),
+        defaultPersonnelType: defaultPersonnelType as any,
+        minHours: parseFloat(minHours),
+        minPrice: minPrice ? parseFloat(minPrice) : null,
+        maxPrice: maxPrice ? parseFloat(maxPrice) : null,
       },
     });
     revalidatePath("/dashboard/catalogo");
     return { success: true };
   } catch {
-    return { error: "Error al crear la actividad." };
+    return { error: "Error al crear el servicio." };
   }
 }
 
@@ -57,8 +59,10 @@ export async function updateActivity(state: any, formData: FormData) {
   const nameEn = formData.get("nameEn") as string;
   const descriptionEs = formData.get("descriptionEs") as string;
   const descriptionEn = formData.get("descriptionEn") as string;
-  const defaultPersonnelType = formData.get("defaultPersonnelType") as PersonnelType;
+  const defaultPersonnelType = formData.get("defaultPersonnelType") as string;
   const minHours = formData.get("minHours") as string;
+  const minPrice = formData.get("minPrice") as string;
+  const maxPrice = formData.get("maxPrice") as string;
 
   try {
     await prisma.activity.update({
@@ -68,14 +72,16 @@ export async function updateActivity(state: any, formData: FormData) {
         nameEn,
         descriptionEs,
         descriptionEn,
-        defaultPersonnelType,
-        minHours: new Prisma.Decimal(minHours),
+        defaultPersonnelType: defaultPersonnelType as any,
+        minHours: parseFloat(minHours),
+        minPrice: minPrice ? parseFloat(minPrice) : null,
+        maxPrice: maxPrice ? parseFloat(maxPrice) : null,
       },
     });
     revalidatePath("/dashboard/catalogo");
     return { success: true };
   } catch {
-    return { error: "Error al actualizar la actividad." };
+    return { error: "Error al actualizar el servicio." };
   }
 }
 
@@ -85,7 +91,6 @@ export async function deleteActivity(id: string) {
   if (!user) return { error: "No autorizado" };
 
   try {
-    // Soft delete
     await prisma.activity.update({
       where: { id },
       data: { deletedAt: new Date() },
@@ -93,6 +98,15 @@ export async function deleteActivity(id: string) {
     revalidatePath("/dashboard/catalogo");
     return { success: true };
   } catch {
-    return { error: "Error al eliminar la actividad." };
+    return { error: "Error al eliminar el servicio." };
   }
+}
+
+// Fetch personnel categories from DB for dropdowns
+export async function getPersonnelOptions() {
+  const cats = await prisma.personnelCategory.findMany({
+    where: { isActive: true },
+    orderBy: { createdAt: "asc" },
+  });
+  return cats.map((c) => ({ value: c.name, label: c.labelEs }));
 }

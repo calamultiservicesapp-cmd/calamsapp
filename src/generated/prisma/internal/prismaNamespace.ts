@@ -400,6 +400,7 @@ export const ModelName = {
   Profile: 'Profile',
   Client: 'Client',
   PricingConfig: 'PricingConfig',
+  PersonnelCategory: 'PersonnelCategory',
   Activity: 'Activity',
   Project: 'Project',
   Appointment: 'Appointment',
@@ -425,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "profile" | "client" | "pricingConfig" | "activity" | "project" | "appointment" | "walkthroughItem" | "proposal" | "projectAssignment" | "fieldReport" | "fieldReportItem" | "invoice" | "auditLog"
+    modelProps: "profile" | "client" | "pricingConfig" | "personnelCategory" | "activity" | "project" | "appointment" | "walkthroughItem" | "proposal" | "projectAssignment" | "fieldReport" | "fieldReportItem" | "invoice" | "auditLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -648,6 +649,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PricingConfigCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PricingConfigCountAggregateOutputType> | number
+        }
+      }
+    }
+    PersonnelCategory: {
+      payload: Prisma.$PersonnelCategoryPayload<ExtArgs>
+      fields: Prisma.PersonnelCategoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PersonnelCategoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelCategoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PersonnelCategoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelCategoryPayload>
+        }
+        findFirst: {
+          args: Prisma.PersonnelCategoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelCategoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PersonnelCategoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelCategoryPayload>
+        }
+        findMany: {
+          args: Prisma.PersonnelCategoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelCategoryPayload>[]
+        }
+        create: {
+          args: Prisma.PersonnelCategoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelCategoryPayload>
+        }
+        createMany: {
+          args: Prisma.PersonnelCategoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PersonnelCategoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelCategoryPayload>[]
+        }
+        delete: {
+          args: Prisma.PersonnelCategoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelCategoryPayload>
+        }
+        update: {
+          args: Prisma.PersonnelCategoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelCategoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.PersonnelCategoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PersonnelCategoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PersonnelCategoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelCategoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.PersonnelCategoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelCategoryPayload>
+        }
+        aggregate: {
+          args: Prisma.PersonnelCategoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePersonnelCategory>
+        }
+        groupBy: {
+          args: Prisma.PersonnelCategoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PersonnelCategoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PersonnelCategoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PersonnelCategoryCountAggregateOutputType> | number
         }
       }
     }
@@ -1472,6 +1547,20 @@ export const PricingConfigScalarFieldEnum = {
 export type PricingConfigScalarFieldEnum = (typeof PricingConfigScalarFieldEnum)[keyof typeof PricingConfigScalarFieldEnum]
 
 
+export const PersonnelCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  labelEs: 'labelEs',
+  labelEn: 'labelEn',
+  hourlyRate: 'hourlyRate',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PersonnelCategoryScalarFieldEnum = (typeof PersonnelCategoryScalarFieldEnum)[keyof typeof PersonnelCategoryScalarFieldEnum]
+
+
 export const ActivityScalarFieldEnum = {
   id: 'id',
   nameEs: 'nameEs',
@@ -1480,6 +1569,8 @@ export const ActivityScalarFieldEnum = {
   descriptionEn: 'descriptionEn',
   defaultPersonnelType: 'defaultPersonnelType',
   minHours: 'minHours',
+  minPrice: 'minPrice',
+  maxPrice: 'maxPrice',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1707,6 +1798,13 @@ export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Decimal[]'
  */
 export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -1961,6 +2059,7 @@ export type GlobalOmitConfig = {
   profile?: Prisma.ProfileOmit
   client?: Prisma.ClientOmit
   pricingConfig?: Prisma.PricingConfigOmit
+  personnelCategory?: Prisma.PersonnelCategoryOmit
   activity?: Prisma.ActivityOmit
   project?: Prisma.ProjectOmit
   appointment?: Prisma.AppointmentOmit

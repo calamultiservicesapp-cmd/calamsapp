@@ -9,12 +9,11 @@ import {
   Users,
   FolderKanban,
   CalendarDays,
-  ClipboardList,
-  FileText,
   Receipt,
   Menu,
   X,
   HardHat,
+  UserCog,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -31,7 +30,7 @@ const navItems = [
     icon: DollarSign,
   },
   {
-    label: "Catálogo",
+    label: "Catálogo de Servicios",
     href: "/dashboard/catalogo",
     icon: BookOpen,
   },
@@ -49,6 +48,11 @@ const navItems = [
     label: "Citas",
     href: "/dashboard/citas",
     icon: CalendarDays,
+  },
+  {
+    label: "Personal",
+    href: "/dashboard/personal",
+    icon: UserCog,
   },
 
   {

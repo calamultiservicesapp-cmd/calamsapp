@@ -54,6 +54,7 @@ export const ModelName = {
   Profile: 'Profile',
   Client: 'Client',
   PricingConfig: 'PricingConfig',
+  PersonnelCategory: 'PersonnelCategory',
   Activity: 'Activity',
   Project: 'Project',
   Appointment: 'Appointment',
@@ -124,6 +125,20 @@ export const PricingConfigScalarFieldEnum = {
 export type PricingConfigScalarFieldEnum = (typeof PricingConfigScalarFieldEnum)[keyof typeof PricingConfigScalarFieldEnum]
 
 
+export const PersonnelCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  labelEs: 'labelEs',
+  labelEn: 'labelEn',
+  hourlyRate: 'hourlyRate',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PersonnelCategoryScalarFieldEnum = (typeof PersonnelCategoryScalarFieldEnum)[keyof typeof PersonnelCategoryScalarFieldEnum]
+
+
 export const ActivityScalarFieldEnum = {
   id: 'id',
   nameEs: 'nameEs',
@@ -132,6 +147,8 @@ export const ActivityScalarFieldEnum = {
   descriptionEn: 'descriptionEn',
   defaultPersonnelType: 'defaultPersonnelType',
   minHours: 'minHours',
+  minPrice: 'minPrice',
+  maxPrice: 'maxPrice',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
