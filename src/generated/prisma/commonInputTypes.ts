@@ -246,13 +246,6 @@ export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
 }
 
-export type EnumPersonnelTypeFilter<$PrismaModel = never> = {
-  equals?: $Enums.PersonnelType | Prisma.EnumPersonnelTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.PersonnelType[] | Prisma.ListEnumPersonnelTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.PersonnelType[] | Prisma.ListEnumPersonnelTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumPersonnelTypeFilter<$PrismaModel> | $Enums.PersonnelType
-}
-
 export type DecimalNullableFilter<$PrismaModel = never> = {
   equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel> | null
   in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel> | null
@@ -262,16 +255,6 @@ export type DecimalNullableFilter<$PrismaModel = never> = {
   gt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>
   gte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>
   not?: Prisma.NestedDecimalNullableFilter<$PrismaModel> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-}
-
-export type EnumPersonnelTypeWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.PersonnelType | Prisma.EnumPersonnelTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.PersonnelType[] | Prisma.ListEnumPersonnelTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.PersonnelType[] | Prisma.ListEnumPersonnelTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumPersonnelTypeWithAggregatesFilter<$PrismaModel> | $Enums.PersonnelType
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumPersonnelTypeFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumPersonnelTypeFilter<$PrismaModel>
 }
 
 export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -741,13 +724,6 @@ export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
 }
 
-export type NestedEnumPersonnelTypeFilter<$PrismaModel = never> = {
-  equals?: $Enums.PersonnelType | Prisma.EnumPersonnelTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.PersonnelType[] | Prisma.ListEnumPersonnelTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.PersonnelType[] | Prisma.ListEnumPersonnelTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumPersonnelTypeFilter<$PrismaModel> | $Enums.PersonnelType
-}
-
 export type NestedDecimalNullableFilter<$PrismaModel = never> = {
   equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel> | null
   in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel> | null
@@ -757,16 +733,6 @@ export type NestedDecimalNullableFilter<$PrismaModel = never> = {
   gt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>
   gte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>
   not?: Prisma.NestedDecimalNullableFilter<$PrismaModel> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-}
-
-export type NestedEnumPersonnelTypeWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.PersonnelType | Prisma.EnumPersonnelTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.PersonnelType[] | Prisma.ListEnumPersonnelTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.PersonnelType[] | Prisma.ListEnumPersonnelTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumPersonnelTypeWithAggregatesFilter<$PrismaModel> | $Enums.PersonnelType
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumPersonnelTypeFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumPersonnelTypeFilter<$PrismaModel>
 }
 
 export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {

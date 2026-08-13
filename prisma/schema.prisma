@@ -18,12 +18,6 @@ enum Role {
   tecnico
 }
 
-enum PersonnelType {
-  contratista
-  tecnico_novato
-  tecnico_experto
-}
-
 enum ProjectStatus {
   cita
   caminata
@@ -164,7 +158,7 @@ model Activity {
   nameEn               String        @map("name_en")
   descriptionEs        String        @map("description_es")
   descriptionEn        String        @map("description_en")
-  defaultPersonnelType PersonnelType @map("default_personnel_type")
+  defaultPersonnelType String        @map("default_personnel_type")
   minHours             Decimal       @map("min_hours") @db.Decimal(5, 2)
   minPrice             Decimal?      @map("min_price") @db.Decimal(10, 2)
   maxPrice             Decimal?      @map("max_price") @db.Decimal(10, 2)
@@ -219,7 +213,7 @@ model WalkthroughItem {
   id            String        @id @default(uuid()) @db.Uuid
   projectId     String        @map("project_id") @db.Uuid
   activityId    String        @map("activity_id") @db.Uuid
-  personnelType PersonnelType @map("personnel_type")
+  personnelType String        @map("personnel_type")
   hours         Decimal       @db.Decimal(5, 2)
   rateSnapshot  Decimal       @map("rate_snapshot") @db.Decimal(10, 2)
   computedPrice Decimal       @map("computed_price") @db.Decimal(10, 2)

@@ -4,7 +4,6 @@ import { prisma } from "@/lib/db/prisma";
 import { createClient } from "@/lib/supabase/server";
 import { applyDiscount, calculateProjectPrice } from "@/lib/db/pricing";
 import { revalidatePath } from "next/cache";
-import type { PersonnelType } from "@/generated/prisma/client";
 import { Prisma } from "@/generated/prisma/client";
 
 export async function getProposalData(projectId: string) {
@@ -47,7 +46,7 @@ export async function generateProposal(formData: FormData) {
 
     const items = project.walkthroughItems.map((wi) => ({
       activityId: wi.activityId,
-      personnelType: wi.personnelType as PersonnelType,
+      personnelType: wi.personnelType,
       hours: wi.hours.toNumber(),
     }));
 

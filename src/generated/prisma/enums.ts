@@ -18,15 +18,6 @@ export const Role = {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
-export const PersonnelType = {
-  contratista: 'contratista',
-  tecnico_novato: 'tecnico_novato',
-  tecnico_experto: 'tecnico_experto'
-} as const
-
-export type PersonnelType = (typeof PersonnelType)[keyof typeof PersonnelType]
-
-
 export const ProjectStatus = {
   cita: 'cita',
   caminata: 'caminata',

@@ -44,7 +44,7 @@ export type ActivityMinAggregateOutputType = {
   nameEn: string | null
   descriptionEs: string | null
   descriptionEn: string | null
-  defaultPersonnelType: $Enums.PersonnelType | null
+  defaultPersonnelType: string | null
   minHours: runtime.Decimal | null
   minPrice: runtime.Decimal | null
   maxPrice: runtime.Decimal | null
@@ -59,7 +59,7 @@ export type ActivityMaxAggregateOutputType = {
   nameEn: string | null
   descriptionEs: string | null
   descriptionEn: string | null
-  defaultPersonnelType: $Enums.PersonnelType | null
+  defaultPersonnelType: string | null
   minHours: runtime.Decimal | null
   minPrice: runtime.Decimal | null
   maxPrice: runtime.Decimal | null
@@ -235,7 +235,7 @@ export type ActivityGroupByOutputType = {
   nameEn: string
   descriptionEs: string
   descriptionEn: string
-  defaultPersonnelType: $Enums.PersonnelType
+  defaultPersonnelType: string
   minHours: runtime.Decimal
   minPrice: runtime.Decimal | null
   maxPrice: runtime.Decimal | null
@@ -273,7 +273,7 @@ export type ActivityWhereInput = {
   nameEn?: Prisma.StringFilter<"Activity"> | string
   descriptionEs?: Prisma.StringFilter<"Activity"> | string
   descriptionEn?: Prisma.StringFilter<"Activity"> | string
-  defaultPersonnelType?: Prisma.EnumPersonnelTypeFilter<"Activity"> | $Enums.PersonnelType
+  defaultPersonnelType?: Prisma.StringFilter<"Activity"> | string
   minHours?: Prisma.DecimalFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: Prisma.DecimalNullableFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: Prisma.DecimalNullableFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -308,7 +308,7 @@ export type ActivityWhereUniqueInput = Prisma.AtLeast<{
   nameEn?: Prisma.StringFilter<"Activity"> | string
   descriptionEs?: Prisma.StringFilter<"Activity"> | string
   descriptionEn?: Prisma.StringFilter<"Activity"> | string
-  defaultPersonnelType?: Prisma.EnumPersonnelTypeFilter<"Activity"> | $Enums.PersonnelType
+  defaultPersonnelType?: Prisma.StringFilter<"Activity"> | string
   minHours?: Prisma.DecimalFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: Prisma.DecimalNullableFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: Prisma.DecimalNullableFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -347,7 +347,7 @@ export type ActivityScalarWhereWithAggregatesInput = {
   nameEn?: Prisma.StringWithAggregatesFilter<"Activity"> | string
   descriptionEs?: Prisma.StringWithAggregatesFilter<"Activity"> | string
   descriptionEn?: Prisma.StringWithAggregatesFilter<"Activity"> | string
-  defaultPersonnelType?: Prisma.EnumPersonnelTypeWithAggregatesFilter<"Activity"> | $Enums.PersonnelType
+  defaultPersonnelType?: Prisma.StringWithAggregatesFilter<"Activity"> | string
   minHours?: Prisma.DecimalWithAggregatesFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: Prisma.DecimalNullableWithAggregatesFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: Prisma.DecimalNullableWithAggregatesFilter<"Activity"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -362,7 +362,7 @@ export type ActivityCreateInput = {
   nameEn: string
   descriptionEs: string
   descriptionEn: string
-  defaultPersonnelType: $Enums.PersonnelType
+  defaultPersonnelType: string
   minHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -378,7 +378,7 @@ export type ActivityUncheckedCreateInput = {
   nameEn: string
   descriptionEs: string
   descriptionEn: string
-  defaultPersonnelType: $Enums.PersonnelType
+  defaultPersonnelType: string
   minHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -394,7 +394,7 @@ export type ActivityUpdateInput = {
   nameEn?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEs?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
-  defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  defaultPersonnelType?: Prisma.StringFieldUpdateOperationsInput | string
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -410,7 +410,7 @@ export type ActivityUncheckedUpdateInput = {
   nameEn?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEs?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
-  defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  defaultPersonnelType?: Prisma.StringFieldUpdateOperationsInput | string
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -426,7 +426,7 @@ export type ActivityCreateManyInput = {
   nameEn: string
   descriptionEs: string
   descriptionEn: string
-  defaultPersonnelType: $Enums.PersonnelType
+  defaultPersonnelType: string
   minHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -441,7 +441,7 @@ export type ActivityUpdateManyMutationInput = {
   nameEn?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEs?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
-  defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  defaultPersonnelType?: Prisma.StringFieldUpdateOperationsInput | string
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -456,7 +456,7 @@ export type ActivityUncheckedUpdateManyInput = {
   nameEn?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEs?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
-  defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  defaultPersonnelType?: Prisma.StringFieldUpdateOperationsInput | string
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -527,10 +527,6 @@ export type ActivityScalarRelationFilter = {
   isNot?: Prisma.ActivityWhereInput
 }
 
-export type EnumPersonnelTypeFieldUpdateOperationsInput = {
-  set?: $Enums.PersonnelType
-}
-
 export type NullableDecimalFieldUpdateOperationsInput = {
   set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -559,7 +555,7 @@ export type ActivityCreateWithoutWalkthroughItemsInput = {
   nameEn: string
   descriptionEs: string
   descriptionEn: string
-  defaultPersonnelType: $Enums.PersonnelType
+  defaultPersonnelType: string
   minHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -574,7 +570,7 @@ export type ActivityUncheckedCreateWithoutWalkthroughItemsInput = {
   nameEn: string
   descriptionEs: string
   descriptionEn: string
-  defaultPersonnelType: $Enums.PersonnelType
+  defaultPersonnelType: string
   minHours: runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -605,7 +601,7 @@ export type ActivityUpdateWithoutWalkthroughItemsInput = {
   nameEn?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEs?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
-  defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  defaultPersonnelType?: Prisma.StringFieldUpdateOperationsInput | string
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -620,7 +616,7 @@ export type ActivityUncheckedUpdateWithoutWalkthroughItemsInput = {
   nameEn?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEs?: Prisma.StringFieldUpdateOperationsInput | string
   descriptionEn?: Prisma.StringFieldUpdateOperationsInput | string
-  defaultPersonnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  defaultPersonnelType?: Prisma.StringFieldUpdateOperationsInput | string
   minHours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   maxPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -741,7 +737,7 @@ export type $ActivityPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     nameEn: string
     descriptionEs: string
     descriptionEn: string
-    defaultPersonnelType: $Enums.PersonnelType
+    defaultPersonnelType: string
     minHours: runtime.Decimal
     minPrice: runtime.Decimal | null
     maxPrice: runtime.Decimal | null
@@ -1177,7 +1173,7 @@ export interface ActivityFieldRefs {
   readonly nameEn: Prisma.FieldRef<"Activity", 'String'>
   readonly descriptionEs: Prisma.FieldRef<"Activity", 'String'>
   readonly descriptionEn: Prisma.FieldRef<"Activity", 'String'>
-  readonly defaultPersonnelType: Prisma.FieldRef<"Activity", 'PersonnelType'>
+  readonly defaultPersonnelType: Prisma.FieldRef<"Activity", 'String'>
   readonly minHours: Prisma.FieldRef<"Activity", 'Decimal'>
   readonly minPrice: Prisma.FieldRef<"Activity", 'Decimal'>
   readonly maxPrice: Prisma.FieldRef<"Activity", 'Decimal'>

@@ -42,7 +42,7 @@ export type WalkthroughItemMinAggregateOutputType = {
   id: string | null
   projectId: string | null
   activityId: string | null
-  personnelType: $Enums.PersonnelType | null
+  personnelType: string | null
   hours: runtime.Decimal | null
   rateSnapshot: runtime.Decimal | null
   computedPrice: runtime.Decimal | null
@@ -55,7 +55,7 @@ export type WalkthroughItemMaxAggregateOutputType = {
   id: string | null
   projectId: string | null
   activityId: string | null
-  personnelType: $Enums.PersonnelType | null
+  personnelType: string | null
   hours: runtime.Decimal | null
   rateSnapshot: runtime.Decimal | null
   computedPrice: runtime.Decimal | null
@@ -221,7 +221,7 @@ export type WalkthroughItemGroupByOutputType = {
   id: string
   projectId: string
   activityId: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal
   rateSnapshot: runtime.Decimal
   computedPrice: runtime.Decimal
@@ -257,7 +257,7 @@ export type WalkthroughItemWhereInput = {
   id?: Prisma.UuidFilter<"WalkthroughItem"> | string
   projectId?: Prisma.UuidFilter<"WalkthroughItem"> | string
   activityId?: Prisma.UuidFilter<"WalkthroughItem"> | string
-  personnelType?: Prisma.EnumPersonnelTypeFilter<"WalkthroughItem"> | $Enums.PersonnelType
+  personnelType?: Prisma.StringFilter<"WalkthroughItem"> | string
   hours?: Prisma.DecimalFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -292,7 +292,7 @@ export type WalkthroughItemWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.WalkthroughItemWhereInput | Prisma.WalkthroughItemWhereInput[]
   projectId?: Prisma.UuidFilter<"WalkthroughItem"> | string
   activityId?: Prisma.UuidFilter<"WalkthroughItem"> | string
-  personnelType?: Prisma.EnumPersonnelTypeFilter<"WalkthroughItem"> | $Enums.PersonnelType
+  personnelType?: Prisma.StringFilter<"WalkthroughItem"> | string
   hours?: Prisma.DecimalFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -329,7 +329,7 @@ export type WalkthroughItemScalarWhereWithAggregatesInput = {
   id?: Prisma.UuidWithAggregatesFilter<"WalkthroughItem"> | string
   projectId?: Prisma.UuidWithAggregatesFilter<"WalkthroughItem"> | string
   activityId?: Prisma.UuidWithAggregatesFilter<"WalkthroughItem"> | string
-  personnelType?: Prisma.EnumPersonnelTypeWithAggregatesFilter<"WalkthroughItem"> | $Enums.PersonnelType
+  personnelType?: Prisma.StringWithAggregatesFilter<"WalkthroughItem"> | string
   hours?: Prisma.DecimalWithAggregatesFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalWithAggregatesFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalWithAggregatesFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -340,7 +340,7 @@ export type WalkthroughItemScalarWhereWithAggregatesInput = {
 
 export type WalkthroughItemCreateInput = {
   id?: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot: runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -356,7 +356,7 @@ export type WalkthroughItemUncheckedCreateInput = {
   id?: string
   projectId: string
   activityId: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot: runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -368,7 +368,7 @@ export type WalkthroughItemUncheckedCreateInput = {
 
 export type WalkthroughItemUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -384,7 +384,7 @@ export type WalkthroughItemUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   activityId?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -398,7 +398,7 @@ export type WalkthroughItemCreateManyInput = {
   id?: string
   projectId: string
   activityId: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot: runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -409,7 +409,7 @@ export type WalkthroughItemCreateManyInput = {
 
 export type WalkthroughItemUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -422,7 +422,7 @@ export type WalkthroughItemUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   activityId?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -597,7 +597,7 @@ export type WalkthroughItemUpdateOneRequiredWithoutFieldReportItemNestedInput = 
 
 export type WalkthroughItemCreateWithoutActivityInput = {
   id?: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot: runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -611,7 +611,7 @@ export type WalkthroughItemCreateWithoutActivityInput = {
 export type WalkthroughItemUncheckedCreateWithoutActivityInput = {
   id?: string
   projectId: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot: runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -654,7 +654,7 @@ export type WalkthroughItemScalarWhereInput = {
   id?: Prisma.UuidFilter<"WalkthroughItem"> | string
   projectId?: Prisma.UuidFilter<"WalkthroughItem"> | string
   activityId?: Prisma.UuidFilter<"WalkthroughItem"> | string
-  personnelType?: Prisma.EnumPersonnelTypeFilter<"WalkthroughItem"> | $Enums.PersonnelType
+  personnelType?: Prisma.StringFilter<"WalkthroughItem"> | string
   hours?: Prisma.DecimalFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFilter<"WalkthroughItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -665,7 +665,7 @@ export type WalkthroughItemScalarWhereInput = {
 
 export type WalkthroughItemCreateWithoutProjectInput = {
   id?: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot: runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -679,7 +679,7 @@ export type WalkthroughItemCreateWithoutProjectInput = {
 export type WalkthroughItemUncheckedCreateWithoutProjectInput = {
   id?: string
   activityId: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot: runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -717,7 +717,7 @@ export type WalkthroughItemUpdateManyWithWhereWithoutProjectInput = {
 
 export type WalkthroughItemCreateWithoutFieldReportItemInput = {
   id?: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot: runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -732,7 +732,7 @@ export type WalkthroughItemUncheckedCreateWithoutFieldReportItemInput = {
   id?: string
   projectId: string
   activityId: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot: runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -759,7 +759,7 @@ export type WalkthroughItemUpdateToOneWithWhereWithoutFieldReportItemInput = {
 
 export type WalkthroughItemUpdateWithoutFieldReportItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -774,7 +774,7 @@ export type WalkthroughItemUncheckedUpdateWithoutFieldReportItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   activityId?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -786,7 +786,7 @@ export type WalkthroughItemUncheckedUpdateWithoutFieldReportItemInput = {
 export type WalkthroughItemCreateManyActivityInput = {
   id?: string
   projectId: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot: runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -797,7 +797,7 @@ export type WalkthroughItemCreateManyActivityInput = {
 
 export type WalkthroughItemUpdateWithoutActivityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -811,7 +811,7 @@ export type WalkthroughItemUpdateWithoutActivityInput = {
 export type WalkthroughItemUncheckedUpdateWithoutActivityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -824,7 +824,7 @@ export type WalkthroughItemUncheckedUpdateWithoutActivityInput = {
 export type WalkthroughItemUncheckedUpdateManyWithoutActivityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -836,7 +836,7 @@ export type WalkthroughItemUncheckedUpdateManyWithoutActivityInput = {
 export type WalkthroughItemCreateManyProjectInput = {
   id?: string
   activityId: string
-  personnelType: $Enums.PersonnelType
+  personnelType: string
   hours: runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot: runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -847,7 +847,7 @@ export type WalkthroughItemCreateManyProjectInput = {
 
 export type WalkthroughItemUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -861,7 +861,7 @@ export type WalkthroughItemUpdateWithoutProjectInput = {
 export type WalkthroughItemUncheckedUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   activityId?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -874,7 +874,7 @@ export type WalkthroughItemUncheckedUpdateWithoutProjectInput = {
 export type WalkthroughItemUncheckedUpdateManyWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   activityId?: Prisma.StringFieldUpdateOperationsInput | string
-  personnelType?: Prisma.EnumPersonnelTypeFieldUpdateOperationsInput | $Enums.PersonnelType
+  personnelType?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rateSnapshot?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   computedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -970,7 +970,7 @@ export type $WalkthroughItemPayload<ExtArgs extends runtime.Types.Extensions.Int
     id: string
     projectId: string
     activityId: string
-    personnelType: $Enums.PersonnelType
+    personnelType: string
     hours: runtime.Decimal
     rateSnapshot: runtime.Decimal
     computedPrice: runtime.Decimal
@@ -1406,7 +1406,7 @@ export interface WalkthroughItemFieldRefs {
   readonly id: Prisma.FieldRef<"WalkthroughItem", 'String'>
   readonly projectId: Prisma.FieldRef<"WalkthroughItem", 'String'>
   readonly activityId: Prisma.FieldRef<"WalkthroughItem", 'String'>
-  readonly personnelType: Prisma.FieldRef<"WalkthroughItem", 'PersonnelType'>
+  readonly personnelType: Prisma.FieldRef<"WalkthroughItem", 'String'>
   readonly hours: Prisma.FieldRef<"WalkthroughItem", 'Decimal'>
   readonly rateSnapshot: Prisma.FieldRef<"WalkthroughItem", 'Decimal'>
   readonly computedPrice: Prisma.FieldRef<"WalkthroughItem", 'Decimal'>

@@ -9,7 +9,6 @@
  */
 
 import { prisma } from "./prisma";
-import type { PersonnelType } from "@/generated/prisma/client";
 import { Prisma } from "@/generated/prisma/client";
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
@@ -25,7 +24,7 @@ export type PricingSnapshot = {
 
 export type LineItem = {
   activityId: string;
-  personnelType: PersonnelType;
+  personnelType: string;
   hours: number;
   rateSnapshot: number;
   computedPrice: number;
@@ -45,7 +44,7 @@ export type PricingResult = {
 /**
  * Retorna la tarifa por hora según el tipo de personal
  */
-function getRatePerHour(snapshot: PricingSnapshot, personnelType: PersonnelType): number {
+function getRatePerHour(snapshot: PricingSnapshot, personnelType: string): number {
   const { contractorDayRate, noviceTechDayRate, expertTechDayRate, standardHoursPerDay } = snapshot;
   const dailyRate =
     personnelType === "contratista"
@@ -85,7 +84,7 @@ export async function getCurrentPricingSnapshot(): Promise<PricingSnapshot> {
  * @returns PricingResult con todos los valores calculados
  */
 export async function calculateProjectPrice(
-  items: Array<{ activityId: string; personnelType: PersonnelType; hours: number }>,
+  items: Array<{ activityId: string; personnelType: string; hours: number }>,
   snapshot?: PricingSnapshot
 ): Promise<PricingResult> {
   const activeSnapshot = snapshot ?? (await getCurrentPricingSnapshot());
@@ -151,7 +150,7 @@ export function applyDiscount(
  */
 export async function saveWalkthroughItems(
   projectId: string,
-  items: Array<{ activityId: string; personnelType: PersonnelType; hours: number; notes?: string }>,
+  items: Array<{ activityId: string; personnelType: string; hours: number; notes?: string }>,
   snapshot?: PricingSnapshot
 ): Promise<PricingResult> {
   const activeSnapshot = snapshot ?? (await getCurrentPricingSnapshot());

@@ -3,7 +3,7 @@
 import { prisma } from "@/lib/db/prisma";
 import { createClient } from "@/lib/supabase/server";
 import { saveWalkthroughItems, getCurrentPricingSnapshot } from "@/lib/db/pricing";
-import type { PersonnelType, SystemCondition, SystemUrgency, RecommendedPlan } from "@/generated/prisma/client";
+import type { SystemCondition, SystemUrgency, RecommendedPlan } from "@/generated/prisma/client";
 import { revalidatePath } from "next/cache";
 
 export async function getProjectDetail(id: string) {
@@ -44,12 +44,12 @@ export async function submitWalkthrough(formData: FormData) {
   if (!rawItems) return { error: "No se enviaron actividades." };
 
   try {
-    const items = JSON.parse(rawItems) as Array<{
-      activityId: string;
-      personnelType: PersonnelType;
-      hours: number;
-      notes?: string;
-    }>;
+    const items = JSON.parse(rawItems).map((item: any) => ({
+      activityId: item.activityId,
+      personnelType: item.personnelType as string,
+      hours: parseFloat(item.hours),
+      notes: item.notes,
+    }));
 
     if (items.length === 0) return { error: "Agrega al menos una actividad a la caminata." };
 
@@ -62,7 +62,7 @@ export async function submitWalkthrough(formData: FormData) {
   }
 }
 
-export async function getPricingPreview(items: Array<{ activityId: string; personnelType: PersonnelType; hours: number }>) {
+export async function getPricingPreview(items: Array<{ activityId: string; personnelType: string; hours: number }>) {
   const snapshot = await getCurrentPricingSnapshot();
   const { calculateProjectPrice } = await import("@/lib/db/pricing");
   return await calculateProjectPrice(items, snapshot);
