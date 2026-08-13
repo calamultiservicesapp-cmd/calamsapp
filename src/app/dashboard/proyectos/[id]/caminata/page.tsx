@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getProjectDetail, getActivitiesForWalkthrough, getFieldEvaluation } from "../actions";
+import { getProjectDetail, getActivitiesForWalkthrough, getFieldEvaluation } from "../queries";
 import { getCurrentPricingSnapshot } from "@/lib/db/pricing";
 import { WalkthroughCalculator } from "@/components/proyectos/walkthrough-calculator";
 import { FieldEvaluationForm } from "@/components/proyectos/field-evaluation-form";
