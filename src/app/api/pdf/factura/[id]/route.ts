@@ -60,11 +60,10 @@ export async function GET(
   <title>${isEnglish ? "Invoice" : "Factura"} — ${project.invoice.invoiceNumber}</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; color: #1e293b; background: #fff; padding: 48px; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: #1e293b; background: #f1f5f9; padding: 40px 20px; }
+    .page { max-width: 800px; margin: 0 auto; background: #fff; padding: 48px 56px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 3px solid #e2521a; }
-    .logo-text { font-size: 28px; font-weight: 900; letter-spacing: 2px; }
-    .logo-text span { color: #e2521a; }
-    .logo-sub { font-size: 11px; letter-spacing: 3px; color: #64748b; text-transform: uppercase; }
+    .logo-img { max-height: 70px; width: auto; object-fit: contain; }
     .doc-info { text-align: right; }
     .doc-title { font-size: 36px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; color: #e2521a; margin-bottom: 8px; }
     .doc-info p { font-size: 13px; color: #64748b; }
@@ -90,76 +89,81 @@ export async function GET(
     .badge { padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; display: inline-block; }
     .badge.paid { background: #dcfce7; color: #166534; }
     .badge.pending { background: #fef08a; color: #854d0e; }
-    @media print { body { padding: 24px; } }
+    @media print { 
+      body { padding: 0; background: #fff; }
+      .page { box-shadow: none; max-width: 100%; margin: 0; padding: 0; border-radius: 0; }
+      .header { padding-top: 0; }
+    }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div>
-      <div class="logo-text"><span>CALA</span> MULTISERVICES</div>
-      <div class="logo-sub">Construction · Renovation · Excellence</div>
-    </div>
-    <div class="doc-info">
-      <div class="doc-title">${isEnglish ? "Invoice" : "Factura"}</div>
-      <p class="ref">${project.invoice.invoiceNumber}</p>
-      <p style="margin-top: 8px;"><strong>${isEnglish ? "Issue Date" : "Fecha Emisión"}:</strong> ${date}</p>
-      <p><strong>${isEnglish ? "Due Date" : "Vencimiento"}:</strong> ${dueDate}</p>
-    </div>
-  </div>
-
-  <div class="flex-row">
-    <div class="flex-col">
-      <h2>${isEnglish ? "Bill To" : "Facturar A"}</h2>
-      <div class="info-box">
-        <p class="name">${project.client.name}</p>
-        ${project.client.contactName ? `<p>${project.client.contactName}</p>` : ""}
-        ${project.client.email ? `<p>${project.client.email}</p>` : ""}
-        ${project.client.address ? `<p>${project.client.address}</p>` : ""}
+  <div class="page">
+    <div class="header">
+      <div>
+        <img src="/logo.png" alt="CALA Multiservices" class="logo-img" />
+      </div>
+      <div class="doc-info">
+        <div class="doc-title">${isEnglish ? "Invoice" : "Factura"}</div>
+        <p class="ref">${project.invoice.invoiceNumber}</p>
+        <p style="margin-top: 8px;"><strong>${isEnglish ? "Issue Date" : "Fecha Emisión"}:</strong> ${date}</p>
+        <p><strong>${isEnglish ? "Due Date" : "Vencimiento"}:</strong> ${dueDate}</p>
       </div>
     </div>
-    <div class="flex-col">
-      <h2>${isEnglish ? "Project Details" : "Detalles del Proyecto"}</h2>
-      <div class="info-box" style="border-left-color: #e2521a;">
-        <p class="name">${project.name}</p>
-        <p>Ref: CALA-${id.slice(-6).toUpperCase()}</p>
-        <div style="margin-top: 16px;">
-          <span class="badge ${project.invoice.status === 'pagada' ? 'paid' : 'pending'}">
-            ${project.invoice.status === 'pagada' ? (isEnglish ? 'Paid' : 'Pagada') : (isEnglish ? 'Pending' : 'Pendiente')}
-          </span>
+
+    <div class="flex-row">
+      <div class="flex-col">
+        <h2>${isEnglish ? "Bill To" : "Facturar A"}</h2>
+        <div class="info-box">
+          <p class="name">${project.client.name}</p>
+          ${project.client.contactName ? `<p>${project.client.contactName}</p>` : ""}
+          ${project.client.email ? `<p>${project.client.email}</p>` : ""}
+          ${project.client.address ? `<p>${project.client.address}</p>` : ""}
+        </div>
+      </div>
+      <div class="flex-col">
+        <h2>${isEnglish ? "Project Details" : "Detalles del Proyecto"}</h2>
+        <div class="info-box" style="border-left-color: #e2521a;">
+          <p class="name">${project.name}</p>
+          <p>Ref: CALA-${id.slice(-6).toUpperCase()}</p>
+          <div style="margin-top: 16px;">
+            <span class="badge ${project.invoice.status === 'pagada' ? 'paid' : 'pending'}">
+              ${project.invoice.status === 'pagada' ? (isEnglish ? 'Paid' : 'Pagada') : (isEnglish ? 'Pending' : 'Pendiente')}
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>${isEnglish ? "Description" : "Descripción"}</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${activities.map((name, i) => `
-      <tr>
-        <td>${i + 1}</td>
-        <td>${name}</td>
-      </tr>`).join("")}
-    </tbody>
-  </table>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>${isEnglish ? "Description" : "Descripción"}</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${activities.map((name, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${name}</td>
+        </tr>`).join("")}
+      </tbody>
+    </table>
 
-  <div class="total-section">
-    <div class="total-box">
-      <div class="total-row grand">
-        <span>${isEnglish ? "Total Due" : "Total a Pagar"}</span>
-        <span class="amount">${fmtPrice}</span>
+    <div class="total-section">
+      <div class="total-box">
+        <div class="total-row grand">
+          <span>${isEnglish ? "Total Due" : "Total a Pagar"}</span>
+          <span class="amount">${fmtPrice}</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="footer">
-    <div>
-      <p>CALA Multiservices · © ${new Date().getFullYear()}</p>
-      <p>${isEnglish ? "Thank you for your business." : "Gracias por su negocio."}</p>
+    <div class="footer">
+      <div>
+        <p>CALA Multiservices · © ${new Date().getFullYear()}</p>
+        <p>${isEnglish ? "Thank you for your business." : "Gracias por su negocio."}</p>
+      </div>
     </div>
   </div>
 </body>

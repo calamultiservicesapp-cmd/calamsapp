@@ -55,11 +55,10 @@ export async function GET(
   <title>${isEnglish ? "Proposal" : "Propuesta"} — ${project.name}</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; color: #1e293b; background: #fff; padding: 48px; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: #1e293b; background: #f1f5f9; padding: 40px 20px; }
+    .page { max-width: 800px; margin: 0 auto; background: #fff; padding: 48px 56px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 3px solid #e2521a; }
-    .logo-text { font-size: 28px; font-weight: 900; letter-spacing: 2px; }
-    .logo-text span { color: #e2521a; }
-    .logo-sub { font-size: 11px; letter-spacing: 3px; color: #64748b; text-transform: uppercase; }
+    .logo-img { max-height: 70px; width: auto; object-fit: contain; }
     .doc-info { text-align: right; }
     .doc-info p { font-size: 13px; color: #64748b; }
     .doc-info .ref { font-size: 11px; color: #94a3b8; margin-top: 4px; }
@@ -78,60 +77,65 @@ export async function GET(
     .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
     .footer p { font-size: 11px; color: #94a3b8; }
     .badge { background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
-    @media print { body { padding: 24px; } }
+    @media print { 
+      body { padding: 0; background: #fff; }
+      .page { box-shadow: none; max-width: 100%; margin: 0; padding: 0; border-radius: 0; }
+      .header { padding-top: 0; }
+    }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div>
-      <div class="logo-text"><span>CALA</span> MULTISERVICES</div>
-      <div class="logo-sub">Construction · Renovation · Excellence</div>
+  <div class="page">
+    <div class="header">
+      <div>
+        <img src="/logo.png" alt="CALA Multiservices" class="logo-img" />
+      </div>
+      <div class="doc-info">
+        <p><strong>${isEnglish ? "Date" : "Fecha"}:</strong> ${date}</p>
+        <p><strong>${isEnglish ? "Project" : "Proyecto"}:</strong> ${project.name}</p>
+        <p class="ref">Ref: CALA-${id.slice(-6).toUpperCase()}</p>
+      </div>
     </div>
-    <div class="doc-info">
-      <p><strong>${isEnglish ? "Date" : "Fecha"}:</strong> ${date}</p>
-      <p><strong>${isEnglish ? "Project" : "Proyecto"}:</strong> ${project.name}</p>
-      <p class="ref">Ref: CALA-${id.slice(-6).toUpperCase()}</p>
+
+    <h2>${isEnglish ? "Client Information" : "Información del Cliente"}</h2>
+    <div class="client-box">
+      <p class="name">${project.client.name}</p>
+      ${project.client.contactName ? `<p>${project.client.contactName}</p>` : ""}
+      ${project.client.email ? `<p>${project.client.email}</p>` : ""}
+      ${project.client.address ? `<p>${project.client.address}</p>` : ""}
     </div>
-  </div>
 
-  <h2>${isEnglish ? "Client Information" : "Información del Cliente"}</h2>
-  <div class="client-box">
-    <p class="name">${project.client.name}</p>
-    ${project.client.contactName ? `<p>${project.client.contactName}</p>` : ""}
-    ${project.client.email ? `<p>${project.client.email}</p>` : ""}
-    ${project.client.address ? `<p>${project.client.address}</p>` : ""}
-  </div>
+    <h2>${isEnglish ? "Scope of Work" : "Alcance del Trabajo"}</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>${isEnglish ? "Work Item" : "Actividad"}</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${activities.map((name, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${name}</td>
+        </tr>`).join("")}
+      </tbody>
+    </table>
 
-  <h2>${isEnglish ? "Scope of Work" : "Alcance del Trabajo"}</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>${isEnglish ? "Work Item" : "Actividad"}</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${activities.map((name, i) => `
-      <tr>
-        <td>${i + 1}</td>
-        <td>${name}</td>
-      </tr>`).join("")}
-    </tbody>
-  </table>
-
-  <div class="total-box">
-    <div class="total-inner">
-      <div class="label">${isEnglish ? "Total Project Cost" : "Costo Total del Proyecto"}</div>
-      <div class="amount">${fmtPrice}</div>
+    <div class="total-box">
+      <div class="total-inner">
+        <div class="label">${isEnglish ? "Total Project Cost" : "Costo Total del Proyecto"}</div>
+        <div class="amount">${fmtPrice}</div>
+      </div>
     </div>
-  </div>
 
-  <div class="footer">
-    <div>
-      <p>CALA Multiservices · © ${new Date().getFullYear()}</p>
-      <p>${isEnglish ? "Thank you for your trust." : "Gracias por su confianza."}</p>
+    <div class="footer">
+      <div>
+        <p>CALA Multiservices · © ${new Date().getFullYear()}</p>
+        <p>${isEnglish ? "Thank you for your trust." : "Gracias por su confianza."}</p>
+      </div>
+      <span class="badge">${isEnglish ? "Official Proposal" : "Propuesta Oficial"}</span>
     </div>
-    <span class="badge">${isEnglish ? "Official Proposal" : "Propuesta Oficial"}</span>
   </div>
 </body>
 </html>
