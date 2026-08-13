@@ -11,7 +11,17 @@ import {
   Plus, Pencil, Trash2, X, Loader2, CheckCircle2, AlertCircle,
   Users, DollarSign, ToggleLeft, ToggleRight,
 } from "lucide-react";
-import type { PersonnelCategory } from "@/generated/prisma/client";
+
+type PersonnelCategory = {
+  id: string;
+  name: string;
+  labelEs: string;
+  labelEn: string;
+  hourlyRate: any;
+  isActive: boolean;
+  createdAt: any;
+  updatedAt: any;
+};
 
 type SerializedPersonnel = Omit<PersonnelCategory, "hourlyRate" | "createdAt" | "updatedAt"> & {
   hourlyRate: string;

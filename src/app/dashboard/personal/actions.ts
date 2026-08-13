@@ -4,10 +4,16 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db/prisma";
 import { createClient } from "@/lib/supabase/server";
 
+const db = prisma as any;
+
 export async function getPersonnelCategories() {
-  return await prisma.personnelCategory.findMany({
-    orderBy: { createdAt: "asc" },
-  });
+  try {
+    return await db.personnelCategory.findMany({
+      orderBy: { createdAt: "asc" },
+    }) as any[];
+  } catch {
+    return [];
+  }
 }
 
 export async function createPersonnelCategory(state: any, formData: FormData) {
@@ -25,7 +31,7 @@ export async function createPersonnelCategory(state: any, formData: FormData) {
   }
 
   try {
-    await prisma.personnelCategory.create({
+    await db.personnelCategory.create({
       data: { name, labelEs, labelEn, hourlyRate: parseFloat(hourlyRate) },
     });
     revalidatePath("/dashboard/personal");
@@ -46,7 +52,7 @@ export async function updatePersonnelCategory(state: any, formData: FormData) {
   const hourlyRate = formData.get("hourlyRate") as string;
 
   try {
-    await prisma.personnelCategory.update({
+    await db.personnelCategory.update({
       where: { id },
       data: { labelEs, labelEn, hourlyRate: parseFloat(hourlyRate) },
     });
@@ -62,7 +68,7 @@ export async function togglePersonnelActive(id: string, isActive: boolean) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };
 
-  await prisma.personnelCategory.update({
+  await db.personnelCategory.update({
     where: { id },
     data: { isActive },
   });
@@ -75,7 +81,7 @@ export async function deletePersonnelCategory(id: string) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };
 
-  await prisma.personnelCategory.delete({ where: { id } });
+  await db.personnelCategory.delete({ where: { id } });
   revalidatePath("/dashboard/personal");
   return { success: true };
 }

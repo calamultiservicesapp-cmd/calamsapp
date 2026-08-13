@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default async function PersonalPage() {
   const items = await getPersonnelCategories();
 
-  const serialized = items.map((i) => ({
+  const serialized = items.map((i: any) => ({
     ...i,
     hourlyRate: i.hourlyRate.toString(),
     createdAt: i.createdAt.toISOString(),

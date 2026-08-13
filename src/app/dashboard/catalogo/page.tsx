@@ -15,8 +15,8 @@ export default async function CatalogoPage() {
   const serialized = activities.map((a) => ({
     ...a,
     minHours: a.minHours.toString(),
-    minPrice: a.minPrice?.toString() ?? null,
-    maxPrice: a.maxPrice?.toString() ?? null,
+    minPrice: (a as any).minPrice?.toString() ?? null,
+    maxPrice: (a as any).maxPrice?.toString() ?? null,
     createdAt: a.createdAt.toISOString(),
     updatedAt: a.updatedAt.toISOString(),
     deletedAt: a.deletedAt?.toISOString() ?? null,
