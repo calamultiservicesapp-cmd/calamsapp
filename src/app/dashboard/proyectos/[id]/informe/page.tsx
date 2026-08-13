@@ -98,7 +98,7 @@ export default async function InformePage({ params }: { params: Promise<{ id: st
           <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
             <Users2 className="h-4 w-4 text-teal-500" />
             <strong className="text-slate-800 dark:text-slate-200">Técnicos:</strong>
-            {project.assignments.map((a) => a.personnel.fullName).join(", ")}
+            {project.assignments.map((a) => a.technician.fullName).join(", ")}
           </div>
           {project.assignments[0] && (
             <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
