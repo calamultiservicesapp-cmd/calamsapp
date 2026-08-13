@@ -277,7 +277,7 @@ export type ProposalScalarFieldEnum = (typeof ProposalScalarFieldEnum)[keyof typ
 export const ProjectAssignmentScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
-  personnelId: 'personnelId',
+  technicianId: 'technicianId',
   startDate: 'startDate',
   endDate: 'endDate',
   notes: 'notes'

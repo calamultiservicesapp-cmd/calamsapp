@@ -26,7 +26,7 @@ export async function getInformeData(projectId: string) {
         },
       },
       assignments: {
-        include: { personnel: { select: { fullName: true } } },
+        include: { technician: { select: { fullName: true } } },
       },
     },
   });

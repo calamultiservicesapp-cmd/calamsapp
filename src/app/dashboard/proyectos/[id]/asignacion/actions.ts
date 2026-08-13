@@ -6,9 +6,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function getPersonnel() {
-  return await (prisma as any).personnel.findMany({
-    where: { isActive: true },
-    include: { category: true },
+  return await prisma.profile.findMany({
+    where: { role: "tecnico" },
     orderBy: { fullName: "asc" },
   });
 }
@@ -16,7 +15,7 @@ export async function getPersonnel() {
 export async function getAssignments(projectId: string) {
   return await prisma.projectAssignment.findMany({
     where: { projectId },
-    include: { personnel: true },
+    include: { technician: true },
     orderBy: { startDate: "asc" },
   });
 }
@@ -26,20 +25,20 @@ export async function createAssignment(state: any, formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };
 
-  const projectId   = formData.get("projectId") as string;
-  const personnelId = formData.get("personnelId") as string;
-  const startDate   = formData.get("startDate") as string;
-  const endDate     = formData.get("endDate") as string;
-  const notes       = formData.get("notes") as string | null;
+  const projectId    = formData.get("projectId") as string;
+  const technicianId = formData.get("technicianId") as string;
+  const startDate    = formData.get("startDate") as string;
+  const endDate      = formData.get("endDate") as string;
+  const notes        = formData.get("notes") as string | null;
 
-  if (!projectId || !personnelId || !startDate || !endDate) {
+  if (!projectId || !technicianId || !startDate || !endDate) {
     return { error: "Faltan campos obligatorios" };
   }
 
   try {
     await prisma.$transaction(async (tx) => {
-      await (tx as any).projectAssignment.create({
-        data: { projectId, personnelId, startDate: new Date(startDate), endDate: new Date(endDate), notes },
+      await tx.projectAssignment.create({
+        data: { projectId, technicianId, startDate: new Date(startDate), endDate: new Date(endDate), notes },
       });
 
       const project = await tx.project.findUnique({ where: { id: projectId } });

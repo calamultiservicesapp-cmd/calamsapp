@@ -7,10 +7,8 @@ import { Plus, Trash2, Calendar, User, Loader2, AlertCircle, Clock, Briefcase, P
 type PersonnelMember = {
   id: string;
   fullName: string;
-  position: string | null;
+  role: string;
   phone: string | null;
-  specialty: string | null;
-  category: { labelEs: string } | null;
 };
 
 type Assignment = {
@@ -18,10 +16,10 @@ type Assignment = {
   startDate: Date;
   endDate: Date;
   notes: string | null;
-  personnel: {
+  technician: {
     id: string;
     fullName: string;
-    position: string | null;
+    role: string;
   };
 };
 
@@ -76,15 +74,15 @@ export function AssignmentBoard({
                   <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     Técnico / Personal
                   </label>
-                  <select
-                    name="personnelId"
+                    <select
+                    name="technicianId"
                     required
                     className="w-full h-10 px-3 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 text-slate-700 dark:text-slate-300"
                   >
                     <option value="">Selecciona una persona...</option>
                     {personnel.map((p) => (
                       <option key={p.id} value={p.id}>
-                        {p.fullName}{p.position ? ` — ${p.position}` : ""}
+                        {p.fullName}
                       </option>
                     ))}
                   </select>
@@ -144,9 +142,9 @@ export function AssignmentBoard({
                           <User className="h-4 w-4 text-orange-500" />
                         </div>
                         <div>
-                          <p className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{a.personnel.fullName}</p>
-                          {a.personnel.position && (
-                            <p className="text-xs text-slate-500">{a.personnel.position}</p>
+                          <p className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{a.technician.fullName}</p>
+                          {a.technician.role === "tecnico" && (
+                            <p className="text-xs text-slate-500">Técnico</p>
                           )}
                         </div>
                       </div>

@@ -223,7 +223,6 @@ export type PersonnelWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Personnel"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Personnel"> | Date | string
   category?: Prisma.XOR<Prisma.PersonnelCategoryNullableScalarRelationFilter, Prisma.PersonnelCategoryWhereInput> | null
-  assignments?: Prisma.ProjectAssignmentListRelationFilter
 }
 
 export type PersonnelOrderByWithRelationInput = {
@@ -238,7 +237,6 @@ export type PersonnelOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   category?: Prisma.PersonnelCategoryOrderByWithRelationInput
-  assignments?: Prisma.ProjectAssignmentOrderByRelationAggregateInput
 }
 
 export type PersonnelWhereUniqueInput = Prisma.AtLeast<{
@@ -256,7 +254,6 @@ export type PersonnelWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Personnel"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Personnel"> | Date | string
   category?: Prisma.XOR<Prisma.PersonnelCategoryNullableScalarRelationFilter, Prisma.PersonnelCategoryWhereInput> | null
-  assignments?: Prisma.ProjectAssignmentListRelationFilter
 }, "id">
 
 export type PersonnelOrderByWithAggregationInput = {
@@ -302,7 +299,6 @@ export type PersonnelCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   category?: Prisma.PersonnelCategoryCreateNestedOneWithoutPersonnelInput
-  assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutPersonnelInput
 }
 
 export type PersonnelUncheckedCreateInput = {
@@ -316,7 +312,6 @@ export type PersonnelUncheckedCreateInput = {
   personnelCategoryId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutPersonnelInput
 }
 
 export type PersonnelUpdateInput = {
@@ -330,7 +325,6 @@ export type PersonnelUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.PersonnelCategoryUpdateOneWithoutPersonnelNestedInput
-  assignments?: Prisma.ProjectAssignmentUpdateManyWithoutPersonnelNestedInput
 }
 
 export type PersonnelUncheckedUpdateInput = {
@@ -344,7 +338,6 @@ export type PersonnelUncheckedUpdateInput = {
   personnelCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutPersonnelNestedInput
 }
 
 export type PersonnelCreateManyInput = {
@@ -434,11 +427,6 @@ export type PersonnelMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type PersonnelScalarRelationFilter = {
-  is?: Prisma.PersonnelWhereInput
-  isNot?: Prisma.PersonnelWhereInput
-}
-
 export type PersonnelCreateNestedManyWithoutCategoryInput = {
   create?: Prisma.XOR<Prisma.PersonnelCreateWithoutCategoryInput, Prisma.PersonnelUncheckedCreateWithoutCategoryInput> | Prisma.PersonnelCreateWithoutCategoryInput[] | Prisma.PersonnelUncheckedCreateWithoutCategoryInput[]
   connectOrCreate?: Prisma.PersonnelCreateOrConnectWithoutCategoryInput | Prisma.PersonnelCreateOrConnectWithoutCategoryInput[]
@@ -481,20 +469,6 @@ export type PersonnelUncheckedUpdateManyWithoutCategoryNestedInput = {
   deleteMany?: Prisma.PersonnelScalarWhereInput | Prisma.PersonnelScalarWhereInput[]
 }
 
-export type PersonnelCreateNestedOneWithoutAssignmentsInput = {
-  create?: Prisma.XOR<Prisma.PersonnelCreateWithoutAssignmentsInput, Prisma.PersonnelUncheckedCreateWithoutAssignmentsInput>
-  connectOrCreate?: Prisma.PersonnelCreateOrConnectWithoutAssignmentsInput
-  connect?: Prisma.PersonnelWhereUniqueInput
-}
-
-export type PersonnelUpdateOneRequiredWithoutAssignmentsNestedInput = {
-  create?: Prisma.XOR<Prisma.PersonnelCreateWithoutAssignmentsInput, Prisma.PersonnelUncheckedCreateWithoutAssignmentsInput>
-  connectOrCreate?: Prisma.PersonnelCreateOrConnectWithoutAssignmentsInput
-  upsert?: Prisma.PersonnelUpsertWithoutAssignmentsInput
-  connect?: Prisma.PersonnelWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PersonnelUpdateToOneWithWhereWithoutAssignmentsInput, Prisma.PersonnelUpdateWithoutAssignmentsInput>, Prisma.PersonnelUncheckedUpdateWithoutAssignmentsInput>
-}
-
 export type PersonnelCreateWithoutCategoryInput = {
   id?: string
   fullName: string
@@ -505,7 +479,6 @@ export type PersonnelCreateWithoutCategoryInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutPersonnelInput
 }
 
 export type PersonnelUncheckedCreateWithoutCategoryInput = {
@@ -518,7 +491,6 @@ export type PersonnelUncheckedCreateWithoutCategoryInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutPersonnelInput
 }
 
 export type PersonnelCreateOrConnectWithoutCategoryInput = {
@@ -563,74 +535,6 @@ export type PersonnelScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Personnel"> | Date | string
 }
 
-export type PersonnelCreateWithoutAssignmentsInput = {
-  id?: string
-  fullName: string
-  position?: string | null
-  phone?: string | null
-  email?: string | null
-  specialty?: string | null
-  isActive?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  category?: Prisma.PersonnelCategoryCreateNestedOneWithoutPersonnelInput
-}
-
-export type PersonnelUncheckedCreateWithoutAssignmentsInput = {
-  id?: string
-  fullName: string
-  position?: string | null
-  phone?: string | null
-  email?: string | null
-  specialty?: string | null
-  isActive?: boolean
-  personnelCategoryId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type PersonnelCreateOrConnectWithoutAssignmentsInput = {
-  where: Prisma.PersonnelWhereUniqueInput
-  create: Prisma.XOR<Prisma.PersonnelCreateWithoutAssignmentsInput, Prisma.PersonnelUncheckedCreateWithoutAssignmentsInput>
-}
-
-export type PersonnelUpsertWithoutAssignmentsInput = {
-  update: Prisma.XOR<Prisma.PersonnelUpdateWithoutAssignmentsInput, Prisma.PersonnelUncheckedUpdateWithoutAssignmentsInput>
-  create: Prisma.XOR<Prisma.PersonnelCreateWithoutAssignmentsInput, Prisma.PersonnelUncheckedCreateWithoutAssignmentsInput>
-  where?: Prisma.PersonnelWhereInput
-}
-
-export type PersonnelUpdateToOneWithWhereWithoutAssignmentsInput = {
-  where?: Prisma.PersonnelWhereInput
-  data: Prisma.XOR<Prisma.PersonnelUpdateWithoutAssignmentsInput, Prisma.PersonnelUncheckedUpdateWithoutAssignmentsInput>
-}
-
-export type PersonnelUpdateWithoutAssignmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  specialty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  category?: Prisma.PersonnelCategoryUpdateOneWithoutPersonnelNestedInput
-}
-
-export type PersonnelUncheckedUpdateWithoutAssignmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
-  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  specialty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  personnelCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 export type PersonnelCreateManyCategoryInput = {
   id?: string
   fullName: string
@@ -653,7 +557,6 @@ export type PersonnelUpdateWithoutCategoryInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  assignments?: Prisma.ProjectAssignmentUpdateManyWithoutPersonnelNestedInput
 }
 
 export type PersonnelUncheckedUpdateWithoutCategoryInput = {
@@ -666,7 +569,6 @@ export type PersonnelUncheckedUpdateWithoutCategoryInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutPersonnelNestedInput
 }
 
 export type PersonnelUncheckedUpdateManyWithoutCategoryInput = {
@@ -682,35 +584,6 @@ export type PersonnelUncheckedUpdateManyWithoutCategoryInput = {
 }
 
 
-/**
- * Count Type PersonnelCountOutputType
- */
-
-export type PersonnelCountOutputType = {
-  assignments: number
-}
-
-export type PersonnelCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  assignments?: boolean | PersonnelCountOutputTypeCountAssignmentsArgs
-}
-
-/**
- * PersonnelCountOutputType without action
- */
-export type PersonnelCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PersonnelCountOutputType
-   */
-  select?: Prisma.PersonnelCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * PersonnelCountOutputType without action
- */
-export type PersonnelCountOutputTypeCountAssignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProjectAssignmentWhereInput
-}
-
 
 export type PersonnelSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -724,8 +597,6 @@ export type PersonnelSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   createdAt?: boolean
   updatedAt?: boolean
   category?: boolean | Prisma.Personnel$categoryArgs<ExtArgs>
-  assignments?: boolean | Prisma.Personnel$assignmentsArgs<ExtArgs>
-  _count?: boolean | Prisma.PersonnelCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["personnel"]>
 
 export type PersonnelSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -772,8 +643,6 @@ export type PersonnelSelectScalar = {
 export type PersonnelOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "position" | "phone" | "email" | "specialty" | "isActive" | "personnelCategoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["personnel"]>
 export type PersonnelInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.Personnel$categoryArgs<ExtArgs>
-  assignments?: boolean | Prisma.Personnel$assignmentsArgs<ExtArgs>
-  _count?: boolean | Prisma.PersonnelCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PersonnelIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.Personnel$categoryArgs<ExtArgs>
@@ -786,7 +655,6 @@ export type $PersonnelPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   name: "Personnel"
   objects: {
     category: Prisma.$PersonnelCategoryPayload<ExtArgs> | null
-    assignments: Prisma.$ProjectAssignmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1194,7 +1062,6 @@ readonly fields: PersonnelFieldRefs;
 export interface Prisma__PersonnelClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   category<T extends Prisma.Personnel$categoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Personnel$categoryArgs<ExtArgs>>): Prisma.Prisma__PersonnelCategoryClient<runtime.Types.Result.GetResult<Prisma.$PersonnelCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  assignments<T extends Prisma.Personnel$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Personnel$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1651,30 +1518,6 @@ export type Personnel$categoryArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   include?: Prisma.PersonnelCategoryInclude<ExtArgs> | null
   where?: Prisma.PersonnelCategoryWhereInput
-}
-
-/**
- * Personnel.assignments
- */
-export type Personnel$assignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProjectAssignment
-   */
-  select?: Prisma.ProjectAssignmentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProjectAssignment
-   */
-  omit?: Prisma.ProjectAssignmentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProjectAssignmentInclude<ExtArgs> | null
-  where?: Prisma.ProjectAssignmentWhereInput
-  orderBy?: Prisma.ProjectAssignmentOrderByWithRelationInput | Prisma.ProjectAssignmentOrderByWithRelationInput[]
-  cursor?: Prisma.ProjectAssignmentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProjectAssignmentScalarFieldEnum | Prisma.ProjectAssignmentScalarFieldEnum[]
 }
 
 /**

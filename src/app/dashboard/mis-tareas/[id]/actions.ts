@@ -11,7 +11,7 @@ export async function getProjectForReport(projectId: string) {
 
   // Validate the user is assigned to this project
   const assignment = await prisma.projectAssignment.findFirst({
-    where: { projectId, personnelId: user.id }
+    where: { projectId, technicianId: user.id }
   });
 
   if (!assignment) return null;
