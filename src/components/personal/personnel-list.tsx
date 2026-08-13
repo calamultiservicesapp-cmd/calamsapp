@@ -51,8 +51,8 @@ function PersonnelMemberForm({
   }, [state]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-lg border border-slate-200 dark:border-slate-800">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
+      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-2xl border border-slate-200 dark:border-slate-800">
         <div className="flex items-center justify-between p-5 border-b border-slate-200 dark:border-slate-800">
           <h3 className="text-lg font-heading tracking-wider text-slate-800 dark:text-white">
             {mode === "create" ? "Registrar Personal" : "Editar Personal"}
@@ -189,8 +189,9 @@ export function PersonnelList({
   }
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-      <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50 dark:bg-slate-950/50">
+    <>
+      <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+        <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50 dark:bg-slate-950/50">
         <div>
           <h3 className="font-heading tracking-wider text-slate-800 dark:text-white flex items-center gap-2">
             <User className="h-5 w-5 text-orange-500" />
@@ -296,6 +297,6 @@ export function PersonnelList({
           onClose={() => setEditingItem(null)}
         />
       )}
-    </div>
+    </>
   );
 }
