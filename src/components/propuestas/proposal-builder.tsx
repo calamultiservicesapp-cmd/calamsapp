@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { generateProposal, approveProposal, rejectProposal } from "@/app/dashboard/proyectos/[id]/propuesta/actions";
+import { generateProposal, approveProposal, rejectProposal, sendProposalEmail } from "@/app/dashboard/proyectos/[id]/propuesta/actions";
 import {
   FileText, AlertCircle, CheckCircle2, Loader2,
-  Tag, ShieldAlert, Users, MapPin, XCircle, History
+  Tag, ShieldAlert, Users, MapPin, XCircle, History, Mail
 } from "lucide-react";
 
 type ProposalProject = {
@@ -112,6 +112,19 @@ export function ProposalBuilder({ project }: { project: ProposalProject }) {
       } else {
         setError(res.error ?? "Error");
       }
+    });
+  }
+
+  const [isSending, startSending] = useTransition();
+  const [emailSent, setEmailSent] = useState(false);
+
+  function handleSendEmail(lang: 'es' | 'en') {
+    setError(null);
+    setEmailSent(false);
+    startSending(async () => {
+      const res = await sendProposalEmail(project.id, lang);
+      if (res.error) setError(res.error);
+      else setEmailSent(true);
     });
   }
 
@@ -223,34 +236,57 @@ export function ProposalBuilder({ project }: { project: ProposalProject }) {
                 </div>
               </div>
 
+              <div className="pt-3 border-t border-slate-800 space-y-3 mt-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <a href={`/api/pdf/propuesta/${project.id}?lang=en`} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 h-10 rounded-md bg-slate-800 hover:bg-slate-700 text-sm font-medium transition-colors text-slate-200">
+                    <FileText className="h-4 w-4 text-orange-400" /> Ver PDF (EN)
+                  </a>
+                  <a href={`/api/pdf/propuesta/${project.id}?lang=es`} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 h-10 rounded-md bg-slate-800 hover:bg-slate-700 text-sm font-medium transition-colors text-slate-200">
+                    <FileText className="h-4 w-4 text-orange-400" /> Ver PDF (ES)
+                  </a>
+                </div>
+                
+                <div className="flex flex-col gap-2">
+                  <button
+                    onClick={() => handleSendEmail('en')}
+                    disabled={isSending || emailSent}
+                    className="w-full inline-flex items-center justify-center gap-2 h-10 rounded-md bg-orange-600 hover:bg-orange-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
+                  >
+                    {isSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                    {emailSent ? "Enviado" : "Enviar PDF (EN) al Cliente"}
+                  </button>
+                  <button
+                    onClick={() => handleSendEmail('es')}
+                    disabled={isSending || emailSent}
+                    className="w-full inline-flex items-center justify-center gap-2 h-10 rounded-md bg-orange-600 hover:bg-orange-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
+                  >
+                    {isSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                    {emailSent ? "Enviado" : "Enviar PDF (ES) al Cliente"}
+                  </button>
+                  {emailSent && (
+                    <p className="text-xs text-green-400 text-center">Se ha enviado un enlace al cliente por correo.</p>
+                  )}
+                </div>
+              </div>
+
               {!approved && (
                 <div className="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-slate-800">
                   <button
                     onClick={handleApprove}
-                    disabled={isApproving || isRejecting}
+                    disabled={isApproving || isRejecting || isSending}
                     className="w-full inline-flex items-center justify-center gap-2 h-10 rounded-md bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
                   >
                     {isApproving ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
-                    Aprobada
+                    Aprobar (Firma)
                   </button>
                   <button
                     onClick={handleReject}
-                    disabled={isRejecting || isApproving}
+                    disabled={isRejecting || isApproving || isSending}
                     className="w-full inline-flex items-center justify-center gap-2 h-10 rounded-md bg-red-600/20 hover:bg-red-600/40 text-red-400 text-sm font-medium transition-colors border border-red-900/50 disabled:opacity-50"
                   >
                     {isRejecting ? <Loader2 className="h-4 w-4 animate-spin" /> : <XCircle className="h-4 w-4" />}
-                    Rechazada
+                    Rechazar
                   </button>
-                </div>
-              )}
-              {approved && (
-                <div className="pt-3 border-t border-slate-800 grid grid-cols-2 gap-3 mt-4">
-                  <a href={`/api/pdf/propuesta/${project.id}?lang=en`} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 h-10 rounded-md bg-slate-800 hover:bg-slate-700 text-sm font-medium transition-colors text-slate-200">
-                    <FileText className="h-4 w-4 text-orange-400" /> PDF English
-                  </a>
-                  <a href={`/api/pdf/propuesta/${project.id}?lang=es`} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 h-10 rounded-md bg-slate-800 hover:bg-slate-700 text-sm font-medium transition-colors text-slate-200">
-                    <FileText className="h-4 w-4 text-orange-400" /> PDF Español
-                  </a>
                 </div>
               )}
             </div>

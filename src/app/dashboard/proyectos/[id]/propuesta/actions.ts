@@ -156,3 +156,78 @@ export async function rejectProposal(projectId: string) {
     return { error: "Error al rechazar la propuesta." };
   }
 }
+
+export async function sendProposalEmail(projectId: string, lang: 'es' | 'en' = 'en') {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: "No autorizado" };
+
+  try {
+    const project = await prisma.project.findUnique({
+      where: { id: projectId },
+      include: { client: true },
+    });
+
+    if (!project || !project.client.email) {
+      return { error: "El cliente no tiene un correo electrónico configurado." };
+    }
+
+    const { Resend } = await import("resend");
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const pdfUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/pdf/propuesta/${projectId}?lang=${lang}`;
+
+    const isSpanish = lang === 'es';
+    const subject = isSpanish 
+      ? `Propuesta de Servicios - ${project.name}` 
+      : `Service Proposal - ${project.name}`;
+      
+    const html = isSpanish ? `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+        <h2>Hola ${project.client.contactName || project.client.name},</h2>
+        <p>Adjunto a este correo encontrarás la propuesta detallada para el proyecto <strong>${project.name}</strong>.</p>
+        <p>
+          <a href="${pdfUrl}" style="display: inline-block; padding: 12px 24px; background-color: #f97316; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 10px;">
+            Ver Propuesta en PDF
+          </a>
+        </p>
+        <p style="margin-top: 24px; font-size: 14px; color: #666;">
+          Si tienes alguna duda o deseas negociar los términos, no dudes en responder a este correo.
+        </p>
+        <hr style="border: none; border-top: 1px solid #eaeaea; margin: 24px 0;" />
+        <p style="font-size: 12px; color: #999;">CALA Multiservices</p>
+      </div>
+    ` : `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+        <h2>Hello ${project.client.contactName || project.client.name},</h2>
+        <p>Attached you will find the detailed proposal for the project <strong>${project.name}</strong>.</p>
+        <p>
+          <a href="${pdfUrl}" style="display: inline-block; padding: 12px 24px; background-color: #f97316; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 10px;">
+            View Proposal PDF
+          </a>
+        </p>
+        <p style="margin-top: 24px; font-size: 14px; color: #666;">
+          If you have any questions or wish to negotiate the terms, please feel free to reply to this email.
+        </p>
+        <hr style="border: none; border-top: 1px solid #eaeaea; margin: 24px 0;" />
+        <p style="font-size: 12px; color: #999;">CALA Multiservices</p>
+      </div>
+    `;
+
+    // Resend requires a verified domain to send from anything other than onboarding@resend.dev
+    // In production, we need the user's verified domain. For now, we will use a fallback or the provided email.
+    // If they haven't verified a domain in Resend, it will only send to their own email (the one registered in Resend).
+    await resend.emails.send({
+      from: "CALA Multiservices <onboarding@resend.dev>",
+      to: project.client.email,
+      subject,
+      html,
+    });
+
+    return { success: true };
+  } catch (err: any) {
+    console.error("Error sending email:", err);
+    return { error: err.message || "Error al enviar el correo." };
+  }
+}
+
