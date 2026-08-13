@@ -52,6 +52,7 @@ export async function submitWalkthrough(formData: FormData) {
 
     const result = await saveWalkthroughItems(projectId, items);
     revalidatePath(`/dashboard/proyectos/${projectId}`);
+    revalidatePath(`/dashboard/proyectos/${projectId}/caminata`);
     return { success: true, pricing: result };
   } catch (err) {
     return { error: err instanceof Error ? err.message : "Error al guardar la caminata." };

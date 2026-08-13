@@ -4,7 +4,8 @@ import { useActionState, useEffect, useState } from "react";
 import { createProject, scheduleAppointment } from "@/app/dashboard/proyectos/actions";
 import {
   Plus, X, Loader2, CheckCircle2, AlertCircle, FolderKanban,
-  CalendarDays, Clock, ChevronRight, Users
+  CalendarDays, Clock, ChevronRight, Users,
+  CalendarCheck, Footprints, FileText, ClipboardCheck, Receipt,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -31,6 +32,79 @@ const statusConfig: Record<string, { label: string; color: string }> = {
   facturado:    { label: "Facturado",    color: "bg-violet-100 text-violet-700 dark:bg-violet-950 dark:text-violet-300" },
   cerrado:      { label: "Cerrado",      color: "bg-slate-100 text-slate-500" },
 };
+
+// The 6-step pipeline definition for each project card
+const PIPELINE_STEPS = [
+  { id: 1, label: "Propuesta", icon: CalendarDays,    subpath: "",           statuses: ["cita"] },
+  { id: 2, label: "Caminata",  icon: Footprints,      subpath: "/caminata",  statuses: ["caminata"] },
+  { id: 3, label: "Cotización",icon: FileText,        subpath: "/propuesta", statuses: ["propuesta", "aprobado"] },
+  { id: 4, label: "Fechas",    icon: CalendarCheck,   subpath: "/asignacion",statuses: ["asignado", "en_ejecucion"] },
+  { id: 5, label: "Informe",   icon: ClipboardCheck,  subpath: "/informe",   statuses: ["informe"] },
+  { id: 6, label: "Factura",   icon: Receipt,         subpath: "/factura",   statuses: ["facturado", "cerrado"] },
+];
+
+const STATUS_ORDER = [
+  "cita", "caminata", "propuesta", "aprobado",
+  "asignado", "en_ejecucion", "informe", "facturado", "cerrado",
+];
+
+function MiniPipeline({ projectId, status }: { projectId: string; status: string }) {
+  const currentIdx = STATUS_ORDER.indexOf(status);
+
+  // Map each step to a state: "done" | "active" | "pending"
+  const getStepState = (step: typeof PIPELINE_STEPS[0]) => {
+    const stepStatuses = step.statuses;
+    const stepMinIdx = Math.min(...stepStatuses.map((s) => STATUS_ORDER.indexOf(s)));
+    if (currentIdx > stepStatuses.map((s) => STATUS_ORDER.indexOf(s)).at(-1)!) return "done";
+    if (stepStatuses.includes(status)) return "active";
+    return "pending";
+  };
+
+  return (
+    <div className="flex items-center gap-0.5 w-full pt-1">
+      {PIPELINE_STEPS.map((step, idx) => {
+        const Icon = step.icon;
+        const state = getStepState(step);
+        const isLast = idx === PIPELINE_STEPS.length - 1;
+
+        return (
+          <div key={step.id} className="flex items-center flex-1 min-w-0">
+            {/* Step node */}
+            <Link
+              href={`/dashboard/proyectos/${projectId}${step.subpath}`}
+              onClick={(e) => e.stopPropagation()}
+              title={step.label}
+              className={`relative flex items-center justify-center w-7 h-7 rounded-full border-2 shrink-0 transition-all
+                ${state === "done"
+                  ? "bg-orange-500 border-orange-500 text-white"
+                  : state === "active"
+                  ? "bg-white dark:bg-slate-900 border-orange-500 text-orange-500 shadow-md shadow-orange-100 dark:shadow-orange-950/50 scale-110"
+                  : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-600 text-slate-300 dark:text-slate-600"
+                }`}
+            >
+              {state === "done" ? (
+                <CheckCircle2 className="h-3.5 w-3.5" />
+              ) : (
+                <Icon className="h-3 w-3" />
+              )}
+              {/* Active pulse ring */}
+              {state === "active" && (
+                <span className="absolute inset-0 rounded-full border-2 border-orange-400 animate-ping opacity-30" />
+              )}
+            </Link>
+
+            {/* Connector line */}
+            {!isLast && (
+              <div className={`h-0.5 flex-1 mx-0.5 rounded-full transition-colors
+                ${state === "done" ? "bg-orange-400" : "bg-slate-200 dark:bg-slate-700"}`}
+              />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 const initialState: any = { success: false, error: "" };
 
@@ -161,8 +235,9 @@ export function ProjectList({
                 <Link
                   key={project.id}
                   href={`/dashboard/proyectos/${project.id}`}
-                  className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-md transition-shadow group flex flex-col gap-3"
+                  className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-md hover:border-orange-200 dark:hover:border-orange-900 transition-all group flex flex-col gap-3"
                 >
+                  {/* Header */}
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="font-semibold text-slate-800 dark:text-white group-hover:text-orange-500 transition-colors leading-tight">
                       {project.name}
@@ -172,11 +247,13 @@ export function ProjectList({
                     </span>
                   </div>
 
+                  {/* Client */}
                   <div className="flex items-center gap-1.5 text-sm text-slate-500">
                     <Users className="h-3.5 w-3.5 shrink-0" />
                     {project.client.name}
                   </div>
 
+                  {/* Appointment */}
                   {project.appointment && (
                     <div className="flex items-center gap-1.5 text-xs text-slate-400">
                       <CalendarDays className="h-3.5 w-3.5 shrink-0" />
@@ -187,6 +264,47 @@ export function ProjectList({
                     </div>
                   )}
 
+                  {/* ── Mini Pipeline ── */}
+                  <div className="pt-1 pb-1">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                        Progreso del proyecto
+                      </span>
+                      <span className="text-[10px] text-slate-400">
+                        Paso {PIPELINE_STEPS.findIndex((s) => s.statuses.includes(project.status)) + 1 || PIPELINE_STEPS.length} / {PIPELINE_STEPS.length}
+                      </span>
+                    </div>
+                    <MiniPipeline projectId={project.id} status={project.status} />
+                    {/* Step labels row */}
+                    <div className="flex mt-1.5">
+                      {PIPELINE_STEPS.map((step) => {
+                        const state =
+                          step.statuses.includes(project.status)
+                            ? "active"
+                            : STATUS_ORDER.indexOf(project.status) >
+                              Math.max(...step.statuses.map((s) => STATUS_ORDER.indexOf(s)))
+                            ? "done"
+                            : "pending";
+                        return (
+                          <div key={step.id} className="flex-1 text-center">
+                            <span
+                              className={`text-[9px] leading-tight block truncate px-0.5 ${
+                                state === "active"
+                                  ? "text-orange-500 font-bold"
+                                  : state === "done"
+                                  ? "text-slate-500 dark:text-slate-400"
+                                  : "text-slate-300 dark:text-slate-600"
+                              }`}
+                            >
+                              {step.label}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Footer */}
                   <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-100 dark:border-slate-800">
                     <span className="text-xs text-slate-400 flex items-center gap-1">
                       <Clock className="h-3 w-3" />
