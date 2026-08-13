@@ -77,7 +77,7 @@ export async function updateProjectStatus(projectId: string, status: string) {
   }
 }
 
-export async function scheduleAppointment(formData: FormData) {
+export async function scheduleAppointment(state: any, formData: FormData) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };
