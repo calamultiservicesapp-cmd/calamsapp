@@ -85,7 +85,6 @@ model Profile {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  assignments    ProjectAssignment[]
   fieldReports   FieldReport[]
   projectsCreated Project[] @relation("ProjectCreator")
   auditLogs      AuditLog[]
@@ -125,16 +124,38 @@ model PricingConfig {
 }
 
 model PersonnelCategory {
-  id         String   @id @default(uuid()) @db.Uuid
-  name       String   @unique
-  labelEs    String   @map("label_es")
-  labelEn    String   @map("label_en")
-  hourlyRate Decimal  @map("hourly_rate") @db.Decimal(10, 2)
-  isActive   Boolean  @default(true) @map("is_active")
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  id         String      @id @default(uuid()) @db.Uuid
+  name       String      @unique
+  labelEs    String      @map("label_es")
+  labelEn    String      @map("label_en")
+  hourlyRate Decimal     @map("hourly_rate") @db.Decimal(10, 2)
+  isActive   Boolean     @default(true) @map("is_active")
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  personnel  Personnel[]
 
   @@map("personnel_categories")
+}
+
+model Personnel {
+  id                 String            @id @default(uuid()) @db.Uuid
+  fullName           String            @map("full_name")
+  position           String?
+  phone              String?
+  email              String?
+  specialty          String?
+  isActive           Boolean           @default(true) @map("is_active")
+  personnelCategoryId String?          @map("personnel_category_id") @db.Uuid
+  createdAt          DateTime          @default(now()) @map("created_at")
+  updatedAt          DateTime          @updatedAt @map("updated_at")
+
+  // Relations
+  category    PersonnelCategory?  @relation(fields: [personnelCategoryId], references: [id])
+  assignments ProjectAssignment[]
+
+  @@map("personnel")
 }
 
 model Activity {
@@ -280,16 +301,16 @@ model Proposal {
 }
 
 model ProjectAssignment {
-  id           String   @id @default(uuid()) @db.Uuid
-  projectId    String   @map("project_id") @db.Uuid
-  technicianId String   @map("technician_id") @db.Uuid
-  startDate    DateTime @map("start_date") @db.Date
-  endDate      DateTime @map("end_date") @db.Date
-  notes        String?
+  id          String   @id @default(uuid()) @db.Uuid
+  projectId   String   @map("project_id") @db.Uuid
+  personnelId String   @map("personnel_id") @db.Uuid
+  startDate   DateTime @map("start_date") @db.Date
+  endDate     DateTime @map("end_date") @db.Date
+  notes       String?
 
   // Relations
-  project    Project @relation(fields: [projectId], references: [id])
-  technician Profile @relation(fields: [technicianId], references: [id])
+  project   Project   @relation(fields: [projectId], references: [id])
+  personnel Personnel @relation(fields: [personnelId], references: [id])
 
   @@map("project_assignments")
 }
