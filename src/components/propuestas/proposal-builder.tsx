@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { generateProposal, approveProposal } from "@/app/dashboard/proyectos/[id]/propuesta/actions";
+import { generateProposal, approveProposal, rejectProposal } from "@/app/dashboard/proyectos/[id]/propuesta/actions";
 import {
   FileText, AlertCircle, CheckCircle2, Loader2,
-  Tag, ShieldAlert, Users, MapPin
+  Tag, ShieldAlert, Users, MapPin, XCircle, History
 } from "lucide-react";
 
 type ProposalProject = {
@@ -28,6 +28,14 @@ type ProposalProject = {
     status: string;
     approvedAt: string | null;
   } | null;
+  proposalRevisions: Array<{
+    id: string;
+    listPrice: string;
+    floorPrice: string;
+    discountApplied: string;
+    finalPrice: string;
+    rejectedAt: string;
+  }>;
 };
 
 const personnelLabels: Record<string, string> = {
@@ -44,10 +52,14 @@ export function ProposalBuilder({ project }: { project: ProposalProject }) {
     project.proposal ? parseFloat(project.proposal.discountApplied) : 0
   );
   const [error, setError] = useState<string | null>(null);
+  
+  // Si la propuesta actual fue rechazada, reseteamos la vista a "modo renegociación"
+  const isCurrentlyRejected = project.proposal?.status === "rechazada";
+  
   const [result, setResult] = useState<{
     listPrice: number; floorPrice: number; finalPrice: number; discountPercent: number;
   } | null>(
-    project.proposal
+    project.proposal && !isCurrentlyRejected
       ? {
           listPrice: parseFloat(project.proposal.listPrice),
           floorPrice: parseFloat(project.proposal.floorPrice),
@@ -59,6 +71,7 @@ export function ProposalBuilder({ project }: { project: ProposalProject }) {
   const [approved, setApproved] = useState(project.proposal?.status === "aprobada");
   const [isPending, startTransition] = useTransition();
   const [isApproving, startApproving] = useTransition();
+  const [isRejecting, startRejecting] = useTransition();
 
   const laborTotal = project.walkthroughItems.reduce((s, wi) => s + parseFloat(wi.computedPrice), 0);
 
@@ -87,6 +100,18 @@ export function ProposalBuilder({ project }: { project: ProposalProject }) {
       const res = await approveProposal(project.id);
       if (res.success) setApproved(true);
       else setError(res.error ?? "Error");
+    });
+  }
+
+  function handleReject() {
+    startRejecting(async () => {
+      const res = await rejectProposal(project.id);
+      if (res.success) {
+        // Al rechazar, quitamos el resultado para forzar a que renegocie
+        setResult(null);
+      } else {
+        setError(res.error ?? "Error");
+      }
     });
   }
 
@@ -169,7 +194,7 @@ export function ProposalBuilder({ project }: { project: ProposalProject }) {
               className="w-full inline-flex items-center justify-center gap-2 h-11 rounded-md bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-medium transition-colors disabled:opacity-50"
             >
               {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileText className="h-4 w-4" />}
-              Calcular Propuesta
+              {result ? "Recalcular Propuesta" : "Generar Propuesta"}
             </button>
 
             {error && (
@@ -199,14 +224,24 @@ export function ProposalBuilder({ project }: { project: ProposalProject }) {
               </div>
 
               {!approved && (
-                <button
-                  onClick={handleApprove}
-                  disabled={isApproving}
-                  className="w-full mt-3 inline-flex items-center justify-center gap-2 h-11 rounded-md bg-green-600 hover:bg-green-700 text-white font-medium transition-colors disabled:opacity-50"
-                >
-                  {isApproving ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
-                  Marcar como Aprobada por el Cliente
-                </button>
+                <div className="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-slate-800">
+                  <button
+                    onClick={handleApprove}
+                    disabled={isApproving || isRejecting}
+                    className="w-full inline-flex items-center justify-center gap-2 h-10 rounded-md bg-green-600 hover:bg-green-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
+                  >
+                    {isApproving ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
+                    Aprobada
+                  </button>
+                  <button
+                    onClick={handleReject}
+                    disabled={isRejecting || isApproving}
+                    className="w-full inline-flex items-center justify-center gap-2 h-10 rounded-md bg-red-600/20 hover:bg-red-600/40 text-red-400 text-sm font-medium transition-colors border border-red-900/50 disabled:opacity-50"
+                  >
+                    {isRejecting ? <Loader2 className="h-4 w-4 animate-spin" /> : <XCircle className="h-4 w-4" />}
+                    Rechazada
+                  </button>
+                </div>
               )}
               {approved && (
                 <div className="pt-3 border-t border-slate-800 grid grid-cols-2 gap-3 mt-4">
@@ -262,6 +297,44 @@ export function ProposalBuilder({ project }: { project: ProposalProject }) {
           )}
         </div>
       </div>
+
+      {/* Historial de Propuestas Rechazadas */}
+      {project.proposalRevisions.length > 0 && (
+        <div className="bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+          <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2">
+            <History className="h-5 w-5 text-slate-400" />
+            <h3 className="font-heading tracking-wider text-slate-800 dark:text-slate-200">Historial de Rechazos</h3>
+          </div>
+          <div className="divide-y divide-slate-200 dark:divide-slate-800">
+            {project.proposalRevisions.map((rev) => (
+              <div key={rev.id} className="p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                    Propuesta por {fmt(rev.finalPrice)}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Rechazada el {new Date(rev.rejectedAt).toLocaleDateString()} a las {new Date(rev.rejectedAt).toLocaleTimeString()}
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-medium bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-full">
+                    Descuento {rev.discountApplied}%
+                  </span>
+                  <a
+                    href={`/api/pdf/propuesta/revision/${rev.id}?lang=en`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 h-8 px-3 rounded text-xs font-medium border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  >
+                    <FileText className="h-3 w-3 text-orange-500" /> Ver PDF
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+

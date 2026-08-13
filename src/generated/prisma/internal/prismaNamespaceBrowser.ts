@@ -63,6 +63,7 @@ export const ModelName = {
   FieldEvaluation: 'FieldEvaluation',
   SystemInspection: 'SystemInspection',
   Proposal: 'Proposal',
+  ProposalRevision: 'ProposalRevision',
   ProjectAssignment: 'ProjectAssignment',
   FieldReport: 'FieldReport',
   FieldReportItem: 'FieldReportItem',
@@ -273,6 +274,19 @@ export const ProposalScalarFieldEnum = {
 } as const
 
 export type ProposalScalarFieldEnum = (typeof ProposalScalarFieldEnum)[keyof typeof ProposalScalarFieldEnum]
+
+
+export const ProposalRevisionScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  listPrice: 'listPrice',
+  floorPrice: 'floorPrice',
+  discountApplied: 'discountApplied',
+  finalPrice: 'finalPrice',
+  rejectedAt: 'rejectedAt'
+} as const
+
+export type ProposalRevisionScalarFieldEnum = (typeof ProposalRevisionScalarFieldEnum)[keyof typeof ProposalRevisionScalarFieldEnum]
 
 
 export const ProjectAssignmentScalarFieldEnum = {

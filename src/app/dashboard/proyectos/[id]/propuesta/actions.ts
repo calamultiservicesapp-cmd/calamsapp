@@ -16,6 +16,9 @@ export async function getProposalData(projectId: string) {
         include: { activity: { select: { nameEs: true, nameEn: true } } },
       },
       proposal: true,
+      proposalRevisions: {
+        orderBy: { rejectedAt: "desc" },
+      },
     },
   });
   return project;
@@ -42,21 +45,17 @@ export async function generateProposal(formData: FormData) {
       return { error: "Este proyecto no tiene actividades en la caminata." };
     }
 
-    // Recalcular con los snapshots guardados de la caminata
     const items = project.walkthroughItems.map((wi) => ({
       activityId: wi.activityId,
       personnelType: wi.personnelType as PersonnelType,
       hours: wi.hours.toNumber(),
     }));
 
-    // Usamos una snapshot virtual basada en los datos guardados
-    // (cada ítem guardó su rateSnapshot, así que no modificamos nada)
     const laborCost = project.walkthroughItems.reduce(
       (sum, wi) => sum + wi.computedPrice.toNumber(),
       0
     );
 
-    // Obtener overhead y margen actual (para nuevas propuestas)
     const config = await prisma.pricingConfig.findFirst();
     if (!config) return { error: "No hay configuración de precios." };
 
@@ -65,10 +64,8 @@ export async function generateProposal(formData: FormData) {
     const listPrice = parseFloat((totalCost * (1 + config.profitMargin.toNumber() / 100)).toFixed(2));
     const floorPrice = listPrice; // El floor es el precio de lista (0% descuento = margen mínimo)
 
-    // Aplicar descuento (lanza error si perfora el floor)
     const finalPrice = applyDiscount(listPrice, floorPrice, discountPercent);
 
-    // Upsert propuesta
     await prisma.proposal.upsert({
       where: { projectId },
       create: {
@@ -88,7 +85,6 @@ export async function generateProposal(formData: FormData) {
       },
     });
 
-    // Avanzar estado del proyecto
     await prisma.project.update({
       where: { id: projectId },
       data: { status: "propuesta" },
@@ -123,5 +119,41 @@ export async function approveProposal(projectId: string) {
     return { success: true };
   } catch {
     return { error: "Error al aprobar la propuesta." };
+  }
+}
+
+export async function rejectProposal(projectId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: "No autorizado" };
+
+  try {
+    const proposal = await prisma.proposal.findUnique({ where: { projectId } });
+    if (!proposal) return { error: "Cotización no encontrada." };
+
+    await prisma.$transaction(async (tx) => {
+      // 1. Guardar la versión en el historial (ProposalRevision)
+      await (tx as any).proposalRevision.create({
+        data: {
+          projectId: proposal.projectId,
+          listPrice: proposal.listPrice,
+          floorPrice: proposal.floorPrice,
+          discountApplied: proposal.discountApplied,
+          finalPrice: proposal.finalPrice,
+        }
+      });
+
+      // 2. Marcar el proposal actual como borrador de nuevo para permitir edición
+      await tx.proposal.update({
+        where: { projectId },
+        data: { status: "borrador" }, // Se reinicia
+      });
+    });
+
+    revalidatePath(`/dashboard/proyectos/${projectId}/propuesta`);
+    return { success: true };
+  } catch (error: any) {
+    console.error(error);
+    return { error: "Error al rechazar la propuesta." };
   }
 }

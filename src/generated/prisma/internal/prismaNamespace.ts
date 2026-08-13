@@ -409,6 +409,7 @@ export const ModelName = {
   FieldEvaluation: 'FieldEvaluation',
   SystemInspection: 'SystemInspection',
   Proposal: 'Proposal',
+  ProposalRevision: 'ProposalRevision',
   ProjectAssignment: 'ProjectAssignment',
   FieldReport: 'FieldReport',
   FieldReportItem: 'FieldReportItem',
@@ -430,7 +431,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "profile" | "client" | "pricingConfig" | "personnelCategory" | "personnel" | "activity" | "project" | "appointment" | "walkthroughItem" | "fieldEvaluation" | "systemInspection" | "proposal" | "projectAssignment" | "fieldReport" | "fieldReportItem" | "fieldReportPhoto" | "invoice" | "auditLog"
+    modelProps: "profile" | "client" | "pricingConfig" | "personnelCategory" | "personnel" | "activity" | "project" | "appointment" | "walkthroughItem" | "fieldEvaluation" | "systemInspection" | "proposal" | "proposalRevision" | "projectAssignment" | "fieldReport" | "fieldReportItem" | "fieldReportPhoto" | "invoice" | "auditLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1322,6 +1323,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ProposalRevision: {
+      payload: Prisma.$ProposalRevisionPayload<ExtArgs>
+      fields: Prisma.ProposalRevisionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProposalRevisionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProposalRevisionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProposalRevisionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProposalRevisionPayload>
+        }
+        findFirst: {
+          args: Prisma.ProposalRevisionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProposalRevisionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProposalRevisionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProposalRevisionPayload>
+        }
+        findMany: {
+          args: Prisma.ProposalRevisionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProposalRevisionPayload>[]
+        }
+        create: {
+          args: Prisma.ProposalRevisionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProposalRevisionPayload>
+        }
+        createMany: {
+          args: Prisma.ProposalRevisionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProposalRevisionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProposalRevisionPayload>[]
+        }
+        delete: {
+          args: Prisma.ProposalRevisionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProposalRevisionPayload>
+        }
+        update: {
+          args: Prisma.ProposalRevisionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProposalRevisionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProposalRevisionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProposalRevisionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProposalRevisionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProposalRevisionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProposalRevisionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProposalRevisionPayload>
+        }
+        aggregate: {
+          args: Prisma.ProposalRevisionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProposalRevision>
+        }
+        groupBy: {
+          args: Prisma.ProposalRevisionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProposalRevisionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProposalRevisionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProposalRevisionCountAggregateOutputType> | number
+        }
+      }
+    }
     ProjectAssignment: {
       payload: Prisma.$ProjectAssignmentPayload<ExtArgs>
       fields: Prisma.ProjectAssignmentFieldRefs
@@ -1993,6 +2068,19 @@ export const ProposalScalarFieldEnum = {
 export type ProposalScalarFieldEnum = (typeof ProposalScalarFieldEnum)[keyof typeof ProposalScalarFieldEnum]
 
 
+export const ProposalRevisionScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  listPrice: 'listPrice',
+  floorPrice: 'floorPrice',
+  discountApplied: 'discountApplied',
+  finalPrice: 'finalPrice',
+  rejectedAt: 'rejectedAt'
+} as const
+
+export type ProposalRevisionScalarFieldEnum = (typeof ProposalRevisionScalarFieldEnum)[keyof typeof ProposalRevisionScalarFieldEnum]
+
+
 export const ProjectAssignmentScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
@@ -2492,6 +2580,7 @@ export type GlobalOmitConfig = {
   fieldEvaluation?: Prisma.FieldEvaluationOmit
   systemInspection?: Prisma.SystemInspectionOmit
   proposal?: Prisma.ProposalOmit
+  proposalRevision?: Prisma.ProposalRevisionOmit
   projectAssignment?: Prisma.ProjectAssignmentOmit
   fieldReport?: Prisma.FieldReportOmit
   fieldReportItem?: Prisma.FieldReportItemOmit

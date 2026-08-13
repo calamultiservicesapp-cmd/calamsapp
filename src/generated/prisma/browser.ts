@@ -78,6 +78,11 @@ export type SystemInspection = Prisma.SystemInspectionModel
  */
 export type Proposal = Prisma.ProposalModel
 /**
+ * Model ProposalRevision
+ * 
+ */
+export type ProposalRevision = Prisma.ProposalRevisionModel
+/**
  * Model ProjectAssignment
  * 
  */

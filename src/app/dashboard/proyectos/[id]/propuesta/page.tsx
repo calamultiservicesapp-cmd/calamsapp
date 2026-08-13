@@ -72,6 +72,14 @@ export default async function PropuestaPage({ params }: { params: Promise<{ id: 
           approvedAt: project.proposal.approvedAt?.toISOString() ?? null,
         }
       : null,
+    proposalRevisions: (project as any).proposalRevisions?.map((rev: any) => ({
+      id: rev.id,
+      listPrice: rev.listPrice.toString(),
+      floorPrice: rev.floorPrice.toString(),
+      discountApplied: rev.discountApplied.toString(),
+      finalPrice: rev.finalPrice.toString(),
+      rejectedAt: rev.rejectedAt.toISOString(),
+    })) || [],
   };
 
   return (
