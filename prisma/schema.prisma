@@ -339,10 +339,24 @@ model FieldReportItem {
   notes             String?
 
   // Relations
-  fieldReport     FieldReport     @relation(fields: [fieldReportId], references: [id])
-  walkthroughItem WalkthroughItem @relation(fields: [walkthroughItemId], references: [id])
+  fieldReport     FieldReport       @relation(fields: [fieldReportId], references: [id])
+  walkthroughItem WalkthroughItem   @relation(fields: [walkthroughItemId], references: [id])
+  photos          FieldReportPhoto[]
 
   @@map("field_report_items")
+}
+
+model FieldReportPhoto {
+  id                String   @id @default(uuid()) @db.Uuid
+  fieldReportItemId String   @map("field_report_item_id") @db.Uuid
+  url               String
+  caption           String?
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  // Relations
+  fieldReportItem FieldReportItem @relation(fields: [fieldReportItemId], references: [id], onDelete: Cascade)
+
+  @@map("field_report_photos")
 }
 
 model Invoice {

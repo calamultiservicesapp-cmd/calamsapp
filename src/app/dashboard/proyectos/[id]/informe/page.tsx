@@ -61,6 +61,7 @@ export default async function InformePage({ params }: { params: Promise<{ id: st
       ? {
           status: wi.fieldReportItem.status,
           notes: wi.fieldReportItem.notes,
+          photos: (wi.fieldReportItem as any).photos ?? [],
         }
       : null,
   }));

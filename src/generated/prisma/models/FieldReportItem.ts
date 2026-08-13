@@ -184,6 +184,7 @@ export type FieldReportItemWhereInput = {
   notes?: Prisma.StringNullableFilter<"FieldReportItem"> | string | null
   fieldReport?: Prisma.XOR<Prisma.FieldReportScalarRelationFilter, Prisma.FieldReportWhereInput>
   walkthroughItem?: Prisma.XOR<Prisma.WalkthroughItemScalarRelationFilter, Prisma.WalkthroughItemWhereInput>
+  photos?: Prisma.FieldReportPhotoListRelationFilter
 }
 
 export type FieldReportItemOrderByWithRelationInput = {
@@ -194,6 +195,7 @@ export type FieldReportItemOrderByWithRelationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   fieldReport?: Prisma.FieldReportOrderByWithRelationInput
   walkthroughItem?: Prisma.WalkthroughItemOrderByWithRelationInput
+  photos?: Prisma.FieldReportPhotoOrderByRelationAggregateInput
 }
 
 export type FieldReportItemWhereUniqueInput = Prisma.AtLeast<{
@@ -207,6 +209,7 @@ export type FieldReportItemWhereUniqueInput = Prisma.AtLeast<{
   notes?: Prisma.StringNullableFilter<"FieldReportItem"> | string | null
   fieldReport?: Prisma.XOR<Prisma.FieldReportScalarRelationFilter, Prisma.FieldReportWhereInput>
   walkthroughItem?: Prisma.XOR<Prisma.WalkthroughItemScalarRelationFilter, Prisma.WalkthroughItemWhereInput>
+  photos?: Prisma.FieldReportPhotoListRelationFilter
 }, "id" | "walkthroughItemId">
 
 export type FieldReportItemOrderByWithAggregationInput = {
@@ -237,6 +240,7 @@ export type FieldReportItemCreateInput = {
   notes?: string | null
   fieldReport: Prisma.FieldReportCreateNestedOneWithoutItemsInput
   walkthroughItem: Prisma.WalkthroughItemCreateNestedOneWithoutFieldReportItemInput
+  photos?: Prisma.FieldReportPhotoCreateNestedManyWithoutFieldReportItemInput
 }
 
 export type FieldReportItemUncheckedCreateInput = {
@@ -245,6 +249,7 @@ export type FieldReportItemUncheckedCreateInput = {
   walkthroughItemId: string
   status: $Enums.ReportItemStatus
   notes?: string | null
+  photos?: Prisma.FieldReportPhotoUncheckedCreateNestedManyWithoutFieldReportItemInput
 }
 
 export type FieldReportItemUpdateInput = {
@@ -253,6 +258,7 @@ export type FieldReportItemUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldReport?: Prisma.FieldReportUpdateOneRequiredWithoutItemsNestedInput
   walkthroughItem?: Prisma.WalkthroughItemUpdateOneRequiredWithoutFieldReportItemNestedInput
+  photos?: Prisma.FieldReportPhotoUpdateManyWithoutFieldReportItemNestedInput
 }
 
 export type FieldReportItemUncheckedUpdateInput = {
@@ -261,6 +267,7 @@ export type FieldReportItemUncheckedUpdateInput = {
   walkthroughItemId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumReportItemStatusFieldUpdateOperationsInput | $Enums.ReportItemStatus
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photos?: Prisma.FieldReportPhotoUncheckedUpdateManyWithoutFieldReportItemNestedInput
 }
 
 export type FieldReportItemCreateManyInput = {
@@ -322,6 +329,11 @@ export type FieldReportItemMinOrderByAggregateInput = {
   walkthroughItemId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+}
+
+export type FieldReportItemScalarRelationFilter = {
+  is?: Prisma.FieldReportItemWhereInput
+  isNot?: Prisma.FieldReportItemWhereInput
 }
 
 export type FieldReportItemCreateNestedOneWithoutWalkthroughItemInput = {
@@ -402,11 +414,26 @@ export type EnumReportItemStatusFieldUpdateOperationsInput = {
   set?: $Enums.ReportItemStatus
 }
 
+export type FieldReportItemCreateNestedOneWithoutPhotosInput = {
+  create?: Prisma.XOR<Prisma.FieldReportItemCreateWithoutPhotosInput, Prisma.FieldReportItemUncheckedCreateWithoutPhotosInput>
+  connectOrCreate?: Prisma.FieldReportItemCreateOrConnectWithoutPhotosInput
+  connect?: Prisma.FieldReportItemWhereUniqueInput
+}
+
+export type FieldReportItemUpdateOneRequiredWithoutPhotosNestedInput = {
+  create?: Prisma.XOR<Prisma.FieldReportItemCreateWithoutPhotosInput, Prisma.FieldReportItemUncheckedCreateWithoutPhotosInput>
+  connectOrCreate?: Prisma.FieldReportItemCreateOrConnectWithoutPhotosInput
+  upsert?: Prisma.FieldReportItemUpsertWithoutPhotosInput
+  connect?: Prisma.FieldReportItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FieldReportItemUpdateToOneWithWhereWithoutPhotosInput, Prisma.FieldReportItemUpdateWithoutPhotosInput>, Prisma.FieldReportItemUncheckedUpdateWithoutPhotosInput>
+}
+
 export type FieldReportItemCreateWithoutWalkthroughItemInput = {
   id?: string
   status: $Enums.ReportItemStatus
   notes?: string | null
   fieldReport: Prisma.FieldReportCreateNestedOneWithoutItemsInput
+  photos?: Prisma.FieldReportPhotoCreateNestedManyWithoutFieldReportItemInput
 }
 
 export type FieldReportItemUncheckedCreateWithoutWalkthroughItemInput = {
@@ -414,6 +441,7 @@ export type FieldReportItemUncheckedCreateWithoutWalkthroughItemInput = {
   fieldReportId: string
   status: $Enums.ReportItemStatus
   notes?: string | null
+  photos?: Prisma.FieldReportPhotoUncheckedCreateNestedManyWithoutFieldReportItemInput
 }
 
 export type FieldReportItemCreateOrConnectWithoutWalkthroughItemInput = {
@@ -437,6 +465,7 @@ export type FieldReportItemUpdateWithoutWalkthroughItemInput = {
   status?: Prisma.EnumReportItemStatusFieldUpdateOperationsInput | $Enums.ReportItemStatus
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fieldReport?: Prisma.FieldReportUpdateOneRequiredWithoutItemsNestedInput
+  photos?: Prisma.FieldReportPhotoUpdateManyWithoutFieldReportItemNestedInput
 }
 
 export type FieldReportItemUncheckedUpdateWithoutWalkthroughItemInput = {
@@ -444,6 +473,7 @@ export type FieldReportItemUncheckedUpdateWithoutWalkthroughItemInput = {
   fieldReportId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumReportItemStatusFieldUpdateOperationsInput | $Enums.ReportItemStatus
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photos?: Prisma.FieldReportPhotoUncheckedUpdateManyWithoutFieldReportItemNestedInput
 }
 
 export type FieldReportItemCreateWithoutFieldReportInput = {
@@ -451,6 +481,7 @@ export type FieldReportItemCreateWithoutFieldReportInput = {
   status: $Enums.ReportItemStatus
   notes?: string | null
   walkthroughItem: Prisma.WalkthroughItemCreateNestedOneWithoutFieldReportItemInput
+  photos?: Prisma.FieldReportPhotoCreateNestedManyWithoutFieldReportItemInput
 }
 
 export type FieldReportItemUncheckedCreateWithoutFieldReportInput = {
@@ -458,6 +489,7 @@ export type FieldReportItemUncheckedCreateWithoutFieldReportInput = {
   walkthroughItemId: string
   status: $Enums.ReportItemStatus
   notes?: string | null
+  photos?: Prisma.FieldReportPhotoUncheckedCreateNestedManyWithoutFieldReportItemInput
 }
 
 export type FieldReportItemCreateOrConnectWithoutFieldReportInput = {
@@ -497,6 +529,54 @@ export type FieldReportItemScalarWhereInput = {
   notes?: Prisma.StringNullableFilter<"FieldReportItem"> | string | null
 }
 
+export type FieldReportItemCreateWithoutPhotosInput = {
+  id?: string
+  status: $Enums.ReportItemStatus
+  notes?: string | null
+  fieldReport: Prisma.FieldReportCreateNestedOneWithoutItemsInput
+  walkthroughItem: Prisma.WalkthroughItemCreateNestedOneWithoutFieldReportItemInput
+}
+
+export type FieldReportItemUncheckedCreateWithoutPhotosInput = {
+  id?: string
+  fieldReportId: string
+  walkthroughItemId: string
+  status: $Enums.ReportItemStatus
+  notes?: string | null
+}
+
+export type FieldReportItemCreateOrConnectWithoutPhotosInput = {
+  where: Prisma.FieldReportItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.FieldReportItemCreateWithoutPhotosInput, Prisma.FieldReportItemUncheckedCreateWithoutPhotosInput>
+}
+
+export type FieldReportItemUpsertWithoutPhotosInput = {
+  update: Prisma.XOR<Prisma.FieldReportItemUpdateWithoutPhotosInput, Prisma.FieldReportItemUncheckedUpdateWithoutPhotosInput>
+  create: Prisma.XOR<Prisma.FieldReportItemCreateWithoutPhotosInput, Prisma.FieldReportItemUncheckedCreateWithoutPhotosInput>
+  where?: Prisma.FieldReportItemWhereInput
+}
+
+export type FieldReportItemUpdateToOneWithWhereWithoutPhotosInput = {
+  where?: Prisma.FieldReportItemWhereInput
+  data: Prisma.XOR<Prisma.FieldReportItemUpdateWithoutPhotosInput, Prisma.FieldReportItemUncheckedUpdateWithoutPhotosInput>
+}
+
+export type FieldReportItemUpdateWithoutPhotosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReportItemStatusFieldUpdateOperationsInput | $Enums.ReportItemStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fieldReport?: Prisma.FieldReportUpdateOneRequiredWithoutItemsNestedInput
+  walkthroughItem?: Prisma.WalkthroughItemUpdateOneRequiredWithoutFieldReportItemNestedInput
+}
+
+export type FieldReportItemUncheckedUpdateWithoutPhotosInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fieldReportId?: Prisma.StringFieldUpdateOperationsInput | string
+  walkthroughItemId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReportItemStatusFieldUpdateOperationsInput | $Enums.ReportItemStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
 export type FieldReportItemCreateManyFieldReportInput = {
   id?: string
   walkthroughItemId: string
@@ -509,6 +589,7 @@ export type FieldReportItemUpdateWithoutFieldReportInput = {
   status?: Prisma.EnumReportItemStatusFieldUpdateOperationsInput | $Enums.ReportItemStatus
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walkthroughItem?: Prisma.WalkthroughItemUpdateOneRequiredWithoutFieldReportItemNestedInput
+  photos?: Prisma.FieldReportPhotoUpdateManyWithoutFieldReportItemNestedInput
 }
 
 export type FieldReportItemUncheckedUpdateWithoutFieldReportInput = {
@@ -516,6 +597,7 @@ export type FieldReportItemUncheckedUpdateWithoutFieldReportInput = {
   walkthroughItemId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumReportItemStatusFieldUpdateOperationsInput | $Enums.ReportItemStatus
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photos?: Prisma.FieldReportPhotoUncheckedUpdateManyWithoutFieldReportItemNestedInput
 }
 
 export type FieldReportItemUncheckedUpdateManyWithoutFieldReportInput = {
@@ -526,6 +608,35 @@ export type FieldReportItemUncheckedUpdateManyWithoutFieldReportInput = {
 }
 
 
+/**
+ * Count Type FieldReportItemCountOutputType
+ */
+
+export type FieldReportItemCountOutputType = {
+  photos: number
+}
+
+export type FieldReportItemCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  photos?: boolean | FieldReportItemCountOutputTypeCountPhotosArgs
+}
+
+/**
+ * FieldReportItemCountOutputType without action
+ */
+export type FieldReportItemCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FieldReportItemCountOutputType
+   */
+  select?: Prisma.FieldReportItemCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * FieldReportItemCountOutputType without action
+ */
+export type FieldReportItemCountOutputTypeCountPhotosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FieldReportPhotoWhereInput
+}
+
 
 export type FieldReportItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -535,6 +646,8 @@ export type FieldReportItemSelect<ExtArgs extends runtime.Types.Extensions.Inter
   notes?: boolean
   fieldReport?: boolean | Prisma.FieldReportDefaultArgs<ExtArgs>
   walkthroughItem?: boolean | Prisma.WalkthroughItemDefaultArgs<ExtArgs>
+  photos?: boolean | Prisma.FieldReportItem$photosArgs<ExtArgs>
+  _count?: boolean | Prisma.FieldReportItemCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fieldReportItem"]>
 
 export type FieldReportItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -569,6 +682,8 @@ export type FieldReportItemOmit<ExtArgs extends runtime.Types.Extensions.Interna
 export type FieldReportItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fieldReport?: boolean | Prisma.FieldReportDefaultArgs<ExtArgs>
   walkthroughItem?: boolean | Prisma.WalkthroughItemDefaultArgs<ExtArgs>
+  photos?: boolean | Prisma.FieldReportItem$photosArgs<ExtArgs>
+  _count?: boolean | Prisma.FieldReportItemCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FieldReportItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fieldReport?: boolean | Prisma.FieldReportDefaultArgs<ExtArgs>
@@ -584,6 +699,7 @@ export type $FieldReportItemPayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     fieldReport: Prisma.$FieldReportPayload<ExtArgs>
     walkthroughItem: Prisma.$WalkthroughItemPayload<ExtArgs>
+    photos: Prisma.$FieldReportPhotoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -987,6 +1103,7 @@ export interface Prisma__FieldReportItemClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   fieldReport<T extends Prisma.FieldReportDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieldReportDefaultArgs<ExtArgs>>): Prisma.Prisma__FieldReportClient<runtime.Types.Result.GetResult<Prisma.$FieldReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   walkthroughItem<T extends Prisma.WalkthroughItemDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WalkthroughItemDefaultArgs<ExtArgs>>): Prisma.Prisma__WalkthroughItemClient<runtime.Types.Result.GetResult<Prisma.$WalkthroughItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  photos<T extends Prisma.FieldReportItem$photosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FieldReportItem$photosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FieldReportPhotoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1419,6 +1536,30 @@ export type FieldReportItemDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many FieldReportItems to delete.
    */
   limit?: number
+}
+
+/**
+ * FieldReportItem.photos
+ */
+export type FieldReportItem$photosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FieldReportPhoto
+   */
+  select?: Prisma.FieldReportPhotoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FieldReportPhoto
+   */
+  omit?: Prisma.FieldReportPhotoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FieldReportPhotoInclude<ExtArgs> | null
+  where?: Prisma.FieldReportPhotoWhereInput
+  orderBy?: Prisma.FieldReportPhotoOrderByWithRelationInput | Prisma.FieldReportPhotoOrderByWithRelationInput[]
+  cursor?: Prisma.FieldReportPhotoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FieldReportPhotoScalarFieldEnum | Prisma.FieldReportPhotoScalarFieldEnum[]
 }
 
 /**

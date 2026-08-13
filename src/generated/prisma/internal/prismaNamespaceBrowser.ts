@@ -66,6 +66,7 @@ export const ModelName = {
   ProjectAssignment: 'ProjectAssignment',
   FieldReport: 'FieldReport',
   FieldReportItem: 'FieldReportItem',
+  FieldReportPhoto: 'FieldReportPhoto',
   Invoice: 'Invoice',
   AuditLog: 'AuditLog'
 } as const
@@ -307,6 +308,17 @@ export const FieldReportItemScalarFieldEnum = {
 } as const
 
 export type FieldReportItemScalarFieldEnum = (typeof FieldReportItemScalarFieldEnum)[keyof typeof FieldReportItemScalarFieldEnum]
+
+
+export const FieldReportPhotoScalarFieldEnum = {
+  id: 'id',
+  fieldReportItemId: 'fieldReportItemId',
+  url: 'url',
+  caption: 'caption',
+  createdAt: 'createdAt'
+} as const
+
+export type FieldReportPhotoScalarFieldEnum = (typeof FieldReportPhotoScalarFieldEnum)[keyof typeof FieldReportPhotoScalarFieldEnum]
 
 
 export const InvoiceScalarFieldEnum = {

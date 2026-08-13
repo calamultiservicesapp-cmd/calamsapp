@@ -412,6 +412,7 @@ export const ModelName = {
   ProjectAssignment: 'ProjectAssignment',
   FieldReport: 'FieldReport',
   FieldReportItem: 'FieldReportItem',
+  FieldReportPhoto: 'FieldReportPhoto',
   Invoice: 'Invoice',
   AuditLog: 'AuditLog'
 } as const
@@ -429,7 +430,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "profile" | "client" | "pricingConfig" | "personnelCategory" | "personnel" | "activity" | "project" | "appointment" | "walkthroughItem" | "fieldEvaluation" | "systemInspection" | "proposal" | "projectAssignment" | "fieldReport" | "fieldReportItem" | "invoice" | "auditLog"
+    modelProps: "profile" | "client" | "pricingConfig" | "personnelCategory" | "personnel" | "activity" | "project" | "appointment" | "walkthroughItem" | "fieldEvaluation" | "systemInspection" | "proposal" | "projectAssignment" | "fieldReport" | "fieldReportItem" | "fieldReportPhoto" | "invoice" | "auditLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1543,6 +1544,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FieldReportPhoto: {
+      payload: Prisma.$FieldReportPhotoPayload<ExtArgs>
+      fields: Prisma.FieldReportPhotoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FieldReportPhotoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldReportPhotoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FieldReportPhotoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldReportPhotoPayload>
+        }
+        findFirst: {
+          args: Prisma.FieldReportPhotoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldReportPhotoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FieldReportPhotoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldReportPhotoPayload>
+        }
+        findMany: {
+          args: Prisma.FieldReportPhotoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldReportPhotoPayload>[]
+        }
+        create: {
+          args: Prisma.FieldReportPhotoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldReportPhotoPayload>
+        }
+        createMany: {
+          args: Prisma.FieldReportPhotoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FieldReportPhotoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldReportPhotoPayload>[]
+        }
+        delete: {
+          args: Prisma.FieldReportPhotoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldReportPhotoPayload>
+        }
+        update: {
+          args: Prisma.FieldReportPhotoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldReportPhotoPayload>
+        }
+        deleteMany: {
+          args: Prisma.FieldReportPhotoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FieldReportPhotoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FieldReportPhotoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldReportPhotoPayload>[]
+        }
+        upsert: {
+          args: Prisma.FieldReportPhotoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldReportPhotoPayload>
+        }
+        aggregate: {
+          args: Prisma.FieldReportPhotoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFieldReportPhoto>
+        }
+        groupBy: {
+          args: Prisma.FieldReportPhotoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldReportPhotoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FieldReportPhotoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldReportPhotoCountAggregateOutputType> | number
+        }
+      }
+    }
     Invoice: {
       payload: Prisma.$InvoicePayload<ExtArgs>
       fields: Prisma.InvoiceFieldRefs
@@ -1951,6 +2026,17 @@ export const FieldReportItemScalarFieldEnum = {
 } as const
 
 export type FieldReportItemScalarFieldEnum = (typeof FieldReportItemScalarFieldEnum)[keyof typeof FieldReportItemScalarFieldEnum]
+
+
+export const FieldReportPhotoScalarFieldEnum = {
+  id: 'id',
+  fieldReportItemId: 'fieldReportItemId',
+  url: 'url',
+  caption: 'caption',
+  createdAt: 'createdAt'
+} as const
+
+export type FieldReportPhotoScalarFieldEnum = (typeof FieldReportPhotoScalarFieldEnum)[keyof typeof FieldReportPhotoScalarFieldEnum]
 
 
 export const InvoiceScalarFieldEnum = {
@@ -2409,6 +2495,7 @@ export type GlobalOmitConfig = {
   projectAssignment?: Prisma.ProjectAssignmentOmit
   fieldReport?: Prisma.FieldReportOmit
   fieldReportItem?: Prisma.FieldReportItemOmit
+  fieldReportPhoto?: Prisma.FieldReportPhotoOmit
   invoice?: Prisma.InvoiceOmit
   auditLog?: Prisma.AuditLogOmit
 }

@@ -118,6 +118,27 @@ export function InvoiceView({ project }: { project: InvoiceProject }) {
                 <p className="font-medium">El proyecto ha sido pagado y cerrado exitosamente.</p>
               </div>
             )}
+
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-3">
+              <a
+                href={`/api/pdf/factura/${project.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 inline-flex items-center justify-center gap-2 h-11 rounded-md border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 font-medium transition-colors"
+              >
+                <FileText className="h-5 w-5" />
+                Ver PDF
+              </a>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(`${window.location.origin}/api/pdf/factura/${project.id}`);
+                  alert("Enlace de factura copiado al portapapeles");
+                }}
+                className="flex-1 inline-flex items-center justify-center gap-2 h-11 rounded-md border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 font-medium transition-colors"
+              >
+                Compartir
+              </button>
+            </div>
           </div>
 
           <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">

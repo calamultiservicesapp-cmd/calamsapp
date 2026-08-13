@@ -93,6 +93,11 @@ export type FieldReport = Prisma.FieldReportModel
  */
 export type FieldReportItem = Prisma.FieldReportItemModel
 /**
+ * Model FieldReportPhoto
+ * 
+ */
+export type FieldReportPhoto = Prisma.FieldReportPhotoModel
+/**
  * Model Invoice
  * 
  */
