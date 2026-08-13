@@ -26,7 +26,7 @@ export default async function MisTareasPage() {
   if (!user) redirect("/auth/login");
 
   const assignments = await prisma.projectAssignment.findMany({
-    where: { technicianId: user.id },
+    where: { personnelId: user.id },
     include: {
       project: {
         include: {

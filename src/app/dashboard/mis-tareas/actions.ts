@@ -8,11 +8,11 @@ export async function getMyTasks() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return [];
 
-  // Find assignments for this technician's profile ID
+  // Find assignments for this personnel profile ID
   // Wait, user.id is auth.users.id, which should match Profile.id (assuming they are synced)
   return await prisma.projectAssignment.findMany({
     where: {
-      technicianId: user.id,
+      personnelId: user.id,
       // Only show projects that are not closed or invoiced (or just ordered by date)
       project: {
         status: {
