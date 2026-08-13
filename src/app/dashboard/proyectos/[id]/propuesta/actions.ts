@@ -1,5 +1,3 @@
-"use server";
-
 import { prisma } from "@/lib/db/prisma";
 import { createClient } from "@/lib/supabase/server";
 import { applyDiscount, calculateProjectPrice } from "@/lib/db/pricing";
@@ -22,6 +20,7 @@ export async function getProposalData(projectId: string) {
 }
 
 export async function generateProposal(formData: FormData) {
+  "use server";
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };
@@ -103,6 +102,7 @@ export async function generateProposal(formData: FormData) {
 }
 
 export async function approveProposal(projectId: string) {
+  "use server";
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };
