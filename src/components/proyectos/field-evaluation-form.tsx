@@ -454,9 +454,10 @@ export function FieldEvaluationForm({
     });
   }
 
-  const criticCount = systems.filter((s) => s.condition === "critico").length;
-  const maloCount   = systems.filter((s) => s.condition === "malo").length;
-  const inmediCount = systems.filter((s) => s.urgency === "inmediato").length;
+  const criticCount      = systems.filter((s) => s.condition === "critico").length;
+  const maloCount        = systems.filter((s) => s.condition === "malo").length;
+  const inmediCount      = systems.filter((s) => s.urgency === "inmediato").length;
+  const totalPhotoCount  = systems.reduce((sum, s) => sum + s.photoUrls.length, 0);
 
   return (
     <div className="space-y-6">
@@ -487,6 +488,11 @@ export function FieldEvaluationForm({
           {inmediCount > 0 && (
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-yellow-100 dark:bg-yellow-950/40 text-yellow-700 dark:text-yellow-400 font-semibold">
               ⚡ {inmediCount} Inmediato{inmediCount > 1 ? "s" : ""}
+            </span>
+          )}
+          {totalPhotoCount > 0 && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 font-semibold">
+              <Camera className="h-3 w-3" /> {totalPhotoCount} Foto{totalPhotoCount > 1 ? "s" : ""}
             </span>
           )}
         </div>
@@ -687,6 +693,17 @@ export function FieldEvaluationForm({
           <CheckCircle2 className="h-4 w-4 shrink-0" /> Evaluación de campo guardada correctamente.
         </div>
       )}
+
+      {/* ── Total photo summary ── */}
+      <div className="flex items-center justify-between gap-4 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700">
+        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+          <Camera className="h-4 w-4 text-blue-500" />
+          <span className="font-medium">Total de fotos tomadas durante la caminata</span>
+        </div>
+        <span className="text-lg font-bold text-blue-600 dark:text-blue-400 tabular-nums">
+          {totalPhotoCount}
+        </span>
+      </div>
 
       <div className="flex justify-end">
         <button
