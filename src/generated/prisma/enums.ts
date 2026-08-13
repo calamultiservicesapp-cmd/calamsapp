@@ -67,3 +67,32 @@ export const InvoiceStatus = {
 } as const
 
 export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
+
+
+export const SystemCondition = {
+  bueno: 'bueno',
+  regular: 'regular',
+  malo: 'malo',
+  critico: 'critico'
+} as const
+
+export type SystemCondition = (typeof SystemCondition)[keyof typeof SystemCondition]
+
+
+export const SystemUrgency = {
+  inmediato: 'inmediato',
+  treinta_dias: 'treinta_dias',
+  preventivo: 'preventivo',
+  na: 'na'
+} as const
+
+export type SystemUrgency = (typeof SystemUrgency)[keyof typeof SystemUrgency]
+
+
+export const RecommendedPlan = {
+  essential: 'essential',
+  professional: 'professional',
+  op_partner: 'op_partner'
+} as const
+
+export type RecommendedPlan = (typeof RecommendedPlan)[keyof typeof RecommendedPlan]

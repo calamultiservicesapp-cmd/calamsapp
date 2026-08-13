@@ -58,6 +58,16 @@ export type Appointment = Prisma.AppointmentModel
  */
 export type WalkthroughItem = Prisma.WalkthroughItemModel
 /**
+ * Model FieldEvaluation
+ * 
+ */
+export type FieldEvaluation = Prisma.FieldEvaluationModel
+/**
+ * Model SystemInspection
+ * 
+ */
+export type SystemInspection = Prisma.SystemInspectionModel
+/**
  * Model Proposal
  * 
  */

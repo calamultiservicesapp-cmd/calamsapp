@@ -54,6 +54,26 @@ enum InvoiceStatus {
   pagada
 }
 
+enum SystemCondition {
+  bueno
+  regular
+  malo
+  critico
+}
+
+enum SystemUrgency {
+  inmediato
+  treinta_dias
+  preventivo
+  na
+}
+
+enum RecommendedPlan {
+  essential
+  professional
+  op_partner
+}
+
 // ─── Models ───────────────────────────────────────────────────────────────────
 
 model Profile {
@@ -151,6 +171,7 @@ model Project {
   createdBy        Profile             @relation("ProjectCreator", fields: [createdById], references: [id])
   appointment      Appointment?
   walkthroughItems WalkthroughItem[]
+  fieldEvaluation  FieldEvaluation?
   proposal         Proposal?
   assignments      ProjectAssignment[]
   fieldReport      FieldReport?
@@ -190,6 +211,52 @@ model WalkthroughItem {
   fieldReportItem FieldReportItem?
 
   @@map("walkthrough_items")
+}
+
+model FieldEvaluation {
+  id                String           @id @default(uuid()) @db.Uuid
+  projectId         String           @unique @map("project_id") @db.Uuid
+  evaluatorName     String?          @map("evaluator_name")
+  visitDate         DateTime?        @map("visit_date") @db.Date
+  visitDuration     String?          @map("visit_duration")
+  recommendedPlan   RecommendedPlan? @map("recommended_plan")
+  planJustification String?          @map("plan_justification")
+  priority01Notes   String?          @map("priority_01_notes")
+  priority02Notes   String?          @map("priority_02_notes")
+  priority03Notes   String?          @map("priority_03_notes")
+  priority04Notes   String?          @map("priority_04_notes")
+  criticalSafetyNotes String?        @map("critical_safety_notes")
+  refToGlitz        Boolean?         @map("ref_to_glitz")
+  verbalSummary     Boolean?         @map("verbal_summary")
+  additionalNotes   String?          @map("additional_notes")
+  createdAt         DateTime         @default(now()) @map("created_at")
+  updatedAt         DateTime         @updatedAt @map("updated_at")
+
+  // Relations
+  project           Project            @relation(fields: [projectId], references: [id])
+  systemInspections SystemInspection[]
+
+  @@map("field_evaluations")
+}
+
+model SystemInspection {
+  id                String          @id @default(uuid()) @db.Uuid
+  fieldEvaluationId String          @map("field_evaluation_id") @db.Uuid
+  systemCode        String          @map("system_code")
+  systemName        String          @map("system_name")
+  condition         SystemCondition?
+  urgency           SystemUrgency?
+  areasInspected    String?         @map("areas_inspected")
+  observations      String?
+  photoCount        Int             @default(0) @map("photo_count")
+  createdAt         DateTime        @default(now()) @map("created_at")
+  updatedAt         DateTime        @updatedAt @map("updated_at")
+
+  // Relations
+  fieldEvaluation   FieldEvaluation @relation(fields: [fieldEvaluationId], references: [id], onDelete: Cascade)
+
+  @@unique([fieldEvaluationId, systemCode])
+  @@map("system_inspections")
 }
 
 model Proposal {

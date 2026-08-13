@@ -202,6 +202,7 @@ export type ProjectWhereInput = {
   createdBy?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   appointment?: Prisma.XOR<Prisma.AppointmentNullableScalarRelationFilter, Prisma.AppointmentWhereInput> | null
   walkthroughItems?: Prisma.WalkthroughItemListRelationFilter
+  fieldEvaluation?: Prisma.XOR<Prisma.FieldEvaluationNullableScalarRelationFilter, Prisma.FieldEvaluationWhereInput> | null
   proposal?: Prisma.XOR<Prisma.ProposalNullableScalarRelationFilter, Prisma.ProposalWhereInput> | null
   assignments?: Prisma.ProjectAssignmentListRelationFilter
   fieldReport?: Prisma.XOR<Prisma.FieldReportNullableScalarRelationFilter, Prisma.FieldReportWhereInput> | null
@@ -220,6 +221,7 @@ export type ProjectOrderByWithRelationInput = {
   createdBy?: Prisma.ProfileOrderByWithRelationInput
   appointment?: Prisma.AppointmentOrderByWithRelationInput
   walkthroughItems?: Prisma.WalkthroughItemOrderByRelationAggregateInput
+  fieldEvaluation?: Prisma.FieldEvaluationOrderByWithRelationInput
   proposal?: Prisma.ProposalOrderByWithRelationInput
   assignments?: Prisma.ProjectAssignmentOrderByRelationAggregateInput
   fieldReport?: Prisma.FieldReportOrderByWithRelationInput
@@ -241,6 +243,7 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   createdBy?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
   appointment?: Prisma.XOR<Prisma.AppointmentNullableScalarRelationFilter, Prisma.AppointmentWhereInput> | null
   walkthroughItems?: Prisma.WalkthroughItemListRelationFilter
+  fieldEvaluation?: Prisma.XOR<Prisma.FieldEvaluationNullableScalarRelationFilter, Prisma.FieldEvaluationWhereInput> | null
   proposal?: Prisma.XOR<Prisma.ProposalNullableScalarRelationFilter, Prisma.ProposalWhereInput> | null
   assignments?: Prisma.ProjectAssignmentListRelationFilter
   fieldReport?: Prisma.XOR<Prisma.FieldReportNullableScalarRelationFilter, Prisma.FieldReportWhereInput> | null
@@ -283,6 +286,7 @@ export type ProjectCreateInput = {
   createdBy: Prisma.ProfileCreateNestedOneWithoutProjectsCreatedInput
   appointment?: Prisma.AppointmentCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportCreateNestedOneWithoutProjectInput
@@ -299,6 +303,7 @@ export type ProjectUncheckedCreateInput = {
   updatedAt?: Date | string
   appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportUncheckedCreateNestedOneWithoutProjectInput
@@ -315,6 +320,7 @@ export type ProjectUpdateInput = {
   createdBy?: Prisma.ProfileUpdateOneRequiredWithoutProjectsCreatedNestedInput
   appointment?: Prisma.AppointmentUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUpdateOneWithoutProjectNestedInput
@@ -331,6 +337,7 @@ export type ProjectUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUncheckedUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUncheckedUpdateOneWithoutProjectNestedInput
@@ -526,6 +533,20 @@ export type ProjectUpdateOneRequiredWithoutWalkthroughItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutWalkthroughItemsInput, Prisma.ProjectUpdateWithoutWalkthroughItemsInput>, Prisma.ProjectUncheckedUpdateWithoutWalkthroughItemsInput>
 }
 
+export type ProjectCreateNestedOneWithoutFieldEvaluationInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutFieldEvaluationInput, Prisma.ProjectUncheckedCreateWithoutFieldEvaluationInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutFieldEvaluationInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutFieldEvaluationNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutFieldEvaluationInput, Prisma.ProjectUncheckedCreateWithoutFieldEvaluationInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutFieldEvaluationInput
+  upsert?: Prisma.ProjectUpsertWithoutFieldEvaluationInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutFieldEvaluationInput, Prisma.ProjectUpdateWithoutFieldEvaluationInput>, Prisma.ProjectUncheckedUpdateWithoutFieldEvaluationInput>
+}
+
 export type ProjectCreateNestedOneWithoutProposalInput = {
   create?: Prisma.XOR<Prisma.ProjectCreateWithoutProposalInput, Prisma.ProjectUncheckedCreateWithoutProposalInput>
   connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutProposalInput
@@ -591,6 +612,7 @@ export type ProjectCreateWithoutCreatedByInput = {
   client: Prisma.ClientCreateNestedOneWithoutProjectsInput
   appointment?: Prisma.AppointmentCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportCreateNestedOneWithoutProjectInput
@@ -606,6 +628,7 @@ export type ProjectUncheckedCreateWithoutCreatedByInput = {
   updatedAt?: Date | string
   appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportUncheckedCreateNestedOneWithoutProjectInput
@@ -660,6 +683,7 @@ export type ProjectCreateWithoutClientInput = {
   createdBy: Prisma.ProfileCreateNestedOneWithoutProjectsCreatedInput
   appointment?: Prisma.AppointmentCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportCreateNestedOneWithoutProjectInput
@@ -675,6 +699,7 @@ export type ProjectUncheckedCreateWithoutClientInput = {
   updatedAt?: Date | string
   appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportUncheckedCreateNestedOneWithoutProjectInput
@@ -716,6 +741,7 @@ export type ProjectCreateWithoutAppointmentInput = {
   client: Prisma.ClientCreateNestedOneWithoutProjectsInput
   createdBy: Prisma.ProfileCreateNestedOneWithoutProjectsCreatedInput
   walkthroughItems?: Prisma.WalkthroughItemCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportCreateNestedOneWithoutProjectInput
@@ -731,6 +757,7 @@ export type ProjectUncheckedCreateWithoutAppointmentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   walkthroughItems?: Prisma.WalkthroughItemUncheckedCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportUncheckedCreateNestedOneWithoutProjectInput
@@ -762,6 +789,7 @@ export type ProjectUpdateWithoutAppointmentInput = {
   client?: Prisma.ClientUpdateOneRequiredWithoutProjectsNestedInput
   createdBy?: Prisma.ProfileUpdateOneRequiredWithoutProjectsCreatedNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUpdateOneWithoutProjectNestedInput
@@ -777,6 +805,7 @@ export type ProjectUncheckedUpdateWithoutAppointmentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   walkthroughItems?: Prisma.WalkthroughItemUncheckedUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUncheckedUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUncheckedUpdateOneWithoutProjectNestedInput
@@ -792,6 +821,7 @@ export type ProjectCreateWithoutWalkthroughItemsInput = {
   client: Prisma.ClientCreateNestedOneWithoutProjectsInput
   createdBy: Prisma.ProfileCreateNestedOneWithoutProjectsCreatedInput
   appointment?: Prisma.AppointmentCreateNestedOneWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportCreateNestedOneWithoutProjectInput
@@ -807,6 +837,7 @@ export type ProjectUncheckedCreateWithoutWalkthroughItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportUncheckedCreateNestedOneWithoutProjectInput
@@ -838,6 +869,7 @@ export type ProjectUpdateWithoutWalkthroughItemsInput = {
   client?: Prisma.ClientUpdateOneRequiredWithoutProjectsNestedInput
   createdBy?: Prisma.ProfileUpdateOneRequiredWithoutProjectsCreatedNestedInput
   appointment?: Prisma.AppointmentUpdateOneWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUpdateOneWithoutProjectNestedInput
@@ -853,6 +885,87 @@ export type ProjectUncheckedUpdateWithoutWalkthroughItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedUpdateOneWithoutProjectNestedInput
+  proposal?: Prisma.ProposalUncheckedUpdateOneWithoutProjectNestedInput
+  assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+  fieldReport?: Prisma.FieldReportUncheckedUpdateOneWithoutProjectNestedInput
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutFieldEvaluationInput = {
+  id?: string
+  name: string
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  client: Prisma.ClientCreateNestedOneWithoutProjectsInput
+  createdBy: Prisma.ProfileCreateNestedOneWithoutProjectsCreatedInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutProjectInput
+  walkthroughItems?: Prisma.WalkthroughItemCreateNestedManyWithoutProjectInput
+  proposal?: Prisma.ProposalCreateNestedOneWithoutProjectInput
+  assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutProjectInput
+  fieldReport?: Prisma.FieldReportCreateNestedOneWithoutProjectInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutFieldEvaluationInput = {
+  id?: string
+  clientId: string
+  name: string
+  status?: $Enums.ProjectStatus
+  createdById: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutProjectInput
+  walkthroughItems?: Prisma.WalkthroughItemUncheckedCreateNestedManyWithoutProjectInput
+  proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutProjectInput
+  assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutProjectInput
+  fieldReport?: Prisma.FieldReportUncheckedCreateNestedOneWithoutProjectInput
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutFieldEvaluationInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutFieldEvaluationInput, Prisma.ProjectUncheckedCreateWithoutFieldEvaluationInput>
+}
+
+export type ProjectUpsertWithoutFieldEvaluationInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutFieldEvaluationInput, Prisma.ProjectUncheckedUpdateWithoutFieldEvaluationInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutFieldEvaluationInput, Prisma.ProjectUncheckedCreateWithoutFieldEvaluationInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutFieldEvaluationInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutFieldEvaluationInput, Prisma.ProjectUncheckedUpdateWithoutFieldEvaluationInput>
+}
+
+export type ProjectUpdateWithoutFieldEvaluationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUpdateOneRequiredWithoutProjectsNestedInput
+  createdBy?: Prisma.ProfileUpdateOneRequiredWithoutProjectsCreatedNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutProjectNestedInput
+  walkthroughItems?: Prisma.WalkthroughItemUpdateManyWithoutProjectNestedInput
+  proposal?: Prisma.ProposalUpdateOneWithoutProjectNestedInput
+  assignments?: Prisma.ProjectAssignmentUpdateManyWithoutProjectNestedInput
+  fieldReport?: Prisma.FieldReportUpdateOneWithoutProjectNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutFieldEvaluationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutProjectNestedInput
+  walkthroughItems?: Prisma.WalkthroughItemUncheckedUpdateManyWithoutProjectNestedInput
   proposal?: Prisma.ProposalUncheckedUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUncheckedUpdateOneWithoutProjectNestedInput
@@ -869,6 +982,7 @@ export type ProjectCreateWithoutProposalInput = {
   createdBy: Prisma.ProfileCreateNestedOneWithoutProjectsCreatedInput
   appointment?: Prisma.AppointmentCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportCreateNestedOneWithoutProjectInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutProjectInput
@@ -884,6 +998,7 @@ export type ProjectUncheckedCreateWithoutProposalInput = {
   updatedAt?: Date | string
   appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportUncheckedCreateNestedOneWithoutProjectInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutProjectInput
@@ -915,6 +1030,7 @@ export type ProjectUpdateWithoutProposalInput = {
   createdBy?: Prisma.ProfileUpdateOneRequiredWithoutProjectsCreatedNestedInput
   appointment?: Prisma.AppointmentUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUpdateOneWithoutProjectNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutProjectNestedInput
@@ -930,6 +1046,7 @@ export type ProjectUncheckedUpdateWithoutProposalInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUncheckedUpdateOneWithoutProjectNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutProjectNestedInput
@@ -945,6 +1062,7 @@ export type ProjectCreateWithoutAssignmentsInput = {
   createdBy: Prisma.ProfileCreateNestedOneWithoutProjectsCreatedInput
   appointment?: Prisma.AppointmentCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalCreateNestedOneWithoutProjectInput
   fieldReport?: Prisma.FieldReportCreateNestedOneWithoutProjectInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutProjectInput
@@ -960,6 +1078,7 @@ export type ProjectUncheckedCreateWithoutAssignmentsInput = {
   updatedAt?: Date | string
   appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutProjectInput
   fieldReport?: Prisma.FieldReportUncheckedCreateNestedOneWithoutProjectInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutProjectInput
@@ -991,6 +1110,7 @@ export type ProjectUpdateWithoutAssignmentsInput = {
   createdBy?: Prisma.ProfileUpdateOneRequiredWithoutProjectsCreatedNestedInput
   appointment?: Prisma.AppointmentUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUpdateOneWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUpdateOneWithoutProjectNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutProjectNestedInput
@@ -1006,6 +1126,7 @@ export type ProjectUncheckedUpdateWithoutAssignmentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUncheckedUpdateOneWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUncheckedUpdateOneWithoutProjectNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutProjectNestedInput
@@ -1021,6 +1142,7 @@ export type ProjectCreateWithoutFieldReportInput = {
   createdBy: Prisma.ProfileCreateNestedOneWithoutProjectsCreatedInput
   appointment?: Prisma.AppointmentCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutProjectInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutProjectInput
@@ -1036,6 +1158,7 @@ export type ProjectUncheckedCreateWithoutFieldReportInput = {
   updatedAt?: Date | string
   appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutProjectInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutProjectInput
@@ -1067,6 +1190,7 @@ export type ProjectUpdateWithoutFieldReportInput = {
   createdBy?: Prisma.ProfileUpdateOneRequiredWithoutProjectsCreatedNestedInput
   appointment?: Prisma.AppointmentUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUpdateManyWithoutProjectNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutProjectNestedInput
@@ -1082,6 +1206,7 @@ export type ProjectUncheckedUpdateWithoutFieldReportInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUncheckedUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutProjectNestedInput
@@ -1097,6 +1222,7 @@ export type ProjectCreateWithoutInvoiceInput = {
   createdBy: Prisma.ProfileCreateNestedOneWithoutProjectsCreatedInput
   appointment?: Prisma.AppointmentCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportCreateNestedOneWithoutProjectInput
@@ -1112,6 +1238,7 @@ export type ProjectUncheckedCreateWithoutInvoiceInput = {
   updatedAt?: Date | string
   appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutProjectInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedCreateNestedManyWithoutProjectInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedCreateNestedOneWithoutProjectInput
   proposal?: Prisma.ProposalUncheckedCreateNestedOneWithoutProjectInput
   assignments?: Prisma.ProjectAssignmentUncheckedCreateNestedManyWithoutProjectInput
   fieldReport?: Prisma.FieldReportUncheckedCreateNestedOneWithoutProjectInput
@@ -1143,6 +1270,7 @@ export type ProjectUpdateWithoutInvoiceInput = {
   createdBy?: Prisma.ProfileUpdateOneRequiredWithoutProjectsCreatedNestedInput
   appointment?: Prisma.AppointmentUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUpdateOneWithoutProjectNestedInput
@@ -1158,6 +1286,7 @@ export type ProjectUncheckedUpdateWithoutInvoiceInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUncheckedUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUncheckedUpdateOneWithoutProjectNestedInput
@@ -1181,6 +1310,7 @@ export type ProjectUpdateWithoutCreatedByInput = {
   client?: Prisma.ClientUpdateOneRequiredWithoutProjectsNestedInput
   appointment?: Prisma.AppointmentUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUpdateOneWithoutProjectNestedInput
@@ -1196,6 +1326,7 @@ export type ProjectUncheckedUpdateWithoutCreatedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUncheckedUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUncheckedUpdateOneWithoutProjectNestedInput
@@ -1229,6 +1360,7 @@ export type ProjectUpdateWithoutClientInput = {
   createdBy?: Prisma.ProfileUpdateOneRequiredWithoutProjectsCreatedNestedInput
   appointment?: Prisma.AppointmentUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUpdateOneWithoutProjectNestedInput
@@ -1244,6 +1376,7 @@ export type ProjectUncheckedUpdateWithoutClientInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutProjectNestedInput
   walkthroughItems?: Prisma.WalkthroughItemUncheckedUpdateManyWithoutProjectNestedInput
+  fieldEvaluation?: Prisma.FieldEvaluationUncheckedUpdateOneWithoutProjectNestedInput
   proposal?: Prisma.ProposalUncheckedUpdateOneWithoutProjectNestedInput
   assignments?: Prisma.ProjectAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   fieldReport?: Prisma.FieldReportUncheckedUpdateOneWithoutProjectNestedInput
@@ -1311,6 +1444,7 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   createdBy?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   appointment?: boolean | Prisma.Project$appointmentArgs<ExtArgs>
   walkthroughItems?: boolean | Prisma.Project$walkthroughItemsArgs<ExtArgs>
+  fieldEvaluation?: boolean | Prisma.Project$fieldEvaluationArgs<ExtArgs>
   proposal?: boolean | Prisma.Project$proposalArgs<ExtArgs>
   assignments?: boolean | Prisma.Project$assignmentsArgs<ExtArgs>
   fieldReport?: boolean | Prisma.Project$fieldReportArgs<ExtArgs>
@@ -1358,6 +1492,7 @@ export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   createdBy?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
   appointment?: boolean | Prisma.Project$appointmentArgs<ExtArgs>
   walkthroughItems?: boolean | Prisma.Project$walkthroughItemsArgs<ExtArgs>
+  fieldEvaluation?: boolean | Prisma.Project$fieldEvaluationArgs<ExtArgs>
   proposal?: boolean | Prisma.Project$proposalArgs<ExtArgs>
   assignments?: boolean | Prisma.Project$assignmentsArgs<ExtArgs>
   fieldReport?: boolean | Prisma.Project$fieldReportArgs<ExtArgs>
@@ -1380,6 +1515,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     createdBy: Prisma.$ProfilePayload<ExtArgs>
     appointment: Prisma.$AppointmentPayload<ExtArgs> | null
     walkthroughItems: Prisma.$WalkthroughItemPayload<ExtArgs>[]
+    fieldEvaluation: Prisma.$FieldEvaluationPayload<ExtArgs> | null
     proposal: Prisma.$ProposalPayload<ExtArgs> | null
     assignments: Prisma.$ProjectAssignmentPayload<ExtArgs>[]
     fieldReport: Prisma.$FieldReportPayload<ExtArgs> | null
@@ -1791,6 +1927,7 @@ export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.
   createdBy<T extends Prisma.ProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   appointment<T extends Prisma.Project$appointmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$appointmentArgs<ExtArgs>>): Prisma.Prisma__AppointmentClient<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   walkthroughItems<T extends Prisma.Project$walkthroughItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$walkthroughItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WalkthroughItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  fieldEvaluation<T extends Prisma.Project$fieldEvaluationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$fieldEvaluationArgs<ExtArgs>>): Prisma.Prisma__FieldEvaluationClient<runtime.Types.Result.GetResult<Prisma.$FieldEvaluationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   proposal<T extends Prisma.Project$proposalArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$proposalArgs<ExtArgs>>): Prisma.Prisma__ProposalClient<runtime.Types.Result.GetResult<Prisma.$ProposalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   assignments<T extends Prisma.Project$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   fieldReport<T extends Prisma.Project$fieldReportArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$fieldReportArgs<ExtArgs>>): Prisma.Prisma__FieldReportClient<runtime.Types.Result.GetResult<Prisma.$FieldReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -2272,6 +2409,25 @@ export type Project$walkthroughItemsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.WalkthroughItemScalarFieldEnum | Prisma.WalkthroughItemScalarFieldEnum[]
+}
+
+/**
+ * Project.fieldEvaluation
+ */
+export type Project$fieldEvaluationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FieldEvaluation
+   */
+  select?: Prisma.FieldEvaluationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FieldEvaluation
+   */
+  omit?: Prisma.FieldEvaluationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FieldEvaluationInclude<ExtArgs> | null
+  where?: Prisma.FieldEvaluationWhereInput
 }
 
 /**

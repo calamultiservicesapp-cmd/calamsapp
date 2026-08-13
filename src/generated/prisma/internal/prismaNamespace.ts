@@ -405,6 +405,8 @@ export const ModelName = {
   Project: 'Project',
   Appointment: 'Appointment',
   WalkthroughItem: 'WalkthroughItem',
+  FieldEvaluation: 'FieldEvaluation',
+  SystemInspection: 'SystemInspection',
   Proposal: 'Proposal',
   ProjectAssignment: 'ProjectAssignment',
   FieldReport: 'FieldReport',
@@ -426,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "profile" | "client" | "pricingConfig" | "personnelCategory" | "activity" | "project" | "appointment" | "walkthroughItem" | "proposal" | "projectAssignment" | "fieldReport" | "fieldReportItem" | "invoice" | "auditLog"
+    modelProps: "profile" | "client" | "pricingConfig" | "personnelCategory" | "activity" | "project" | "appointment" | "walkthroughItem" | "fieldEvaluation" | "systemInspection" | "proposal" | "projectAssignment" | "fieldReport" | "fieldReportItem" | "invoice" | "auditLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1019,6 +1021,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.WalkthroughItemCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.WalkthroughItemCountAggregateOutputType> | number
+        }
+      }
+    }
+    FieldEvaluation: {
+      payload: Prisma.$FieldEvaluationPayload<ExtArgs>
+      fields: Prisma.FieldEvaluationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FieldEvaluationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldEvaluationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FieldEvaluationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldEvaluationPayload>
+        }
+        findFirst: {
+          args: Prisma.FieldEvaluationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldEvaluationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FieldEvaluationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldEvaluationPayload>
+        }
+        findMany: {
+          args: Prisma.FieldEvaluationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldEvaluationPayload>[]
+        }
+        create: {
+          args: Prisma.FieldEvaluationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldEvaluationPayload>
+        }
+        createMany: {
+          args: Prisma.FieldEvaluationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FieldEvaluationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldEvaluationPayload>[]
+        }
+        delete: {
+          args: Prisma.FieldEvaluationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldEvaluationPayload>
+        }
+        update: {
+          args: Prisma.FieldEvaluationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldEvaluationPayload>
+        }
+        deleteMany: {
+          args: Prisma.FieldEvaluationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FieldEvaluationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FieldEvaluationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldEvaluationPayload>[]
+        }
+        upsert: {
+          args: Prisma.FieldEvaluationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FieldEvaluationPayload>
+        }
+        aggregate: {
+          args: Prisma.FieldEvaluationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFieldEvaluation>
+        }
+        groupBy: {
+          args: Prisma.FieldEvaluationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldEvaluationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FieldEvaluationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FieldEvaluationCountAggregateOutputType> | number
+        }
+      }
+    }
+    SystemInspection: {
+      payload: Prisma.$SystemInspectionPayload<ExtArgs>
+      fields: Prisma.SystemInspectionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SystemInspectionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemInspectionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SystemInspectionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemInspectionPayload>
+        }
+        findFirst: {
+          args: Prisma.SystemInspectionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemInspectionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SystemInspectionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemInspectionPayload>
+        }
+        findMany: {
+          args: Prisma.SystemInspectionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemInspectionPayload>[]
+        }
+        create: {
+          args: Prisma.SystemInspectionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemInspectionPayload>
+        }
+        createMany: {
+          args: Prisma.SystemInspectionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SystemInspectionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemInspectionPayload>[]
+        }
+        delete: {
+          args: Prisma.SystemInspectionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemInspectionPayload>
+        }
+        update: {
+          args: Prisma.SystemInspectionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemInspectionPayload>
+        }
+        deleteMany: {
+          args: Prisma.SystemInspectionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SystemInspectionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SystemInspectionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemInspectionPayload>[]
+        }
+        upsert: {
+          args: Prisma.SystemInspectionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemInspectionPayload>
+        }
+        aggregate: {
+          args: Prisma.SystemInspectionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSystemInspection>
+        }
+        groupBy: {
+          args: Prisma.SystemInspectionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SystemInspectionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SystemInspectionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SystemInspectionCountAggregateOutputType> | number
         }
       }
     }
@@ -1619,6 +1769,46 @@ export const WalkthroughItemScalarFieldEnum = {
 export type WalkthroughItemScalarFieldEnum = (typeof WalkthroughItemScalarFieldEnum)[keyof typeof WalkthroughItemScalarFieldEnum]
 
 
+export const FieldEvaluationScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  evaluatorName: 'evaluatorName',
+  visitDate: 'visitDate',
+  visitDuration: 'visitDuration',
+  recommendedPlan: 'recommendedPlan',
+  planJustification: 'planJustification',
+  priority01Notes: 'priority01Notes',
+  priority02Notes: 'priority02Notes',
+  priority03Notes: 'priority03Notes',
+  priority04Notes: 'priority04Notes',
+  criticalSafetyNotes: 'criticalSafetyNotes',
+  refToGlitz: 'refToGlitz',
+  verbalSummary: 'verbalSummary',
+  additionalNotes: 'additionalNotes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FieldEvaluationScalarFieldEnum = (typeof FieldEvaluationScalarFieldEnum)[keyof typeof FieldEvaluationScalarFieldEnum]
+
+
+export const SystemInspectionScalarFieldEnum = {
+  id: 'id',
+  fieldEvaluationId: 'fieldEvaluationId',
+  systemCode: 'systemCode',
+  systemName: 'systemName',
+  condition: 'condition',
+  urgency: 'urgency',
+  areasInspected: 'areasInspected',
+  observations: 'observations',
+  photoCount: 'photoCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SystemInspectionScalarFieldEnum = (typeof SystemInspectionScalarFieldEnum)[keyof typeof SystemInspectionScalarFieldEnum]
+
+
 export const ProposalScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
@@ -1837,6 +2027,62 @@ export type ListEnumProjectStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'RecommendedPlan'
+ */
+export type EnumRecommendedPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecommendedPlan'>
+    
+
+
+/**
+ * Reference to a field of type 'RecommendedPlan[]'
+ */
+export type ListEnumRecommendedPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecommendedPlan[]'>
+    
+
+
+/**
+ * Reference to a field of type 'SystemCondition'
+ */
+export type EnumSystemConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemCondition'>
+    
+
+
+/**
+ * Reference to a field of type 'SystemCondition[]'
+ */
+export type ListEnumSystemConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemCondition[]'>
+    
+
+
+/**
+ * Reference to a field of type 'SystemUrgency'
+ */
+export type EnumSystemUrgencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemUrgency'>
+    
+
+
+/**
+ * Reference to a field of type 'SystemUrgency[]'
+ */
+export type ListEnumSystemUrgencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SystemUrgency[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
  * Reference to a field of type 'ProposalStatus'
  */
 export type EnumProposalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProposalStatus'>
@@ -1893,16 +2139,16 @@ export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'Float'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
 /**
- * Reference to a field of type 'Int[]'
+ * Reference to a field of type 'Float[]'
  */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -2064,6 +2310,8 @@ export type GlobalOmitConfig = {
   project?: Prisma.ProjectOmit
   appointment?: Prisma.AppointmentOmit
   walkthroughItem?: Prisma.WalkthroughItemOmit
+  fieldEvaluation?: Prisma.FieldEvaluationOmit
+  systemInspection?: Prisma.SystemInspectionOmit
   proposal?: Prisma.ProposalOmit
   projectAssignment?: Prisma.ProjectAssignmentOmit
   fieldReport?: Prisma.FieldReportOmit

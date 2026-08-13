@@ -59,6 +59,8 @@ export const ModelName = {
   Project: 'Project',
   Appointment: 'Appointment',
   WalkthroughItem: 'WalkthroughItem',
+  FieldEvaluation: 'FieldEvaluation',
+  SystemInspection: 'SystemInspection',
   Proposal: 'Proposal',
   ProjectAssignment: 'ProjectAssignment',
   FieldReport: 'FieldReport',
@@ -195,6 +197,46 @@ export const WalkthroughItemScalarFieldEnum = {
 } as const
 
 export type WalkthroughItemScalarFieldEnum = (typeof WalkthroughItemScalarFieldEnum)[keyof typeof WalkthroughItemScalarFieldEnum]
+
+
+export const FieldEvaluationScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  evaluatorName: 'evaluatorName',
+  visitDate: 'visitDate',
+  visitDuration: 'visitDuration',
+  recommendedPlan: 'recommendedPlan',
+  planJustification: 'planJustification',
+  priority01Notes: 'priority01Notes',
+  priority02Notes: 'priority02Notes',
+  priority03Notes: 'priority03Notes',
+  priority04Notes: 'priority04Notes',
+  criticalSafetyNotes: 'criticalSafetyNotes',
+  refToGlitz: 'refToGlitz',
+  verbalSummary: 'verbalSummary',
+  additionalNotes: 'additionalNotes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FieldEvaluationScalarFieldEnum = (typeof FieldEvaluationScalarFieldEnum)[keyof typeof FieldEvaluationScalarFieldEnum]
+
+
+export const SystemInspectionScalarFieldEnum = {
+  id: 'id',
+  fieldEvaluationId: 'fieldEvaluationId',
+  systemCode: 'systemCode',
+  systemName: 'systemName',
+  condition: 'condition',
+  urgency: 'urgency',
+  areasInspected: 'areasInspected',
+  observations: 'observations',
+  photoCount: 'photoCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SystemInspectionScalarFieldEnum = (typeof SystemInspectionScalarFieldEnum)[keyof typeof SystemInspectionScalarFieldEnum]
 
 
 export const ProposalScalarFieldEnum = {
