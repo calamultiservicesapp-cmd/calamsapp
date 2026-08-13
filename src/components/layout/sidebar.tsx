@@ -50,16 +50,7 @@ const navItems = [
     href: "/dashboard/citas",
     icon: CalendarDays,
   },
-  {
-    label: "Propuestas",
-    href: "/dashboard/propuestas",
-    icon: FileText,
-  },
-  {
-    label: "Informes",
-    href: "/dashboard/informes",
-    icon: ClipboardList,
-  },
+
   {
     label: "Facturación",
     href: "/dashboard/facturacion",
@@ -140,8 +131,16 @@ export function Sidebar() {
 
         {/* Footer */}
         <div className="border-t border-slate-800 px-3 py-4 shrink-0">
-          <p className="text-xs text-slate-600 text-center">
-            © {new Date().getFullYear()} CALA Multiservices
+          <p className="text-xs text-slate-600 text-center leading-relaxed">
+            © {new Date().getFullYear()} ObraFlow by <br />
+            <a 
+              href="https://www.lumaconsultoriadenegocios.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-slate-500 hover:text-orange-500 transition-colors"
+            >
+              Luma Consultoria de Negocios
+            </a>
           </p>
         </div>
       </aside>

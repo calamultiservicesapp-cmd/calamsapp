@@ -39,7 +39,15 @@ export default function AuthLayout({
             </p>
           </blockquote>
           <p className="text-sm text-slate-400">
-            &copy; {new Date().getFullYear()} CALA Multiservices. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()} ObraFlow by{" "}
+            <a 
+              href="https://www.lumaconsultoriadenegocios.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-slate-300 hover:text-white transition-colors underline underline-offset-4"
+            >
+              Luma Consultoria de Negocios
+            </a>
           </p>
         </div>
       </div>
