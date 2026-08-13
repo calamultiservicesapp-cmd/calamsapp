@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "@/lib/db/prisma";
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
@@ -27,7 +29,6 @@ export async function getInvoiceData(projectId: string) {
 }
 
 export async function generateInvoice(projectId: string) {
-  "use server";
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };
@@ -77,7 +78,6 @@ export async function generateInvoice(projectId: string) {
 }
 
 export async function markInvoicePaid(projectId: string) {
-  "use server";
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };

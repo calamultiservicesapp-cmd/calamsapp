@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "@/lib/db/prisma";
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
@@ -20,7 +22,6 @@ export async function getAssignments(projectId: string) {
 }
 
 export async function createAssignment(state: any, formData: FormData) {
-  "use server";
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };
@@ -67,7 +68,6 @@ export async function createAssignment(state: any, formData: FormData) {
 }
 
 export async function removeAssignment(id: string, projectId: string) {
-  "use server";
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };

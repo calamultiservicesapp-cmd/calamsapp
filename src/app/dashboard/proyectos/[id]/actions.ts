@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "@/lib/db/prisma";
 import { createClient } from "@/lib/supabase/server";
 import { saveWalkthroughItems, getCurrentPricingSnapshot } from "@/lib/db/pricing";
@@ -32,7 +34,6 @@ export async function getActivitiesForWalkthrough() {
 }
 
 export async function submitWalkthrough(formData: FormData) {
-  "use server";
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };
@@ -87,7 +88,6 @@ type SystemInspectionInput = {
 };
 
 export async function submitFieldEvaluation(formData: FormData) {
-  "use server";
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "No autorizado" };
