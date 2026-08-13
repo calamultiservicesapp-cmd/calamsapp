@@ -85,6 +85,7 @@ type SystemInspectionInput = {
   areasInspected?: string;
   observations?: string;
   photoCount?: number;
+  photoUrls?: string[];
 };
 
 export async function submitFieldEvaluation(formData: FormData) {
@@ -166,6 +167,7 @@ export async function submitFieldEvaluation(formData: FormData) {
             areasInspected: s.areasInspected ?? null,
             observations: s.observations ?? null,
             photoCount: s.photoCount ?? 0,
+            photoUrls: s.photoUrls ?? [],
           },
           update: {
             condition: s.condition ?? null,
@@ -173,6 +175,7 @@ export async function submitFieldEvaluation(formData: FormData) {
             areasInspected: s.areasInspected ?? null,
             observations: s.observations ?? null,
             photoCount: s.photoCount ?? 0,
+            photoUrls: s.photoUrls ?? [],
           },
         })
       )

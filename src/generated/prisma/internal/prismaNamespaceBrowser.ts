@@ -232,6 +232,7 @@ export const SystemInspectionScalarFieldEnum = {
   areasInspected: 'areasInspected',
   observations: 'observations',
   photoCount: 'photoCount',
+  photoUrls: 'photoUrls',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

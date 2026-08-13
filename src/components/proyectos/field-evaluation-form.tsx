@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useRef } from "react";
 import { submitFieldEvaluation } from "@/app/dashboard/proyectos/[id]/actions";
+import { createClient } from "@/lib/supabase/client";
 import {
   ChevronDown, ChevronUp, CheckCircle2, AlertCircle,
   Droplets, Zap, PaintBucket, Toilet, Layers3,
   Wind, Hammer, Leaf, Loader2, Save, ClipboardList,
-  Camera,
+  Camera, ImagePlus, X, UploadCloud,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -23,6 +24,7 @@ type SystemState = {
   areasInspected: string;
   observations: string;
   photoCount: number;
+  photoUrls: string[];
 };
 
 type EvaluationHeader = {
@@ -88,13 +90,128 @@ function getConditionBorderClass(condition: SystemCondition | null): string {
 
 // ─── Sub-component: System Card ───────────────────────────────────────────────
 
+function PhotoUploader({
+  projectId,
+  systemCode,
+  photoUrls,
+  onPhotosChange,
+}: {
+  projectId: string;
+  systemCode: string;
+  photoUrls: string[];
+  onPhotosChange: (urls: string[]) => void;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  async function handleFiles(files: FileList | null) {
+    if (!files || files.length === 0) return;
+    setUploadError(null);
+    setUploading(true);
+    const supabase = createClient();
+    const newUrls: string[] = [];
+
+    for (const file of Array.from(files)) {
+      if (!file.type.startsWith("image/")) continue;
+      const ext = file.name.split(".").pop();
+      const path = `field-photos/${projectId}/${systemCode}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      const { error } = await supabase.storage.from("project-photos").upload(path, file, { upsert: false });
+      if (error) {
+        setUploadError("Error al subir una imagen. Verifica el bucket en Supabase.");
+        continue;
+      }
+      const { data } = supabase.storage.from("project-photos").getPublicUrl(path);
+      newUrls.push(data.publicUrl);
+    }
+
+    setUploading(false);
+    if (newUrls.length > 0) onPhotosChange([...photoUrls, ...newUrls]);
+  }
+
+  async function handleDelete(url: string) {
+    const supabase = createClient();
+    // Extract path from URL
+    const marker = "/project-photos/";
+    const idx = url.indexOf(marker);
+    if (idx !== -1) {
+      const path = url.slice(idx + marker.length);
+      await supabase.storage.from("project-photos").remove([path]);
+    }
+    onPhotosChange(photoUrls.filter((u) => u !== url));
+  }
+
+  return (
+    <div className="space-y-3">
+      <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+        <Camera className="h-3.5 w-3.5" /> Evidencia Fotográfica
+        {photoUrls.length > 0 && (
+          <span className="ml-1 px-1.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/40 text-blue-600 text-xs font-bold">{photoUrls.length}</span>
+        )}
+      </p>
+
+      {/* Thumbnails grid */}
+      {photoUrls.length > 0 && (
+        <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+          {photoUrls.map((url) => (
+            <div key={url} className="relative group aspect-square rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={url} alt="Foto de área" className="w-full h-full object-cover" />
+              <button
+                type="button"
+                onClick={() => handleDelete(url)}
+                className="absolute top-1 right-1 w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Upload zone */}
+      <div
+        className="relative flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-orange-400 dark:hover:border-orange-500 transition-colors cursor-pointer bg-slate-50 dark:bg-slate-800/30"
+        onClick={() => inputRef.current?.click()}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => { e.preventDefault(); handleFiles(e.dataTransfer.files); }}
+      >
+        {uploading ? (
+          <Loader2 className="h-5 w-5 text-orange-500 animate-spin" />
+        ) : (
+          <UploadCloud className="h-5 w-5 text-slate-400" />
+        )}
+        <p className="text-xs text-slate-500">
+          {uploading ? "Subiendo fotos…" : "Arrastra fotos aquí o haz clic para seleccionar"}
+        </p>
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          className="hidden"
+          onChange={(e) => handleFiles(e.target.files)}
+        />
+      </div>
+
+      {uploadError && (
+        <p className="text-xs text-red-500 flex items-center gap-1">
+          <AlertCircle className="h-3.5 w-3.5" /> {uploadError}
+        </p>
+      )}
+    </div>
+  );
+}
+
 function SystemCard({
   sys,
   state,
+  projectId,
   onChange,
 }: {
   sys: typeof SYSTEMS[number];
   state: SystemState;
+  projectId: string;
   onChange: (s: Partial<SystemState>) => void;
 }) {
   const [open, setOpen] = useState(false);
@@ -128,6 +245,11 @@ function SystemCard({
           )}
         </div>
         <div className="flex items-center gap-2 shrink-0">
+          {state.photoUrls.length > 0 && (
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 text-xs font-medium">
+              <Camera className="h-3 w-3" /> {state.photoUrls.length}
+            </span>
+          )}
           {hasData && (
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 text-xs font-medium">
               <CheckCircle2 className="h-3 w-3" /> Registrado
@@ -211,18 +333,13 @@ function SystemCard({
             />
           </div>
 
-          {/* Photo count */}
-          <div className="flex items-center gap-3">
-            <Camera className="h-4 w-4 text-slate-400 shrink-0" />
-            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Fotos Tomadas</label>
-            <input
-              type="number"
-              min={0}
-              value={state.photoCount}
-              onChange={(e) => onChange({ photoCount: parseInt(e.target.value) || 0 })}
-              className="w-20 h-8 px-2 rounded-md border border-slate-200 dark:border-slate-700 bg-transparent text-sm text-center focus:outline-none focus:ring-2 focus:ring-orange-500"
-            />
-          </div>
+          {/* Photo uploader */}
+          <PhotoUploader
+            projectId={projectId}
+            systemCode={sys.code}
+            photoUrls={state.photoUrls}
+            onPhotosChange={(urls) => onChange({ photoUrls: urls, photoCount: urls.length })}
+          />
         </div>
       )}
     </div>
@@ -279,6 +396,7 @@ export function FieldEvaluationForm({
         areasInspected: ex?.areasInspected ?? "",
         observations: ex?.observations ?? "",
         photoCount: ex?.photoCount ?? 0,
+        photoUrls: (ex as any)?.photoUrls ?? [],
       };
     })
   );
@@ -417,6 +535,7 @@ export function FieldEvaluationForm({
             key={sys.code}
             sys={sys}
             state={systems[i]}
+            projectId={projectId}
             onChange={(changes) => updateSystem(i, changes)}
           />
         ))}

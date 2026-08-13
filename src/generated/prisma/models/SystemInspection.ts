@@ -72,6 +72,7 @@ export type SystemInspectionCountAggregateOutputType = {
   areasInspected: number
   observations: number
   photoCount: number
+  photoUrls: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -124,6 +125,7 @@ export type SystemInspectionCountAggregateInputType = {
   areasInspected?: true
   observations?: true
   photoCount?: true
+  photoUrls?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -225,6 +227,7 @@ export type SystemInspectionGroupByOutputType = {
   areasInspected: string | null
   observations: string | null
   photoCount: number
+  photoUrls: string[]
   createdAt: Date
   updatedAt: Date
   _count: SystemInspectionCountAggregateOutputType | null
@@ -262,6 +265,7 @@ export type SystemInspectionWhereInput = {
   areasInspected?: Prisma.StringNullableFilter<"SystemInspection"> | string | null
   observations?: Prisma.StringNullableFilter<"SystemInspection"> | string | null
   photoCount?: Prisma.IntFilter<"SystemInspection"> | number
+  photoUrls?: Prisma.StringNullableListFilter<"SystemInspection">
   createdAt?: Prisma.DateTimeFilter<"SystemInspection"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SystemInspection"> | Date | string
   fieldEvaluation?: Prisma.XOR<Prisma.FieldEvaluationScalarRelationFilter, Prisma.FieldEvaluationWhereInput>
@@ -277,6 +281,7 @@ export type SystemInspectionOrderByWithRelationInput = {
   areasInspected?: Prisma.SortOrderInput | Prisma.SortOrder
   observations?: Prisma.SortOrderInput | Prisma.SortOrder
   photoCount?: Prisma.SortOrder
+  photoUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   fieldEvaluation?: Prisma.FieldEvaluationOrderByWithRelationInput
@@ -296,6 +301,7 @@ export type SystemInspectionWhereUniqueInput = Prisma.AtLeast<{
   areasInspected?: Prisma.StringNullableFilter<"SystemInspection"> | string | null
   observations?: Prisma.StringNullableFilter<"SystemInspection"> | string | null
   photoCount?: Prisma.IntFilter<"SystemInspection"> | number
+  photoUrls?: Prisma.StringNullableListFilter<"SystemInspection">
   createdAt?: Prisma.DateTimeFilter<"SystemInspection"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SystemInspection"> | Date | string
   fieldEvaluation?: Prisma.XOR<Prisma.FieldEvaluationScalarRelationFilter, Prisma.FieldEvaluationWhereInput>
@@ -311,6 +317,7 @@ export type SystemInspectionOrderByWithAggregationInput = {
   areasInspected?: Prisma.SortOrderInput | Prisma.SortOrder
   observations?: Prisma.SortOrderInput | Prisma.SortOrder
   photoCount?: Prisma.SortOrder
+  photoUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SystemInspectionCountOrderByAggregateInput
@@ -333,6 +340,7 @@ export type SystemInspectionScalarWhereWithAggregatesInput = {
   areasInspected?: Prisma.StringNullableWithAggregatesFilter<"SystemInspection"> | string | null
   observations?: Prisma.StringNullableWithAggregatesFilter<"SystemInspection"> | string | null
   photoCount?: Prisma.IntWithAggregatesFilter<"SystemInspection"> | number
+  photoUrls?: Prisma.StringNullableListFilter<"SystemInspection">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SystemInspection"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SystemInspection"> | Date | string
 }
@@ -346,6 +354,7 @@ export type SystemInspectionCreateInput = {
   areasInspected?: string | null
   observations?: string | null
   photoCount?: number
+  photoUrls?: Prisma.SystemInspectionCreatephotoUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
   fieldEvaluation: Prisma.FieldEvaluationCreateNestedOneWithoutSystemInspectionsInput
@@ -361,6 +370,7 @@ export type SystemInspectionUncheckedCreateInput = {
   areasInspected?: string | null
   observations?: string | null
   photoCount?: number
+  photoUrls?: Prisma.SystemInspectionCreatephotoUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -374,6 +384,7 @@ export type SystemInspectionUpdateInput = {
   areasInspected?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoCount?: Prisma.IntFieldUpdateOperationsInput | number
+  photoUrls?: Prisma.SystemInspectionUpdatephotoUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fieldEvaluation?: Prisma.FieldEvaluationUpdateOneRequiredWithoutSystemInspectionsNestedInput
@@ -389,6 +400,7 @@ export type SystemInspectionUncheckedUpdateInput = {
   areasInspected?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoCount?: Prisma.IntFieldUpdateOperationsInput | number
+  photoUrls?: Prisma.SystemInspectionUpdatephotoUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -403,6 +415,7 @@ export type SystemInspectionCreateManyInput = {
   areasInspected?: string | null
   observations?: string | null
   photoCount?: number
+  photoUrls?: Prisma.SystemInspectionCreatephotoUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -416,6 +429,7 @@ export type SystemInspectionUpdateManyMutationInput = {
   areasInspected?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoCount?: Prisma.IntFieldUpdateOperationsInput | number
+  photoUrls?: Prisma.SystemInspectionUpdatephotoUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -430,6 +444,7 @@ export type SystemInspectionUncheckedUpdateManyInput = {
   areasInspected?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoCount?: Prisma.IntFieldUpdateOperationsInput | number
+  photoUrls?: Prisma.SystemInspectionUpdatephotoUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -442,6 +457,14 @@ export type SystemInspectionListRelationFilter = {
 
 export type SystemInspectionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type SystemInspectionFieldEvaluationIdSystemCodeCompoundUniqueInput = {
@@ -459,6 +482,7 @@ export type SystemInspectionCountOrderByAggregateInput = {
   areasInspected?: Prisma.SortOrder
   observations?: Prisma.SortOrder
   photoCount?: Prisma.SortOrder
+  photoUrls?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -541,6 +565,10 @@ export type SystemInspectionUncheckedUpdateManyWithoutFieldEvaluationNestedInput
   deleteMany?: Prisma.SystemInspectionScalarWhereInput | Prisma.SystemInspectionScalarWhereInput[]
 }
 
+export type SystemInspectionCreatephotoUrlsInput = {
+  set: string[]
+}
+
 export type NullableEnumSystemConditionFieldUpdateOperationsInput = {
   set?: $Enums.SystemCondition | null
 }
@@ -557,6 +585,11 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type SystemInspectionUpdatephotoUrlsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type SystemInspectionCreateWithoutFieldEvaluationInput = {
   id?: string
   systemCode: string
@@ -566,6 +599,7 @@ export type SystemInspectionCreateWithoutFieldEvaluationInput = {
   areasInspected?: string | null
   observations?: string | null
   photoCount?: number
+  photoUrls?: Prisma.SystemInspectionCreatephotoUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -579,6 +613,7 @@ export type SystemInspectionUncheckedCreateWithoutFieldEvaluationInput = {
   areasInspected?: string | null
   observations?: string | null
   photoCount?: number
+  photoUrls?: Prisma.SystemInspectionCreatephotoUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -622,6 +657,7 @@ export type SystemInspectionScalarWhereInput = {
   areasInspected?: Prisma.StringNullableFilter<"SystemInspection"> | string | null
   observations?: Prisma.StringNullableFilter<"SystemInspection"> | string | null
   photoCount?: Prisma.IntFilter<"SystemInspection"> | number
+  photoUrls?: Prisma.StringNullableListFilter<"SystemInspection">
   createdAt?: Prisma.DateTimeFilter<"SystemInspection"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SystemInspection"> | Date | string
 }
@@ -635,6 +671,7 @@ export type SystemInspectionCreateManyFieldEvaluationInput = {
   areasInspected?: string | null
   observations?: string | null
   photoCount?: number
+  photoUrls?: Prisma.SystemInspectionCreatephotoUrlsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -648,6 +685,7 @@ export type SystemInspectionUpdateWithoutFieldEvaluationInput = {
   areasInspected?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoCount?: Prisma.IntFieldUpdateOperationsInput | number
+  photoUrls?: Prisma.SystemInspectionUpdatephotoUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -661,6 +699,7 @@ export type SystemInspectionUncheckedUpdateWithoutFieldEvaluationInput = {
   areasInspected?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoCount?: Prisma.IntFieldUpdateOperationsInput | number
+  photoUrls?: Prisma.SystemInspectionUpdatephotoUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -674,6 +713,7 @@ export type SystemInspectionUncheckedUpdateManyWithoutFieldEvaluationInput = {
   areasInspected?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observations?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoCount?: Prisma.IntFieldUpdateOperationsInput | number
+  photoUrls?: Prisma.SystemInspectionUpdatephotoUrlsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -690,6 +730,7 @@ export type SystemInspectionSelect<ExtArgs extends runtime.Types.Extensions.Inte
   areasInspected?: boolean
   observations?: boolean
   photoCount?: boolean
+  photoUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   fieldEvaluation?: boolean | Prisma.FieldEvaluationDefaultArgs<ExtArgs>
@@ -705,6 +746,7 @@ export type SystemInspectionSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   areasInspected?: boolean
   observations?: boolean
   photoCount?: boolean
+  photoUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   fieldEvaluation?: boolean | Prisma.FieldEvaluationDefaultArgs<ExtArgs>
@@ -720,6 +762,7 @@ export type SystemInspectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   areasInspected?: boolean
   observations?: boolean
   photoCount?: boolean
+  photoUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   fieldEvaluation?: boolean | Prisma.FieldEvaluationDefaultArgs<ExtArgs>
@@ -735,11 +778,12 @@ export type SystemInspectionSelectScalar = {
   areasInspected?: boolean
   observations?: boolean
   photoCount?: boolean
+  photoUrls?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SystemInspectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fieldEvaluationId" | "systemCode" | "systemName" | "condition" | "urgency" | "areasInspected" | "observations" | "photoCount" | "createdAt" | "updatedAt", ExtArgs["result"]["systemInspection"]>
+export type SystemInspectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fieldEvaluationId" | "systemCode" | "systemName" | "condition" | "urgency" | "areasInspected" | "observations" | "photoCount" | "photoUrls" | "createdAt" | "updatedAt", ExtArgs["result"]["systemInspection"]>
 export type SystemInspectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fieldEvaluation?: boolean | Prisma.FieldEvaluationDefaultArgs<ExtArgs>
 }
@@ -765,6 +809,7 @@ export type $SystemInspectionPayload<ExtArgs extends runtime.Types.Extensions.In
     areasInspected: string | null
     observations: string | null
     photoCount: number
+    photoUrls: string[]
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["systemInspection"]>
@@ -1200,6 +1245,7 @@ export interface SystemInspectionFieldRefs {
   readonly areasInspected: Prisma.FieldRef<"SystemInspection", 'String'>
   readonly observations: Prisma.FieldRef<"SystemInspection", 'String'>
   readonly photoCount: Prisma.FieldRef<"SystemInspection", 'Int'>
+  readonly photoUrls: Prisma.FieldRef<"SystemInspection", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"SystemInspection", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"SystemInspection", 'DateTime'>
 }

@@ -249,6 +249,7 @@ model SystemInspection {
   areasInspected    String?         @map("areas_inspected")
   observations      String?
   photoCount        Int             @default(0) @map("photo_count")
+  photoUrls         String[]        @default([]) @map("photo_urls")
   createdAt         DateTime        @default(now()) @map("created_at")
   updatedAt         DateTime        @updatedAt @map("updated_at")
 
