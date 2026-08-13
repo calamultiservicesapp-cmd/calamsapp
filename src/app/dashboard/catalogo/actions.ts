@@ -47,8 +47,9 @@ export async function createActivity(state: any, formData: FormData) {
     });
     revalidatePath("/dashboard/catalogo");
     return { success: true };
-  } catch {
-    return { error: "Error al crear el servicio." };
+  } catch (err: any) {
+    console.error("createActivity error:", err);
+    return { error: err?.message ?? "Error al crear el servicio." };
   }
 }
 
