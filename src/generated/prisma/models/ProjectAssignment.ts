@@ -27,7 +27,7 @@ export type AggregateProjectAssignment = {
 export type ProjectAssignmentMinAggregateOutputType = {
   id: string | null
   projectId: string | null
-  technicianId: string | null
+  personnelId: string | null
   startDate: Date | null
   endDate: Date | null
   notes: string | null
@@ -36,7 +36,7 @@ export type ProjectAssignmentMinAggregateOutputType = {
 export type ProjectAssignmentMaxAggregateOutputType = {
   id: string | null
   projectId: string | null
-  technicianId: string | null
+  personnelId: string | null
   startDate: Date | null
   endDate: Date | null
   notes: string | null
@@ -45,7 +45,7 @@ export type ProjectAssignmentMaxAggregateOutputType = {
 export type ProjectAssignmentCountAggregateOutputType = {
   id: number
   projectId: number
-  technicianId: number
+  personnelId: number
   startDate: number
   endDate: number
   notes: number
@@ -56,7 +56,7 @@ export type ProjectAssignmentCountAggregateOutputType = {
 export type ProjectAssignmentMinAggregateInputType = {
   id?: true
   projectId?: true
-  technicianId?: true
+  personnelId?: true
   startDate?: true
   endDate?: true
   notes?: true
@@ -65,7 +65,7 @@ export type ProjectAssignmentMinAggregateInputType = {
 export type ProjectAssignmentMaxAggregateInputType = {
   id?: true
   projectId?: true
-  technicianId?: true
+  personnelId?: true
   startDate?: true
   endDate?: true
   notes?: true
@@ -74,7 +74,7 @@ export type ProjectAssignmentMaxAggregateInputType = {
 export type ProjectAssignmentCountAggregateInputType = {
   id?: true
   projectId?: true
-  technicianId?: true
+  personnelId?: true
   startDate?: true
   endDate?: true
   notes?: true
@@ -156,7 +156,7 @@ export type ProjectAssignmentGroupByArgs<ExtArgs extends runtime.Types.Extension
 export type ProjectAssignmentGroupByOutputType = {
   id: string
   projectId: string
-  technicianId: string
+  personnelId: string
   startDate: Date
   endDate: Date
   notes: string | null
@@ -186,23 +186,23 @@ export type ProjectAssignmentWhereInput = {
   NOT?: Prisma.ProjectAssignmentWhereInput | Prisma.ProjectAssignmentWhereInput[]
   id?: Prisma.UuidFilter<"ProjectAssignment"> | string
   projectId?: Prisma.UuidFilter<"ProjectAssignment"> | string
-  technicianId?: Prisma.UuidFilter<"ProjectAssignment"> | string
+  personnelId?: Prisma.UuidFilter<"ProjectAssignment"> | string
   startDate?: Prisma.DateTimeFilter<"ProjectAssignment"> | Date | string
   endDate?: Prisma.DateTimeFilter<"ProjectAssignment"> | Date | string
   notes?: Prisma.StringNullableFilter<"ProjectAssignment"> | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
-  technician?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
+  personnel?: Prisma.XOR<Prisma.PersonnelScalarRelationFilter, Prisma.PersonnelWhereInput>
 }
 
 export type ProjectAssignmentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  technicianId?: Prisma.SortOrder
+  personnelId?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
-  technician?: Prisma.ProfileOrderByWithRelationInput
+  personnel?: Prisma.PersonnelOrderByWithRelationInput
 }
 
 export type ProjectAssignmentWhereUniqueInput = Prisma.AtLeast<{
@@ -211,18 +211,18 @@ export type ProjectAssignmentWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ProjectAssignmentWhereInput[]
   NOT?: Prisma.ProjectAssignmentWhereInput | Prisma.ProjectAssignmentWhereInput[]
   projectId?: Prisma.UuidFilter<"ProjectAssignment"> | string
-  technicianId?: Prisma.UuidFilter<"ProjectAssignment"> | string
+  personnelId?: Prisma.UuidFilter<"ProjectAssignment"> | string
   startDate?: Prisma.DateTimeFilter<"ProjectAssignment"> | Date | string
   endDate?: Prisma.DateTimeFilter<"ProjectAssignment"> | Date | string
   notes?: Prisma.StringNullableFilter<"ProjectAssignment"> | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
-  technician?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
+  personnel?: Prisma.XOR<Prisma.PersonnelScalarRelationFilter, Prisma.PersonnelWhereInput>
 }, "id">
 
 export type ProjectAssignmentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  technicianId?: Prisma.SortOrder
+  personnelId?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -237,7 +237,7 @@ export type ProjectAssignmentScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ProjectAssignmentScalarWhereWithAggregatesInput | Prisma.ProjectAssignmentScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"ProjectAssignment"> | string
   projectId?: Prisma.UuidWithAggregatesFilter<"ProjectAssignment"> | string
-  technicianId?: Prisma.UuidWithAggregatesFilter<"ProjectAssignment"> | string
+  personnelId?: Prisma.UuidWithAggregatesFilter<"ProjectAssignment"> | string
   startDate?: Prisma.DateTimeWithAggregatesFilter<"ProjectAssignment"> | Date | string
   endDate?: Prisma.DateTimeWithAggregatesFilter<"ProjectAssignment"> | Date | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"ProjectAssignment"> | string | null
@@ -249,13 +249,13 @@ export type ProjectAssignmentCreateInput = {
   endDate: Date | string
   notes?: string | null
   project: Prisma.ProjectCreateNestedOneWithoutAssignmentsInput
-  technician: Prisma.ProfileCreateNestedOneWithoutAssignmentsInput
+  personnel: Prisma.PersonnelCreateNestedOneWithoutAssignmentsInput
 }
 
 export type ProjectAssignmentUncheckedCreateInput = {
   id?: string
   projectId: string
-  technicianId: string
+  personnelId: string
   startDate: Date | string
   endDate: Date | string
   notes?: string | null
@@ -267,13 +267,13 @@ export type ProjectAssignmentUpdateInput = {
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutAssignmentsNestedInput
-  technician?: Prisma.ProfileUpdateOneRequiredWithoutAssignmentsNestedInput
+  personnel?: Prisma.PersonnelUpdateOneRequiredWithoutAssignmentsNestedInput
 }
 
 export type ProjectAssignmentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  technicianId?: Prisma.StringFieldUpdateOperationsInput | string
+  personnelId?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -282,7 +282,7 @@ export type ProjectAssignmentUncheckedUpdateInput = {
 export type ProjectAssignmentCreateManyInput = {
   id?: string
   projectId: string
-  technicianId: string
+  personnelId: string
   startDate: Date | string
   endDate: Date | string
   notes?: string | null
@@ -298,7 +298,7 @@ export type ProjectAssignmentUpdateManyMutationInput = {
 export type ProjectAssignmentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  technicianId?: Prisma.StringFieldUpdateOperationsInput | string
+  personnelId?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -317,7 +317,7 @@ export type ProjectAssignmentOrderByRelationAggregateInput = {
 export type ProjectAssignmentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  technicianId?: Prisma.SortOrder
+  personnelId?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -326,7 +326,7 @@ export type ProjectAssignmentCountOrderByAggregateInput = {
 export type ProjectAssignmentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  technicianId?: Prisma.SortOrder
+  personnelId?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -335,51 +335,51 @@ export type ProjectAssignmentMaxOrderByAggregateInput = {
 export type ProjectAssignmentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  technicianId?: Prisma.SortOrder
+  personnelId?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   notes?: Prisma.SortOrder
 }
 
-export type ProjectAssignmentCreateNestedManyWithoutTechnicianInput = {
-  create?: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutTechnicianInput, Prisma.ProjectAssignmentUncheckedCreateWithoutTechnicianInput> | Prisma.ProjectAssignmentCreateWithoutTechnicianInput[] | Prisma.ProjectAssignmentUncheckedCreateWithoutTechnicianInput[]
-  connectOrCreate?: Prisma.ProjectAssignmentCreateOrConnectWithoutTechnicianInput | Prisma.ProjectAssignmentCreateOrConnectWithoutTechnicianInput[]
-  createMany?: Prisma.ProjectAssignmentCreateManyTechnicianInputEnvelope
+export type ProjectAssignmentCreateNestedManyWithoutPersonnelInput = {
+  create?: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutPersonnelInput, Prisma.ProjectAssignmentUncheckedCreateWithoutPersonnelInput> | Prisma.ProjectAssignmentCreateWithoutPersonnelInput[] | Prisma.ProjectAssignmentUncheckedCreateWithoutPersonnelInput[]
+  connectOrCreate?: Prisma.ProjectAssignmentCreateOrConnectWithoutPersonnelInput | Prisma.ProjectAssignmentCreateOrConnectWithoutPersonnelInput[]
+  createMany?: Prisma.ProjectAssignmentCreateManyPersonnelInputEnvelope
   connect?: Prisma.ProjectAssignmentWhereUniqueInput | Prisma.ProjectAssignmentWhereUniqueInput[]
 }
 
-export type ProjectAssignmentUncheckedCreateNestedManyWithoutTechnicianInput = {
-  create?: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutTechnicianInput, Prisma.ProjectAssignmentUncheckedCreateWithoutTechnicianInput> | Prisma.ProjectAssignmentCreateWithoutTechnicianInput[] | Prisma.ProjectAssignmentUncheckedCreateWithoutTechnicianInput[]
-  connectOrCreate?: Prisma.ProjectAssignmentCreateOrConnectWithoutTechnicianInput | Prisma.ProjectAssignmentCreateOrConnectWithoutTechnicianInput[]
-  createMany?: Prisma.ProjectAssignmentCreateManyTechnicianInputEnvelope
+export type ProjectAssignmentUncheckedCreateNestedManyWithoutPersonnelInput = {
+  create?: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutPersonnelInput, Prisma.ProjectAssignmentUncheckedCreateWithoutPersonnelInput> | Prisma.ProjectAssignmentCreateWithoutPersonnelInput[] | Prisma.ProjectAssignmentUncheckedCreateWithoutPersonnelInput[]
+  connectOrCreate?: Prisma.ProjectAssignmentCreateOrConnectWithoutPersonnelInput | Prisma.ProjectAssignmentCreateOrConnectWithoutPersonnelInput[]
+  createMany?: Prisma.ProjectAssignmentCreateManyPersonnelInputEnvelope
   connect?: Prisma.ProjectAssignmentWhereUniqueInput | Prisma.ProjectAssignmentWhereUniqueInput[]
 }
 
-export type ProjectAssignmentUpdateManyWithoutTechnicianNestedInput = {
-  create?: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutTechnicianInput, Prisma.ProjectAssignmentUncheckedCreateWithoutTechnicianInput> | Prisma.ProjectAssignmentCreateWithoutTechnicianInput[] | Prisma.ProjectAssignmentUncheckedCreateWithoutTechnicianInput[]
-  connectOrCreate?: Prisma.ProjectAssignmentCreateOrConnectWithoutTechnicianInput | Prisma.ProjectAssignmentCreateOrConnectWithoutTechnicianInput[]
-  upsert?: Prisma.ProjectAssignmentUpsertWithWhereUniqueWithoutTechnicianInput | Prisma.ProjectAssignmentUpsertWithWhereUniqueWithoutTechnicianInput[]
-  createMany?: Prisma.ProjectAssignmentCreateManyTechnicianInputEnvelope
+export type ProjectAssignmentUpdateManyWithoutPersonnelNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutPersonnelInput, Prisma.ProjectAssignmentUncheckedCreateWithoutPersonnelInput> | Prisma.ProjectAssignmentCreateWithoutPersonnelInput[] | Prisma.ProjectAssignmentUncheckedCreateWithoutPersonnelInput[]
+  connectOrCreate?: Prisma.ProjectAssignmentCreateOrConnectWithoutPersonnelInput | Prisma.ProjectAssignmentCreateOrConnectWithoutPersonnelInput[]
+  upsert?: Prisma.ProjectAssignmentUpsertWithWhereUniqueWithoutPersonnelInput | Prisma.ProjectAssignmentUpsertWithWhereUniqueWithoutPersonnelInput[]
+  createMany?: Prisma.ProjectAssignmentCreateManyPersonnelInputEnvelope
   set?: Prisma.ProjectAssignmentWhereUniqueInput | Prisma.ProjectAssignmentWhereUniqueInput[]
   disconnect?: Prisma.ProjectAssignmentWhereUniqueInput | Prisma.ProjectAssignmentWhereUniqueInput[]
   delete?: Prisma.ProjectAssignmentWhereUniqueInput | Prisma.ProjectAssignmentWhereUniqueInput[]
   connect?: Prisma.ProjectAssignmentWhereUniqueInput | Prisma.ProjectAssignmentWhereUniqueInput[]
-  update?: Prisma.ProjectAssignmentUpdateWithWhereUniqueWithoutTechnicianInput | Prisma.ProjectAssignmentUpdateWithWhereUniqueWithoutTechnicianInput[]
-  updateMany?: Prisma.ProjectAssignmentUpdateManyWithWhereWithoutTechnicianInput | Prisma.ProjectAssignmentUpdateManyWithWhereWithoutTechnicianInput[]
+  update?: Prisma.ProjectAssignmentUpdateWithWhereUniqueWithoutPersonnelInput | Prisma.ProjectAssignmentUpdateWithWhereUniqueWithoutPersonnelInput[]
+  updateMany?: Prisma.ProjectAssignmentUpdateManyWithWhereWithoutPersonnelInput | Prisma.ProjectAssignmentUpdateManyWithWhereWithoutPersonnelInput[]
   deleteMany?: Prisma.ProjectAssignmentScalarWhereInput | Prisma.ProjectAssignmentScalarWhereInput[]
 }
 
-export type ProjectAssignmentUncheckedUpdateManyWithoutTechnicianNestedInput = {
-  create?: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutTechnicianInput, Prisma.ProjectAssignmentUncheckedCreateWithoutTechnicianInput> | Prisma.ProjectAssignmentCreateWithoutTechnicianInput[] | Prisma.ProjectAssignmentUncheckedCreateWithoutTechnicianInput[]
-  connectOrCreate?: Prisma.ProjectAssignmentCreateOrConnectWithoutTechnicianInput | Prisma.ProjectAssignmentCreateOrConnectWithoutTechnicianInput[]
-  upsert?: Prisma.ProjectAssignmentUpsertWithWhereUniqueWithoutTechnicianInput | Prisma.ProjectAssignmentUpsertWithWhereUniqueWithoutTechnicianInput[]
-  createMany?: Prisma.ProjectAssignmentCreateManyTechnicianInputEnvelope
+export type ProjectAssignmentUncheckedUpdateManyWithoutPersonnelNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutPersonnelInput, Prisma.ProjectAssignmentUncheckedCreateWithoutPersonnelInput> | Prisma.ProjectAssignmentCreateWithoutPersonnelInput[] | Prisma.ProjectAssignmentUncheckedCreateWithoutPersonnelInput[]
+  connectOrCreate?: Prisma.ProjectAssignmentCreateOrConnectWithoutPersonnelInput | Prisma.ProjectAssignmentCreateOrConnectWithoutPersonnelInput[]
+  upsert?: Prisma.ProjectAssignmentUpsertWithWhereUniqueWithoutPersonnelInput | Prisma.ProjectAssignmentUpsertWithWhereUniqueWithoutPersonnelInput[]
+  createMany?: Prisma.ProjectAssignmentCreateManyPersonnelInputEnvelope
   set?: Prisma.ProjectAssignmentWhereUniqueInput | Prisma.ProjectAssignmentWhereUniqueInput[]
   disconnect?: Prisma.ProjectAssignmentWhereUniqueInput | Prisma.ProjectAssignmentWhereUniqueInput[]
   delete?: Prisma.ProjectAssignmentWhereUniqueInput | Prisma.ProjectAssignmentWhereUniqueInput[]
   connect?: Prisma.ProjectAssignmentWhereUniqueInput | Prisma.ProjectAssignmentWhereUniqueInput[]
-  update?: Prisma.ProjectAssignmentUpdateWithWhereUniqueWithoutTechnicianInput | Prisma.ProjectAssignmentUpdateWithWhereUniqueWithoutTechnicianInput[]
-  updateMany?: Prisma.ProjectAssignmentUpdateManyWithWhereWithoutTechnicianInput | Prisma.ProjectAssignmentUpdateManyWithWhereWithoutTechnicianInput[]
+  update?: Prisma.ProjectAssignmentUpdateWithWhereUniqueWithoutPersonnelInput | Prisma.ProjectAssignmentUpdateWithWhereUniqueWithoutPersonnelInput[]
+  updateMany?: Prisma.ProjectAssignmentUpdateManyWithWhereWithoutPersonnelInput | Prisma.ProjectAssignmentUpdateManyWithWhereWithoutPersonnelInput[]
   deleteMany?: Prisma.ProjectAssignmentScalarWhereInput | Prisma.ProjectAssignmentScalarWhereInput[]
 }
 
@@ -425,7 +425,7 @@ export type ProjectAssignmentUncheckedUpdateManyWithoutProjectNestedInput = {
   deleteMany?: Prisma.ProjectAssignmentScalarWhereInput | Prisma.ProjectAssignmentScalarWhereInput[]
 }
 
-export type ProjectAssignmentCreateWithoutTechnicianInput = {
+export type ProjectAssignmentCreateWithoutPersonnelInput = {
   id?: string
   startDate: Date | string
   endDate: Date | string
@@ -433,7 +433,7 @@ export type ProjectAssignmentCreateWithoutTechnicianInput = {
   project: Prisma.ProjectCreateNestedOneWithoutAssignmentsInput
 }
 
-export type ProjectAssignmentUncheckedCreateWithoutTechnicianInput = {
+export type ProjectAssignmentUncheckedCreateWithoutPersonnelInput = {
   id?: string
   projectId: string
   startDate: Date | string
@@ -441,30 +441,30 @@ export type ProjectAssignmentUncheckedCreateWithoutTechnicianInput = {
   notes?: string | null
 }
 
-export type ProjectAssignmentCreateOrConnectWithoutTechnicianInput = {
+export type ProjectAssignmentCreateOrConnectWithoutPersonnelInput = {
   where: Prisma.ProjectAssignmentWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutTechnicianInput, Prisma.ProjectAssignmentUncheckedCreateWithoutTechnicianInput>
+  create: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutPersonnelInput, Prisma.ProjectAssignmentUncheckedCreateWithoutPersonnelInput>
 }
 
-export type ProjectAssignmentCreateManyTechnicianInputEnvelope = {
-  data: Prisma.ProjectAssignmentCreateManyTechnicianInput | Prisma.ProjectAssignmentCreateManyTechnicianInput[]
+export type ProjectAssignmentCreateManyPersonnelInputEnvelope = {
+  data: Prisma.ProjectAssignmentCreateManyPersonnelInput | Prisma.ProjectAssignmentCreateManyPersonnelInput[]
   skipDuplicates?: boolean
 }
 
-export type ProjectAssignmentUpsertWithWhereUniqueWithoutTechnicianInput = {
+export type ProjectAssignmentUpsertWithWhereUniqueWithoutPersonnelInput = {
   where: Prisma.ProjectAssignmentWhereUniqueInput
-  update: Prisma.XOR<Prisma.ProjectAssignmentUpdateWithoutTechnicianInput, Prisma.ProjectAssignmentUncheckedUpdateWithoutTechnicianInput>
-  create: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutTechnicianInput, Prisma.ProjectAssignmentUncheckedCreateWithoutTechnicianInput>
+  update: Prisma.XOR<Prisma.ProjectAssignmentUpdateWithoutPersonnelInput, Prisma.ProjectAssignmentUncheckedUpdateWithoutPersonnelInput>
+  create: Prisma.XOR<Prisma.ProjectAssignmentCreateWithoutPersonnelInput, Prisma.ProjectAssignmentUncheckedCreateWithoutPersonnelInput>
 }
 
-export type ProjectAssignmentUpdateWithWhereUniqueWithoutTechnicianInput = {
+export type ProjectAssignmentUpdateWithWhereUniqueWithoutPersonnelInput = {
   where: Prisma.ProjectAssignmentWhereUniqueInput
-  data: Prisma.XOR<Prisma.ProjectAssignmentUpdateWithoutTechnicianInput, Prisma.ProjectAssignmentUncheckedUpdateWithoutTechnicianInput>
+  data: Prisma.XOR<Prisma.ProjectAssignmentUpdateWithoutPersonnelInput, Prisma.ProjectAssignmentUncheckedUpdateWithoutPersonnelInput>
 }
 
-export type ProjectAssignmentUpdateManyWithWhereWithoutTechnicianInput = {
+export type ProjectAssignmentUpdateManyWithWhereWithoutPersonnelInput = {
   where: Prisma.ProjectAssignmentScalarWhereInput
-  data: Prisma.XOR<Prisma.ProjectAssignmentUpdateManyMutationInput, Prisma.ProjectAssignmentUncheckedUpdateManyWithoutTechnicianInput>
+  data: Prisma.XOR<Prisma.ProjectAssignmentUpdateManyMutationInput, Prisma.ProjectAssignmentUncheckedUpdateManyWithoutPersonnelInput>
 }
 
 export type ProjectAssignmentScalarWhereInput = {
@@ -473,7 +473,7 @@ export type ProjectAssignmentScalarWhereInput = {
   NOT?: Prisma.ProjectAssignmentScalarWhereInput | Prisma.ProjectAssignmentScalarWhereInput[]
   id?: Prisma.UuidFilter<"ProjectAssignment"> | string
   projectId?: Prisma.UuidFilter<"ProjectAssignment"> | string
-  technicianId?: Prisma.UuidFilter<"ProjectAssignment"> | string
+  personnelId?: Prisma.UuidFilter<"ProjectAssignment"> | string
   startDate?: Prisma.DateTimeFilter<"ProjectAssignment"> | Date | string
   endDate?: Prisma.DateTimeFilter<"ProjectAssignment"> | Date | string
   notes?: Prisma.StringNullableFilter<"ProjectAssignment"> | string | null
@@ -484,12 +484,12 @@ export type ProjectAssignmentCreateWithoutProjectInput = {
   startDate: Date | string
   endDate: Date | string
   notes?: string | null
-  technician: Prisma.ProfileCreateNestedOneWithoutAssignmentsInput
+  personnel: Prisma.PersonnelCreateNestedOneWithoutAssignmentsInput
 }
 
 export type ProjectAssignmentUncheckedCreateWithoutProjectInput = {
   id?: string
-  technicianId: string
+  personnelId: string
   startDate: Date | string
   endDate: Date | string
   notes?: string | null
@@ -521,7 +521,7 @@ export type ProjectAssignmentUpdateManyWithWhereWithoutProjectInput = {
   data: Prisma.XOR<Prisma.ProjectAssignmentUpdateManyMutationInput, Prisma.ProjectAssignmentUncheckedUpdateManyWithoutProjectInput>
 }
 
-export type ProjectAssignmentCreateManyTechnicianInput = {
+export type ProjectAssignmentCreateManyPersonnelInput = {
   id?: string
   projectId: string
   startDate: Date | string
@@ -529,7 +529,7 @@ export type ProjectAssignmentCreateManyTechnicianInput = {
   notes?: string | null
 }
 
-export type ProjectAssignmentUpdateWithoutTechnicianInput = {
+export type ProjectAssignmentUpdateWithoutPersonnelInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -537,7 +537,7 @@ export type ProjectAssignmentUpdateWithoutTechnicianInput = {
   project?: Prisma.ProjectUpdateOneRequiredWithoutAssignmentsNestedInput
 }
 
-export type ProjectAssignmentUncheckedUpdateWithoutTechnicianInput = {
+export type ProjectAssignmentUncheckedUpdateWithoutPersonnelInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -545,7 +545,7 @@ export type ProjectAssignmentUncheckedUpdateWithoutTechnicianInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type ProjectAssignmentUncheckedUpdateManyWithoutTechnicianInput = {
+export type ProjectAssignmentUncheckedUpdateManyWithoutPersonnelInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -555,7 +555,7 @@ export type ProjectAssignmentUncheckedUpdateManyWithoutTechnicianInput = {
 
 export type ProjectAssignmentCreateManyProjectInput = {
   id?: string
-  technicianId: string
+  personnelId: string
   startDate: Date | string
   endDate: Date | string
   notes?: string | null
@@ -566,12 +566,12 @@ export type ProjectAssignmentUpdateWithoutProjectInput = {
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  technician?: Prisma.ProfileUpdateOneRequiredWithoutAssignmentsNestedInput
+  personnel?: Prisma.PersonnelUpdateOneRequiredWithoutAssignmentsNestedInput
 }
 
 export type ProjectAssignmentUncheckedUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  technicianId?: Prisma.StringFieldUpdateOperationsInput | string
+  personnelId?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -579,7 +579,7 @@ export type ProjectAssignmentUncheckedUpdateWithoutProjectInput = {
 
 export type ProjectAssignmentUncheckedUpdateManyWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  technicianId?: Prisma.StringFieldUpdateOperationsInput | string
+  personnelId?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -590,69 +590,69 @@ export type ProjectAssignmentUncheckedUpdateManyWithoutProjectInput = {
 export type ProjectAssignmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
-  technicianId?: boolean
+  personnelId?: boolean
   startDate?: boolean
   endDate?: boolean
   notes?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  personnel?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectAssignment"]>
 
 export type ProjectAssignmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
-  technicianId?: boolean
+  personnelId?: boolean
   startDate?: boolean
   endDate?: boolean
   notes?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  personnel?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectAssignment"]>
 
 export type ProjectAssignmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
-  technicianId?: boolean
+  personnelId?: boolean
   startDate?: boolean
   endDate?: boolean
   notes?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  personnel?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["projectAssignment"]>
 
 export type ProjectAssignmentSelectScalar = {
   id?: boolean
   projectId?: boolean
-  technicianId?: boolean
+  personnelId?: boolean
   startDate?: boolean
   endDate?: boolean
   notes?: boolean
 }
 
-export type ProjectAssignmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "technicianId" | "startDate" | "endDate" | "notes", ExtArgs["result"]["projectAssignment"]>
+export type ProjectAssignmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "personnelId" | "startDate" | "endDate" | "notes", ExtArgs["result"]["projectAssignment"]>
 export type ProjectAssignmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  personnel?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }
 export type ProjectAssignmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  personnel?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }
 export type ProjectAssignmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  technician?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  personnel?: boolean | Prisma.PersonnelDefaultArgs<ExtArgs>
 }
 
 export type $ProjectAssignmentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProjectAssignment"
   objects: {
     project: Prisma.$ProjectPayload<ExtArgs>
-    technician: Prisma.$ProfilePayload<ExtArgs>
+    personnel: Prisma.$PersonnelPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     projectId: string
-    technicianId: string
+    personnelId: string
     startDate: Date
     endDate: Date
     notes: string | null
@@ -1051,7 +1051,7 @@ readonly fields: ProjectAssignmentFieldRefs;
 export interface Prisma__ProjectAssignmentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  technician<T extends Prisma.ProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  personnel<T extends Prisma.PersonnelDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonnelDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonnelClient<runtime.Types.Result.GetResult<Prisma.$PersonnelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1083,7 +1083,7 @@ export interface Prisma__ProjectAssignmentClient<T, Null = never, ExtArgs extend
 export interface ProjectAssignmentFieldRefs {
   readonly id: Prisma.FieldRef<"ProjectAssignment", 'String'>
   readonly projectId: Prisma.FieldRef<"ProjectAssignment", 'String'>
-  readonly technicianId: Prisma.FieldRef<"ProjectAssignment", 'String'>
+  readonly personnelId: Prisma.FieldRef<"ProjectAssignment", 'String'>
   readonly startDate: Prisma.FieldRef<"ProjectAssignment", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"ProjectAssignment", 'DateTime'>
   readonly notes: Prisma.FieldRef<"ProjectAssignment", 'String'>

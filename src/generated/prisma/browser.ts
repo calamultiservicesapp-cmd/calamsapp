@@ -38,6 +38,11 @@ export type PricingConfig = Prisma.PricingConfigModel
  */
 export type PersonnelCategory = Prisma.PersonnelCategoryModel
 /**
+ * Model Personnel
+ * 
+ */
+export type Personnel = Prisma.PersonnelModel
+/**
  * Model Activity
  * 
  */

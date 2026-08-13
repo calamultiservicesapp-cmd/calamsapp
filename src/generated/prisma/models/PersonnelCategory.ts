@@ -240,6 +240,7 @@ export type PersonnelCategoryWhereInput = {
   isActive?: Prisma.BoolFilter<"PersonnelCategory"> | boolean
   createdAt?: Prisma.DateTimeFilter<"PersonnelCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PersonnelCategory"> | Date | string
+  personnel?: Prisma.PersonnelListRelationFilter
 }
 
 export type PersonnelCategoryOrderByWithRelationInput = {
@@ -251,6 +252,7 @@ export type PersonnelCategoryOrderByWithRelationInput = {
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  personnel?: Prisma.PersonnelOrderByRelationAggregateInput
 }
 
 export type PersonnelCategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -265,6 +267,7 @@ export type PersonnelCategoryWhereUniqueInput = Prisma.AtLeast<{
   isActive?: Prisma.BoolFilter<"PersonnelCategory"> | boolean
   createdAt?: Prisma.DateTimeFilter<"PersonnelCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PersonnelCategory"> | Date | string
+  personnel?: Prisma.PersonnelListRelationFilter
 }, "id" | "name">
 
 export type PersonnelCategoryOrderByWithAggregationInput = {
@@ -306,6 +309,7 @@ export type PersonnelCategoryCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  personnel?: Prisma.PersonnelCreateNestedManyWithoutCategoryInput
 }
 
 export type PersonnelCategoryUncheckedCreateInput = {
@@ -317,6 +321,7 @@ export type PersonnelCategoryUncheckedCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  personnel?: Prisma.PersonnelUncheckedCreateNestedManyWithoutCategoryInput
 }
 
 export type PersonnelCategoryUpdateInput = {
@@ -328,6 +333,7 @@ export type PersonnelCategoryUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  personnel?: Prisma.PersonnelUpdateManyWithoutCategoryNestedInput
 }
 
 export type PersonnelCategoryUncheckedUpdateInput = {
@@ -339,6 +345,7 @@ export type PersonnelCategoryUncheckedUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  personnel?: Prisma.PersonnelUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type PersonnelCategoryCreateManyInput = {
@@ -415,10 +422,120 @@ export type PersonnelCategorySumOrderByAggregateInput = {
   hourlyRate?: Prisma.SortOrder
 }
 
+export type PersonnelCategoryNullableScalarRelationFilter = {
+  is?: Prisma.PersonnelCategoryWhereInput | null
+  isNot?: Prisma.PersonnelCategoryWhereInput | null
+}
+
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type PersonnelCategoryCreateNestedOneWithoutPersonnelInput = {
+  create?: Prisma.XOR<Prisma.PersonnelCategoryCreateWithoutPersonnelInput, Prisma.PersonnelCategoryUncheckedCreateWithoutPersonnelInput>
+  connectOrCreate?: Prisma.PersonnelCategoryCreateOrConnectWithoutPersonnelInput
+  connect?: Prisma.PersonnelCategoryWhereUniqueInput
+}
+
+export type PersonnelCategoryUpdateOneWithoutPersonnelNestedInput = {
+  create?: Prisma.XOR<Prisma.PersonnelCategoryCreateWithoutPersonnelInput, Prisma.PersonnelCategoryUncheckedCreateWithoutPersonnelInput>
+  connectOrCreate?: Prisma.PersonnelCategoryCreateOrConnectWithoutPersonnelInput
+  upsert?: Prisma.PersonnelCategoryUpsertWithoutPersonnelInput
+  disconnect?: Prisma.PersonnelCategoryWhereInput | boolean
+  delete?: Prisma.PersonnelCategoryWhereInput | boolean
+  connect?: Prisma.PersonnelCategoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PersonnelCategoryUpdateToOneWithWhereWithoutPersonnelInput, Prisma.PersonnelCategoryUpdateWithoutPersonnelInput>, Prisma.PersonnelCategoryUncheckedUpdateWithoutPersonnelInput>
+}
+
+export type PersonnelCategoryCreateWithoutPersonnelInput = {
+  id?: string
+  name: string
+  labelEs: string
+  labelEn: string
+  hourlyRate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PersonnelCategoryUncheckedCreateWithoutPersonnelInput = {
+  id?: string
+  name: string
+  labelEs: string
+  labelEn: string
+  hourlyRate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PersonnelCategoryCreateOrConnectWithoutPersonnelInput = {
+  where: Prisma.PersonnelCategoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.PersonnelCategoryCreateWithoutPersonnelInput, Prisma.PersonnelCategoryUncheckedCreateWithoutPersonnelInput>
+}
+
+export type PersonnelCategoryUpsertWithoutPersonnelInput = {
+  update: Prisma.XOR<Prisma.PersonnelCategoryUpdateWithoutPersonnelInput, Prisma.PersonnelCategoryUncheckedUpdateWithoutPersonnelInput>
+  create: Prisma.XOR<Prisma.PersonnelCategoryCreateWithoutPersonnelInput, Prisma.PersonnelCategoryUncheckedCreateWithoutPersonnelInput>
+  where?: Prisma.PersonnelCategoryWhereInput
+}
+
+export type PersonnelCategoryUpdateToOneWithWhereWithoutPersonnelInput = {
+  where?: Prisma.PersonnelCategoryWhereInput
+  data: Prisma.XOR<Prisma.PersonnelCategoryUpdateWithoutPersonnelInput, Prisma.PersonnelCategoryUncheckedUpdateWithoutPersonnelInput>
+}
+
+export type PersonnelCategoryUpdateWithoutPersonnelInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  labelEs?: Prisma.StringFieldUpdateOperationsInput | string
+  labelEn?: Prisma.StringFieldUpdateOperationsInput | string
+  hourlyRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PersonnelCategoryUncheckedUpdateWithoutPersonnelInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  labelEs?: Prisma.StringFieldUpdateOperationsInput | string
+  labelEn?: Prisma.StringFieldUpdateOperationsInput | string
+  hourlyRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type PersonnelCategoryCountOutputType
+ */
+
+export type PersonnelCategoryCountOutputType = {
+  personnel: number
+}
+
+export type PersonnelCategoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  personnel?: boolean | PersonnelCategoryCountOutputTypeCountPersonnelArgs
+}
+
+/**
+ * PersonnelCategoryCountOutputType without action
+ */
+export type PersonnelCategoryCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PersonnelCategoryCountOutputType
+   */
+  select?: Prisma.PersonnelCategoryCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PersonnelCategoryCountOutputType without action
+ */
+export type PersonnelCategoryCountOutputTypeCountPersonnelArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PersonnelWhereInput
+}
 
 
 export type PersonnelCategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -430,6 +547,8 @@ export type PersonnelCategorySelect<ExtArgs extends runtime.Types.Extensions.Int
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  personnel?: boolean | Prisma.PersonnelCategory$personnelArgs<ExtArgs>
+  _count?: boolean | Prisma.PersonnelCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["personnelCategory"]>
 
 export type PersonnelCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -466,10 +585,18 @@ export type PersonnelCategorySelectScalar = {
 }
 
 export type PersonnelCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "labelEs" | "labelEn" | "hourlyRate" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["personnelCategory"]>
+export type PersonnelCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  personnel?: boolean | Prisma.PersonnelCategory$personnelArgs<ExtArgs>
+  _count?: boolean | Prisma.PersonnelCategoryCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type PersonnelCategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type PersonnelCategoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $PersonnelCategoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PersonnelCategory"
-  objects: {}
+  objects: {
+    personnel: Prisma.$PersonnelPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
@@ -873,6 +1000,7 @@ readonly fields: PersonnelCategoryFieldRefs;
  */
 export interface Prisma__PersonnelCategoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  personnel<T extends Prisma.PersonnelCategory$personnelArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonnelCategory$personnelArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PersonnelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -927,6 +1055,10 @@ export type PersonnelCategoryFindUniqueArgs<ExtArgs extends runtime.Types.Extens
    */
   omit?: Prisma.PersonnelCategoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonnelCategoryInclude<ExtArgs> | null
+  /**
    * Filter, which PersonnelCategory to fetch.
    */
   where: Prisma.PersonnelCategoryWhereUniqueInput
@@ -945,6 +1077,10 @@ export type PersonnelCategoryFindUniqueOrThrowArgs<ExtArgs extends runtime.Types
    */
   omit?: Prisma.PersonnelCategoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonnelCategoryInclude<ExtArgs> | null
+  /**
    * Filter, which PersonnelCategory to fetch.
    */
   where: Prisma.PersonnelCategoryWhereUniqueInput
@@ -962,6 +1098,10 @@ export type PersonnelCategoryFindFirstArgs<ExtArgs extends runtime.Types.Extensi
    * Omit specific fields from the PersonnelCategory
    */
   omit?: Prisma.PersonnelCategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonnelCategoryInclude<ExtArgs> | null
   /**
    * Filter, which PersonnelCategory to fetch.
    */
@@ -1011,6 +1151,10 @@ export type PersonnelCategoryFindFirstOrThrowArgs<ExtArgs extends runtime.Types.
    */
   omit?: Prisma.PersonnelCategoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonnelCategoryInclude<ExtArgs> | null
+  /**
    * Filter, which PersonnelCategory to fetch.
    */
   where?: Prisma.PersonnelCategoryWhereInput
@@ -1058,6 +1202,10 @@ export type PersonnelCategoryFindManyArgs<ExtArgs extends runtime.Types.Extensio
    * Omit specific fields from the PersonnelCategory
    */
   omit?: Prisma.PersonnelCategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonnelCategoryInclude<ExtArgs> | null
   /**
    * Filter, which PersonnelCategories to fetch.
    */
@@ -1107,6 +1255,10 @@ export type PersonnelCategoryCreateArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.PersonnelCategoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonnelCategoryInclude<ExtArgs> | null
+  /**
    * The data needed to create a PersonnelCategory.
    */
   data: Prisma.XOR<Prisma.PersonnelCategoryCreateInput, Prisma.PersonnelCategoryUncheckedCreateInput>
@@ -1154,6 +1306,10 @@ export type PersonnelCategoryUpdateArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the PersonnelCategory
    */
   omit?: Prisma.PersonnelCategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonnelCategoryInclude<ExtArgs> | null
   /**
    * The data needed to update a PersonnelCategory.
    */
@@ -1221,6 +1377,10 @@ export type PersonnelCategoryUpsertArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.PersonnelCategoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonnelCategoryInclude<ExtArgs> | null
+  /**
    * The filter to search for the PersonnelCategory to update in case it exists.
    */
   where: Prisma.PersonnelCategoryWhereUniqueInput
@@ -1247,6 +1407,10 @@ export type PersonnelCategoryDeleteArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.PersonnelCategoryOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonnelCategoryInclude<ExtArgs> | null
+  /**
    * Filter which PersonnelCategory to delete.
    */
   where: Prisma.PersonnelCategoryWhereUniqueInput
@@ -1267,6 +1431,30 @@ export type PersonnelCategoryDeleteManyArgs<ExtArgs extends runtime.Types.Extens
 }
 
 /**
+ * PersonnelCategory.personnel
+ */
+export type PersonnelCategory$personnelArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Personnel
+   */
+  select?: Prisma.PersonnelSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Personnel
+   */
+  omit?: Prisma.PersonnelOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonnelInclude<ExtArgs> | null
+  where?: Prisma.PersonnelWhereInput
+  orderBy?: Prisma.PersonnelOrderByWithRelationInput | Prisma.PersonnelOrderByWithRelationInput[]
+  cursor?: Prisma.PersonnelWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PersonnelScalarFieldEnum | Prisma.PersonnelScalarFieldEnum[]
+}
+
+/**
  * PersonnelCategory without action
  */
 export type PersonnelCategoryDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1278,4 +1466,8 @@ export type PersonnelCategoryDefaultArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the PersonnelCategory
    */
   omit?: Prisma.PersonnelCategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonnelCategoryInclude<ExtArgs> | null
 }

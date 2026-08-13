@@ -401,6 +401,7 @@ export const ModelName = {
   Client: 'Client',
   PricingConfig: 'PricingConfig',
   PersonnelCategory: 'PersonnelCategory',
+  Personnel: 'Personnel',
   Activity: 'Activity',
   Project: 'Project',
   Appointment: 'Appointment',
@@ -428,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "profile" | "client" | "pricingConfig" | "personnelCategory" | "activity" | "project" | "appointment" | "walkthroughItem" | "fieldEvaluation" | "systemInspection" | "proposal" | "projectAssignment" | "fieldReport" | "fieldReportItem" | "invoice" | "auditLog"
+    modelProps: "profile" | "client" | "pricingConfig" | "personnelCategory" | "personnel" | "activity" | "project" | "appointment" | "walkthroughItem" | "fieldEvaluation" | "systemInspection" | "proposal" | "projectAssignment" | "fieldReport" | "fieldReportItem" | "invoice" | "auditLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -725,6 +726,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PersonnelCategoryCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PersonnelCategoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    Personnel: {
+      payload: Prisma.$PersonnelPayload<ExtArgs>
+      fields: Prisma.PersonnelFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PersonnelFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PersonnelFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelPayload>
+        }
+        findFirst: {
+          args: Prisma.PersonnelFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PersonnelFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelPayload>
+        }
+        findMany: {
+          args: Prisma.PersonnelFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelPayload>[]
+        }
+        create: {
+          args: Prisma.PersonnelCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelPayload>
+        }
+        createMany: {
+          args: Prisma.PersonnelCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PersonnelCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelPayload>[]
+        }
+        delete: {
+          args: Prisma.PersonnelDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelPayload>
+        }
+        update: {
+          args: Prisma.PersonnelUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelPayload>
+        }
+        deleteMany: {
+          args: Prisma.PersonnelDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PersonnelUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PersonnelUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelPayload>[]
+        }
+        upsert: {
+          args: Prisma.PersonnelUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonnelPayload>
+        }
+        aggregate: {
+          args: Prisma.PersonnelAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePersonnel>
+        }
+        groupBy: {
+          args: Prisma.PersonnelGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PersonnelGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PersonnelCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PersonnelCountAggregateOutputType> | number
         }
       }
     }
@@ -1711,6 +1786,22 @@ export const PersonnelCategoryScalarFieldEnum = {
 export type PersonnelCategoryScalarFieldEnum = (typeof PersonnelCategoryScalarFieldEnum)[keyof typeof PersonnelCategoryScalarFieldEnum]
 
 
+export const PersonnelScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  position: 'position',
+  phone: 'phone',
+  email: 'email',
+  specialty: 'specialty',
+  isActive: 'isActive',
+  personnelCategoryId: 'personnelCategoryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PersonnelScalarFieldEnum = (typeof PersonnelScalarFieldEnum)[keyof typeof PersonnelScalarFieldEnum]
+
+
 export const ActivityScalarFieldEnum = {
   id: 'id',
   nameEs: 'nameEs',
@@ -1830,7 +1921,7 @@ export type ProposalScalarFieldEnum = (typeof ProposalScalarFieldEnum)[keyof typ
 export const ProjectAssignmentScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
-  technicianId: 'technicianId',
+  personnelId: 'personnelId',
   startDate: 'startDate',
   endDate: 'endDate',
   notes: 'notes'
@@ -2307,6 +2398,7 @@ export type GlobalOmitConfig = {
   client?: Prisma.ClientOmit
   pricingConfig?: Prisma.PricingConfigOmit
   personnelCategory?: Prisma.PersonnelCategoryOmit
+  personnel?: Prisma.PersonnelOmit
   activity?: Prisma.ActivityOmit
   project?: Prisma.ProjectOmit
   appointment?: Prisma.AppointmentOmit

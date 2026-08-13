@@ -55,6 +55,7 @@ export const ModelName = {
   Client: 'Client',
   PricingConfig: 'PricingConfig',
   PersonnelCategory: 'PersonnelCategory',
+  Personnel: 'Personnel',
   Activity: 'Activity',
   Project: 'Project',
   Appointment: 'Appointment',
@@ -139,6 +140,22 @@ export const PersonnelCategoryScalarFieldEnum = {
 } as const
 
 export type PersonnelCategoryScalarFieldEnum = (typeof PersonnelCategoryScalarFieldEnum)[keyof typeof PersonnelCategoryScalarFieldEnum]
+
+
+export const PersonnelScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  position: 'position',
+  phone: 'phone',
+  email: 'email',
+  specialty: 'specialty',
+  isActive: 'isActive',
+  personnelCategoryId: 'personnelCategoryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PersonnelScalarFieldEnum = (typeof PersonnelScalarFieldEnum)[keyof typeof PersonnelScalarFieldEnum]
 
 
 export const ActivityScalarFieldEnum = {
@@ -260,7 +277,7 @@ export type ProposalScalarFieldEnum = (typeof ProposalScalarFieldEnum)[keyof typ
 export const ProjectAssignmentScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
-  technicianId: 'technicianId',
+  personnelId: 'personnelId',
   startDate: 'startDate',
   endDate: 'endDate',
   notes: 'notes'
