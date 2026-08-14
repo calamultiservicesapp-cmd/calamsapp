@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, Poppins } from "next/font/google";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -17,6 +18,12 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "CALA Multiservices",
   description: "Plataforma integral de gestión de proyectos y presupuestos",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "CALA",
+  },
 };
 
 export default function RootLayout({
@@ -29,7 +36,13 @@ export default function RootLayout({
       lang="es"
       className={`${bebasNeue.variable} ${poppins.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <head>
+        <link rel="apple-touch-icon" href="/logo.png" />
+      </head>
+      <body className="min-h-full flex flex-col font-sans">
+        {children}
+        <InstallPrompt />
+      </body>
     </html>
   );
 }
