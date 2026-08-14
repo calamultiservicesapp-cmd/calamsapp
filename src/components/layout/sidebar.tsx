@@ -102,11 +102,11 @@ export function Sidebar() {
         `}</style>
 
         {/* Logo + Close button (mobile) */}
-        <div className="h-16 flex items-center justify-between px-5 border-b border-slate-800 shrink-0">
+        <div className="h-24 flex items-center justify-between px-5 border-b border-slate-800 shrink-0">
           <img
             src="/logo.png"
             alt="CALA Multiservices"
-            className="h-9 w-auto object-contain bg-white rounded px-1"
+            className="h-14 w-auto object-contain bg-white rounded-lg px-2 py-1"
           />
           {/* X button inside sidebar, only visible on mobile when open */}
           <button

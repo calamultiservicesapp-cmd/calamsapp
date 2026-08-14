@@ -14,24 +14,23 @@ export function InstallPrompt() {
       navigator.serviceWorker.register('/sw.js').catch(console.error);
     }
 
-    // Detect iOS
+    // Detect any mobile device
     const userAgent = window.navigator.userAgent.toLowerCase();
-    const isIOSDevice = /iphone|ipad|ipod/.test(userAgent);
+    const isMobileDevice = /iphone|ipad|ipod|android/.test(userAgent);
     
     // Detect if already installed (standalone mode)
     const isStandaloneMode = window.matchMedia('(display-mode: standalone)').matches || 
                              (window.navigator as any).standalone || 
                              document.referrer.includes('android-app://');
     
-    setIsIOS(isIOSDevice);
+    setIsIOS(isMobileDevice); // Reuse state
     setIsStandalone(isStandaloneMode);
 
-    // Show prompt on iOS if not installed
-    if (isIOSDevice && !isStandaloneMode) {
-      const hasSeenPrompt = localStorage.getItem("ios_install_prompt");
-      if (!hasSeenPrompt) {
+    // Show prompt on mobile if not installed
+    if (isMobileDevice && !isStandaloneMode) {
+      setTimeout(() => {
         setShowPrompt(true);
-      }
+      }, 1500);
     }
   }, []);
 
@@ -52,14 +51,14 @@ export function InstallPrompt() {
         </button>
       </div>
       <p className="text-sm text-slate-300 mb-3">
-        Instala esta aplicación en tu iPhone para una experiencia rápida y a pantalla completa.
+        Para la mejor experiencia a pantalla completa, instala la aplicación en tu celular.
       </p>
       <div className="bg-slate-800 rounded-lg p-3 text-sm flex flex-col gap-2">
         <div>
-          1. Toca el botón de compartir <Share className="h-4 w-4 inline mx-1" /> en la barra de Safari.
+          1. Toca el botón <strong>Compartir</strong> (en iPhone) o los <strong>3 puntos</strong> (en Android).
         </div>
         <div>
-          2. Selecciona <strong>"Agregar a inicio"</strong> <PlusSquare className="h-4 w-4 inline mx-1" />.
+          2. Selecciona <strong>"Agregar a inicio"</strong> o <strong>"Instalar aplicación"</strong>.
         </div>
       </div>
     </div>
