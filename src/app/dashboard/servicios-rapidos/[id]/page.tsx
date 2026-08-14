@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getQuickJob } from "../../actions";
+import { getQuickJob } from "../actions";
 import { QuickJobDetail } from "@/components/servicios-rapidos/quick-job-detail";
 
 export const metadata: Metadata = {

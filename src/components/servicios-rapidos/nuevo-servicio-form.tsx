@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { createQuickJob } from "../actions";
+import { createQuickJob } from "@/app/dashboard/servicios-rapidos/actions";
 import { Plus, Trash2, Loader2, AlertCircle, Calculator } from "lucide-react";
 
 type Client = { id: string; name: string };
