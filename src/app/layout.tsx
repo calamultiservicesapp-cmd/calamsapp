@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "CALA Multiservices",
     images: [
       {
-        url: "/fondologin.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "CALA Multiservices - Plataforma de gestión",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CALA Multiservices",
     description: "Plataforma integral de gestión de proyectos, presupuestos, seguimiento y facturación.",
-    images: ["/fondologin.png"],
+    images: ["/logo.png"],
   },
 };
 
