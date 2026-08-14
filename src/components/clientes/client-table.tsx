@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useState } from "react";
 import { createClientAction, updateClientAction, deleteClient } from "@/app/dashboard/clientes/actions";
 import { Plus, Pencil, Trash2, X, Loader2, CheckCircle2, AlertCircle, Users, Mail, Phone, MapPin, FolderKanban } from "lucide-react";
+import Link from "next/link";
 
 type ClientWithCount = {
   id: string;
@@ -184,6 +185,9 @@ export function ClientTable({ clients }: { clients: ClientWithCount[] }) {
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-1 justify-end">
+                          <Link href={`/dashboard/clientes/${client.id}`} className="p-1.5 rounded-md text-slate-400 hover:text-green-600 hover:bg-green-50 dark:hover:bg-green-950/50 transition-colors" title="Ver Historial">
+                            <FolderKanban className="h-4 w-4" />
+                          </Link>
                           <button onClick={() => { setSelected(client); setModal("edit"); }} className="p-1.5 rounded-md text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/50 transition-colors"><Pencil className="h-4 w-4" /></button>
                           <button onClick={() => { setSelected(client); setModal("delete"); }} className="p-1.5 rounded-md text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50 transition-colors"><Trash2 className="h-4 w-4" /></button>
                         </div>

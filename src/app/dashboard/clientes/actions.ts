@@ -77,3 +77,23 @@ export async function deleteClient(id: string) {
     return { error: "Error al eliminar el cliente." };
   }
 }
+
+export async function getClientHistory(id: string) {
+  const client = await prisma.client.findUnique({
+    where: { id },
+    include: {
+      projects: {
+        include: {
+          invoice: true,
+        },
+        orderBy: { createdAt: "desc" },
+      },
+      quickJobs: {
+        orderBy: { serviceDate: "desc" },
+      },
+    },
+  });
+  
+  if (!client) return null;
+  return client;
+}

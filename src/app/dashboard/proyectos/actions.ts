@@ -100,3 +100,35 @@ export async function scheduleAppointment(state: any, formData: FormData) {
   }
 }
 
+export async function archiveProject(projectId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: "No autorizado" };
+
+  try {
+    await prisma.project.update({
+      where: { id: projectId },
+      data: { status: "cerrado" },
+    });
+    revalidatePath("/dashboard/proyectos");
+    return { success: true };
+  } catch {
+    return { error: "Error al archivar el proyecto." };
+  }
+}
+
+export async function deleteProject(projectId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: "No autorizado" };
+
+  try {
+    await prisma.project.delete({
+      where: { id: projectId },
+    });
+    revalidatePath("/dashboard/proyectos");
+    return { success: true };
+  } catch {
+    return { error: "Error al eliminar el proyecto." };
+  }
+}

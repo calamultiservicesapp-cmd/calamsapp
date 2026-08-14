@@ -6,8 +6,10 @@ import {
   Plus, X, Loader2, CheckCircle2, AlertCircle, FolderKanban,
   CalendarDays, Clock, ChevronRight, Users,
   CalendarCheck, Footprints, FileText, ClipboardCheck, Receipt,
+  MoreVertical, Archive, Trash2
 } from "lucide-react";
 import Link from "next/link";
+import { archiveProject, deleteProject } from "@/app/dashboard/proyectos/actions";
 
 type ClientOption = { id: string; name: string };
 
@@ -168,6 +170,60 @@ function NewProjectModal({ clients, onClose }: { clients: ClientOption[]; onClos
   );
 }
 
+function ArchiveConfirm({ id, name, onClose }: { id: string; name: string; onClose: () => void }) {
+  const [loading, setLoading] = useState(false);
+  async function handleArchive() {
+    setLoading(true);
+    await archiveProject(id);
+    onClose();
+  }
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-md border border-slate-200 dark:border-slate-800 p-6 space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-slate-100 rounded-full"><Archive className="h-5 w-5 text-slate-600" /></div>
+          <h3 className="font-heading text-slate-800 dark:text-white">Archivar Proyecto</h3>
+        </div>
+        <p className="text-sm text-slate-600 dark:text-slate-400">¿Estás seguro de archivar <strong>"{name}"</strong>? Pasará a estado cerrado y no aparecerá en la lista activa.</p>
+        <div className="flex justify-end gap-3">
+          <button onClick={onClose} className="px-4 h-9 rounded-md border border-slate-300 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Cancelar</button>
+          <button onClick={handleArchive} disabled={loading} className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium transition-colors disabled:opacity-50">
+            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Archive className="h-4 w-4" />}
+            Archivar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DeleteProjectConfirm({ id, name, onClose }: { id: string; name: string; onClose: () => void }) {
+  const [loading, setLoading] = useState(false);
+  async function handleDelete() {
+    setLoading(true);
+    await deleteProject(id);
+    onClose();
+  }
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-md border border-slate-200 dark:border-slate-800 p-6 space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-red-100 rounded-full"><Trash2 className="h-5 w-5 text-red-600" /></div>
+          <h3 className="font-heading text-slate-800 dark:text-white">Eliminar Proyecto</h3>
+        </div>
+        <p className="text-sm text-slate-600 dark:text-slate-400">¿Estás seguro de eliminar el proyecto <strong>"{name}"</strong>? Esta acción borrará permanentemente todos sus datos asociados y no se puede deshacer.</p>
+        <div className="flex justify-end gap-3">
+          <button onClick={onClose} className="px-4 h-9 rounded-md border border-slate-300 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Cancelar</button>
+          <button onClick={handleDelete} disabled={loading} className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-red-600 hover:bg-red-700 text-white text-sm font-medium transition-colors disabled:opacity-50">
+            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+            Eliminar Permanentemente
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ProjectList({
   projects,
   clients,
@@ -176,8 +232,20 @@ export function ProjectList({
   clients: ClientOption[];
 }) {
   const [showModal, setShowModal] = useState(false);
+  const [actionModal, setActionModal] = useState<"archive" | "delete" | null>(null);
+  const [selectedProject, setSelectedProject] = useState<{id: string; name: string} | null>(null);
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleOutsideClick = () => setOpenDropdown(null);
+    if (openDropdown) {
+      window.addEventListener('click', handleOutsideClick);
+    }
+    return () => window.removeEventListener('click', handleOutsideClick);
+  }, [openDropdown]);
 
   const filtered = projects.filter((p) => {
     const matchSearch =
@@ -190,6 +258,8 @@ export function ProjectList({
   return (
     <>
       {showModal && <NewProjectModal clients={clients} onClose={() => setShowModal(false)} />}
+      {actionModal === "archive" && selectedProject && <ArchiveConfirm id={selectedProject.id} name={selectedProject.name} onClose={() => { setActionModal(null); setSelectedProject(null); }} />}
+      {actionModal === "delete" && selectedProject && <DeleteProjectConfirm id={selectedProject.id} name={selectedProject.name} onClose={() => { setActionModal(null); setSelectedProject(null); }} />}
 
       <div className="space-y-4">
         {/* Toolbar */}
@@ -235,14 +305,60 @@ export function ProjectList({
                 <Link
                   key={project.id}
                   href={`/dashboard/proyectos/${project.id}`}
-                  className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-md hover:border-orange-200 dark:hover:border-orange-900 transition-all group flex flex-col gap-3"
+                  className="relative bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-md hover:border-orange-200 dark:hover:border-orange-900 transition-all group flex flex-col gap-3"
                 >
                   {/* Header */}
                   <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-semibold text-slate-800 dark:text-white group-hover:text-orange-500 transition-colors leading-tight">
+                    <h3 className="font-semibold text-slate-800 dark:text-white group-hover:text-orange-500 transition-colors leading-tight truncate pr-8">
                       {project.name}
                     </h3>
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium shrink-0 ${sc.color}`}>
+                    
+                    {/* Action Menu (relative positioned to the top right of the card) */}
+                    <div className="absolute top-4 right-4">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setOpenDropdown(openDropdown === project.id ? null : project.id);
+                        }}
+                        className="p-1 rounded-md text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                      >
+                        <MoreVertical className="h-5 w-5" />
+                      </button>
+                      
+                      {openDropdown === project.id && (
+                        <div className="absolute right-0 mt-1 w-36 bg-white dark:bg-slate-800 rounded-md shadow-lg border border-slate-200 dark:border-slate-700 py-1 z-10 overflow-hidden">
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setSelectedProject({ id: project.id, name: project.name });
+                              setActionModal("archive");
+                              setOpenDropdown(null);
+                            }}
+                            className="w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 flex items-center gap-2"
+                          >
+                            <Archive className="h-4 w-4" /> Archivar
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setSelectedProject({ id: project.id, name: project.name });
+                              setActionModal("delete");
+                              setOpenDropdown(null);
+                            }}
+                            className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"
+                          >
+                            <Trash2 className="h-4 w-4" /> Eliminar
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium shrink-0 uppercase tracking-wider ${sc.color}`}>
                       {sc.label}
                     </span>
                   </div>
