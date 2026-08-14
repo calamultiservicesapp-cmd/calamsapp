@@ -12,7 +12,7 @@ export default function DashboardLoading() {
         {/* Logo itself with bounce/pulse */}
         <div className="relative w-48 h-auto sm:w-64 animate-pulse duration-1000">
           <img 
-            src="/logo.png" 
+            src="/logotipo.png" 
             alt="Cargando..." 
             className="w-full h-auto object-contain bg-white p-2 rounded-xl shadow-2xl"
           />

@@ -104,7 +104,7 @@ export function Sidebar() {
         {/* Logo + Close button (mobile) */}
         <div className="h-24 flex items-center justify-between px-5 border-b border-slate-800 shrink-0">
           <img
-            src="/logo.png"
+            src="/logotipo.png"
             alt="CALA Multiservices"
             className="h-14 w-auto object-contain bg-white rounded-lg px-2 py-1"
           />

@@ -25,7 +25,7 @@ export function LoginForm() {
         {/* Logotipo */}
         <div className="flex justify-center mb-6">
           <img 
-            src="/logo.png" 
+            src="/logotipo.png" 
             alt="CALA Multiservices Logo" 
             className="h-16 w-auto object-contain"
           />
