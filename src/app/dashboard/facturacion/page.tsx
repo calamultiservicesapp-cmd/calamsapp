@@ -66,7 +66,7 @@ export default async function FacturacionPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-center gap-4">
           <div className="p-3 bg-amber-50 dark:bg-amber-950/50 rounded-lg">
             <Clock className="h-5 w-5 text-amber-600" />
@@ -99,20 +99,20 @@ export default async function FacturacionPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-slate-50 dark:bg-slate-950/50 border-b border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                  <th className="text-left px-4 py-3">Factura #</th>
-                  <th className="text-left px-4 py-3">Tipo</th>
-                  <th className="text-left px-4 py-3">Descripción / Proyecto</th>
+                  <th className="text-left px-4 py-3 whitespace-nowrap">Factura #</th>
+                  <th className="text-left px-4 py-3 hidden sm:table-cell">Tipo</th>
+                  <th className="text-left px-4 py-3 min-w-[150px]">Descripción / Proyecto</th>
                   <th className="text-left px-4 py-3 hidden sm:table-cell">Cliente</th>
                   <th className="text-left px-4 py-3 hidden md:table-cell">Fecha</th>
-                  <th className="text-right px-4 py-3">Monto</th>
-                  <th className="text-left px-4 py-3">Estado</th>
+                  <th className="text-right px-4 py-3 whitespace-nowrap">Monto</th>
+                  <th className="text-left px-4 py-3 whitespace-nowrap">Estado</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {allInvoices.map((inv) => (
                   <tr key={inv.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                    <td className="px-4 py-3 font-mono text-xs text-slate-500">{inv.invoiceNumber}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 font-mono text-xs text-slate-500 whitespace-nowrap">{inv.invoiceNumber}</td>
+                    <td className="px-4 py-3 hidden sm:table-cell">
                       {inv.type === "rapido" ? (
                         <span className="inline-flex items-center gap-1 text-xs text-orange-500 font-medium">
                           <Zap className="h-3 w-3" /> Rápido
@@ -126,7 +126,7 @@ export default async function FacturacionPage() {
                     <td className="px-4 py-3 text-slate-400 hidden md:table-cell">
                       {new Date(inv.date).toLocaleDateString("es-CA", { dateStyle: "medium" })}
                     </td>
-                    <td className="px-4 py-3 text-right font-semibold text-slate-800 dark:text-slate-200">
+                    <td className="px-4 py-3 text-right font-semibold text-slate-800 dark:text-slate-200 whitespace-nowrap">
                       {fmt(inv.amount)}
                     </td>
                     <td className="px-4 py-3">

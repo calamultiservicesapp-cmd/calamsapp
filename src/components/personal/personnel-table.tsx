@@ -162,6 +162,14 @@ export function PersonnelTable({ items }: { items: SerializedPersonnel[] }) {
   const [isPending, startTransition] = useTransition();
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
+  // Solo en mobile: scrollea al top para que el modal sea visible
+  function openModal(type: "create" | "edit" | "delete") {
+    if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    setModal(type);
+  }
+
   async function handleToggle(id: string, current: boolean) {
     startTransition(async () => {
       await togglePersonnelActive(id, !current);
@@ -212,13 +220,13 @@ export function PersonnelTable({ items }: { items: SerializedPersonnel[] }) {
       )}
 
       <div className="space-y-4">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
           <p className="text-sm text-slate-500">
             Los tipos activos aparecen en todos los dropdowns de personal al asignar servicios y proyectos.
           </p>
           <button
-            onClick={() => setModal("create")}
-            className="inline-flex items-center gap-2 h-10 px-5 rounded-md bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium transition-colors shrink-0"
+            onClick={() => openModal("create")}
+            className="inline-flex items-center justify-center gap-2 h-10 px-5 rounded-md bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium transition-colors shrink-0 w-full sm:w-auto"
           >
             <Plus className="h-4 w-4" />
             Nuevo Tipo
@@ -232,12 +240,13 @@ export function PersonnelTable({ items }: { items: SerializedPersonnel[] }) {
               <p className="text-sm">No hay tipos de personal registrados.</p>
             </div>
           ) : (
+          <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-slate-50 dark:bg-slate-950/50 border-b border-slate-200 dark:border-slate-800">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Tipo de Personal</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap">Tipo de Personal</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider hidden md:table-cell">Nombre Clave</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Tarifa / Hora</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap">Tarifa / Hora</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Estado</th>
                   <th className="px-4 py-3" />
                 </tr>
@@ -252,7 +261,7 @@ export function PersonnelTable({ items }: { items: SerializedPersonnel[] }) {
                     <td className="px-4 py-3 hidden md:table-cell">
                       <code className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-600 dark:text-slate-400">{item.name}</code>
                     </td>
-                    <td className="px-4 py-3 font-semibold text-slate-700 dark:text-slate-300">
+                    <td className="px-4 py-3 font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
                       ${parseFloat(item.hourlyRate).toFixed(2)}/hr
                     </td>
                     <td className="px-4 py-3">
@@ -272,14 +281,14 @@ export function PersonnelTable({ items }: { items: SerializedPersonnel[] }) {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1 justify-end">
                         <button
-                          onClick={() => { setSelected(item); setModal("edit"); }}
+                          onClick={() => { setSelected(item); openModal("edit"); }}
                           className="p-1.5 rounded-md text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/50 transition-colors"
                           title="Editar"
                         >
                           <Pencil className="h-4 w-4" />
                         </button>
                         <button
-                          onClick={() => { setSelected(item); setModal("delete"); }}
+                          onClick={() => { setSelected(item); openModal("delete"); }}
                           className="p-1.5 rounded-md text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50 transition-colors"
                           title="Eliminar"
                         >
@@ -291,6 +300,7 @@ export function PersonnelTable({ items }: { items: SerializedPersonnel[] }) {
                 ))}
               </tbody>
             </table>
+          </div>
           )}
         </div>
       </div>
