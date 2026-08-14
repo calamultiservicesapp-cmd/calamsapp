@@ -64,19 +64,16 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile hamburger toggle */}
-      <button
-        className="lg:hidden fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center bg-slate-900 text-white rounded-xl shadow-lg active:scale-90 transition-transform duration-150"
-        onClick={handleToggle}
-        aria-label="Toggle menu"
-      >
-        <span
-          className="block transition-all duration-300"
-          style={{ transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
+      {/* Mobile hamburger — only shown when sidebar is CLOSED */}
+      {!open && (
+        <button
+          className="lg:hidden fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center bg-slate-900 text-white rounded-xl shadow-lg active:scale-90 transition-transform duration-150"
+          onClick={handleToggle}
+          aria-label="Abrir menú"
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </span>
-      </button>
+          <Menu className="h-5 w-5" />
+        </button>
+      )}
 
       {/* Overlay */}
       {open && (
@@ -104,13 +101,21 @@ export function Sidebar() {
           }
         `}</style>
 
-        {/* Logo */}
-        <div className="h-16 flex items-center px-5 border-b border-slate-800 shrink-0">
+        {/* Logo + Close button (mobile) */}
+        <div className="h-16 flex items-center justify-between px-5 border-b border-slate-800 shrink-0">
           <img
             src="/logo.png"
             alt="CALA Multiservices"
             className="h-9 w-auto object-contain bg-white rounded px-1"
           />
+          {/* X button inside sidebar, only visible on mobile when open */}
+          <button
+            className="lg:hidden w-9 h-9 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-colors active:scale-90"
+            onClick={() => setOpen(false)}
+            aria-label="Cerrar menú"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
 
         {/* Nav */}
