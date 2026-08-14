@@ -54,7 +54,7 @@ export function InvoicePreviewModal({
 
   const modalContent = (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 p-2 sm:p-4 backdrop-blur-sm">
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-5xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-5xl flex flex-col h-[95vh] sm:h-[90vh] animate-in fade-in zoom-in-95 duration-200">
         
         {/* Header Options */}
         <div className="flex flex-wrap items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-800 gap-3 bg-slate-50 dark:bg-slate-900 rounded-t-2xl shrink-0">
