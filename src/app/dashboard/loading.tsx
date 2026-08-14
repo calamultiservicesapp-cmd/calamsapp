@@ -10,7 +10,7 @@ export default function DashboardLoading() {
         <div className="absolute inset-0 bg-orange-500/20 rounded-full blur-3xl animate-pulse"></div>
         
         {/* Logo itself with bounce/pulse */}
-        <div className="relative w-48 h-auto sm:w-64 animate-pulse duration-1000">
+        <div className="relative w-48 h-auto sm:w-64" style={{ animation: "pulse 2.5s cubic-bezier(0.4,0,0.6,1) infinite" }}>
           <img 
             src="/logotipo.png" 
             alt="Cargando..." 
