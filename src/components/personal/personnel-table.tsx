@@ -162,10 +162,16 @@ export function PersonnelTable({ items }: { items: SerializedPersonnel[] }) {
   const [isPending, startTransition] = useTransition();
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  // Solo en mobile: scrollea al top para que el modal sea visible
+  // Solo en mobile: scrollea al top del contenedor principal para que el modal sea visible
   function openModal(type: "create" | "edit" | "delete") {
     if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      // El dashboard usa overflow-y-auto en <main>, no en window
+      const scrollContainer = document.querySelector("main");
+      if (scrollContainer) {
+        scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     }
     setModal(type);
   }
