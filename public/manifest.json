@@ -1,0 +1,17 @@
+{
+  "name": "CALA Multiservices",
+  "short_name": "CALA",
+  "description": "Plataforma integral de gestión de proyectos y presupuestos",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
