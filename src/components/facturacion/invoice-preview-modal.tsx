@@ -1,6 +1,8 @@
 "use client";
 
-import { X, FileText, Languages } from "lucide-react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
+import { X, FileText, Download, Globe, ExternalLink } from "lucide-react";
 
 type InvoiceType = "proyecto" | "rapido";
 
@@ -21,70 +23,122 @@ export function InvoicePreviewModal({
   title,
   onClose,
 }: InvoicePreviewModalProps) {
+  const [mounted, setMounted] = useState(false);
+  const [lang, setLang] = useState<"es" | "en">("es");
+
+  useEffect(() => {
+    setMounted(true);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   const apiPath =
     invoiceType === "proyecto"
       ? `/api/pdf/factura/${invoiceId}`
       : `/api/pdf/servicio-rapido/${invoiceId}`;
 
-  function handleOpen(lang: "es" | "en") {
-    const pdfUrl = `${apiPath}?lang=${lang}`;
-    window.open(pdfUrl, "_blank");
-    onClose();
+  const pdfUrl = `${apiPath}?lang=${lang}`;
+  const downloadUrl = `${apiPath}?lang=${lang}&download=true`;
+
+  function handleDownload() {
+    window.open(downloadUrl, "_blank");
   }
 
-  return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 p-4">
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-sm flex flex-col">
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-orange-50 dark:bg-orange-950/40 rounded-xl">
-              <FileText className="h-5 w-5 text-orange-500" />
+  function handleOpenTab() {
+    window.open(pdfUrl, "_blank");
+  }
+
+  if (!mounted) return null;
+
+  const modalContent = (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 p-2 sm:p-4 backdrop-blur-sm">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 w-full max-w-5xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200">
+        
+        {/* Header Options */}
+        <div className="flex flex-wrap items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-800 gap-3 bg-slate-50 dark:bg-slate-900 rounded-t-2xl shrink-0">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="p-2.5 bg-orange-100 dark:bg-orange-900/50 rounded-xl shrink-0">
+              <FileText className="h-5 w-5 text-orange-600 dark:text-orange-400" />
             </div>
-            <div>
-              <h3 className="font-bold text-slate-800 dark:text-white">Ver Factura</h3>
-              <p className="text-xs text-slate-500 font-mono mt-0.5">{invoiceNumber}</p>
+            <div className="min-w-0">
+              <h3 className="font-bold text-slate-800 dark:text-white text-base leading-tight truncate">
+                {invoiceNumber}
+              </h3>
+              <p className="text-xs text-slate-500 truncate mt-0.5">
+                {clientName} · {title}
+              </p>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-          >
-            <X className="h-5 w-5" />
-          </button>
+
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Language Selection */}
+            <div className="flex items-center gap-1 bg-slate-200/50 dark:bg-slate-800 p-1 rounded-xl mr-2">
+              <Globe className="h-4 w-4 text-slate-500 ml-2 hidden sm:block" />
+              <button
+                onClick={() => setLang("es")}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${
+                  lang === "es"
+                    ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
+                    : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                }`}
+              >
+                🇪🇸 Español
+              </button>
+              <button
+                onClick={() => setLang("en")}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${
+                  lang === "en"
+                    ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
+                    : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                }`}
+              >
+                🇺🇸 Inglés
+              </button>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleOpenTab}
+                className="flex items-center gap-1.5 h-10 px-3 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium transition-colors"
+                title="Abrir en nueva pestaña"
+              >
+                <ExternalLink className="h-4 w-4" />
+                <span className="hidden sm:inline">Abrir</span>
+              </button>
+              <button
+                onClick={handleDownload}
+                className="flex items-center gap-2 h-10 px-4 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium transition-colors shadow-sm"
+              >
+                <Download className="h-4 w-4" />
+                Descargar PDF
+              </button>
+              <button
+                onClick={onClose}
+                className="p-2 ml-1 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Content */}
-        <div className="p-5 text-center space-y-4">
-          <div className="flex justify-center mb-2 text-slate-300 dark:text-slate-700">
-            <Languages className="h-10 w-10" />
-          </div>
-          <div>
-            <p className="text-sm text-slate-600 dark:text-slate-300 mb-5">
-              ¿En qué idioma deseas ver o descargar la factura de <strong>{clientName}</strong>?
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              onClick={() => handleOpen("es")}
-              className="flex flex-col items-center justify-center py-3 px-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-orange-500 dark:hover:border-orange-500 hover:bg-orange-50 dark:hover:bg-orange-950/20 text-slate-700 dark:text-slate-200 font-medium transition-all"
-            >
-              <span className="text-lg mb-1">🇪🇸</span>
-              Español
-            </button>
-            <button
-              onClick={() => handleOpen("en")}
-              className="flex flex-col items-center justify-center py-3 px-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-orange-500 dark:hover:border-orange-500 hover:bg-orange-50 dark:hover:bg-orange-950/20 text-slate-700 dark:text-slate-200 font-medium transition-all"
-            >
-              <span className="text-lg mb-1">🇺🇸</span>
-              Inglés
-            </button>
-          </div>
+        {/* Preview iFrame */}
+        <div className="flex-1 overflow-hidden rounded-b-2xl bg-slate-200 dark:bg-slate-950 min-h-[400px]">
+          <iframe
+            key={pdfUrl}
+            src={pdfUrl}
+            className="w-full h-full border-0"
+            title={`Factura ${invoiceNumber}`}
+          />
         </div>
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }
 
 

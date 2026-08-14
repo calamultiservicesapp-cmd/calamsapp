@@ -189,6 +189,12 @@ export async function GET(
       </div>
     </div>
   </div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('download') === 'true') {
+      window.onload = function() { window.print(); }
+    }
+  </script>
 </body>
 </html>
   `.trim();
