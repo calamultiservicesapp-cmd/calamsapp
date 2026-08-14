@@ -36,6 +36,9 @@ export default function RootLayout({
       lang="es"
       className={`${bebasNeue.variable} ${poppins.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="apple-touch-icon" href="/logo.png" />
+      </head>
       <body className="min-h-full flex flex-col font-sans">
         {children}
         <InstallPrompt />
