@@ -14,7 +14,7 @@ export default function DashboardLoading() {
           <img 
             src="/logotipo.png" 
             alt="Cargando..." 
-            className="w-full h-auto object-contain bg-white p-2 rounded-xl shadow-2xl"
+            className="w-full h-auto object-contain drop-shadow-2xl"
           />
         </div>
         
