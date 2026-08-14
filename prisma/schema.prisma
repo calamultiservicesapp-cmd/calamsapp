@@ -98,7 +98,8 @@ model Client {
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   // Relations
-  projects Project[]
+  projects  Project[]
+  quickJobs QuickJob[]
 
   @@map("clients")
 }
@@ -168,6 +169,7 @@ model Activity {
 
   // Relations
   walkthroughItems WalkthroughItem[]
+  quickJobItems    QuickJobItem[]
 
   @@map("activities")
 }
@@ -399,3 +401,66 @@ model AuditLog {
 
   @@map("audit_log")
 }
+
+// ─── Quick Jobs (Servicios Rápidos) ───────────────────────────────────────────
+
+enum QuickJobStatus {
+  activo
+  informe
+  facturado
+}
+
+model QuickJob {
+  id            String         @id @default(uuid()) @db.Uuid
+  clientId      String         @map("client_id") @db.Uuid
+  name          String
+  serviceDate   DateTime       @map("service_date") @db.Date
+  status        QuickJobStatus @default(activo)
+  totalAmount   Decimal        @map("total_amount") @db.Decimal(10, 2)
+  invoiceNumber String?        @unique @map("invoice_number")
+  paidAt        DateTime?      @map("paid_at")
+  createdById   String         @map("created_by") @db.Uuid
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+
+  // Relations
+  client  Client          @relation(fields: [clientId], references: [id])
+  items   QuickJobItem[]
+  report  QuickJobReport?
+
+  @@map("quick_jobs")
+}
+
+model QuickJobItem {
+  id          String   @id @default(uuid()) @db.Uuid
+  quickJobId  String   @map("quick_job_id") @db.Uuid
+  activityId  String?  @map("activity_id") @db.Uuid
+  description String
+  hours       Decimal? @db.Decimal(5, 2)
+  unitPrice   Decimal  @map("unit_price") @db.Decimal(10, 2)
+  totalPrice  Decimal  @map("total_price") @db.Decimal(10, 2)
+
+  // Relations
+  quickJob QuickJob  @relation(fields: [quickJobId], references: [id], onDelete: Cascade)
+  activity Activity? @relation(fields: [activityId], references: [id])
+
+  @@map("quick_job_items")
+}
+
+model QuickJobReport {
+  id              String    @id @default(uuid()) @db.Uuid
+  quickJobId      String    @unique @map("quick_job_id") @db.Uuid
+  technicianName  String?   @map("technician_name")
+  workDescription String    @map("work_description")
+  observations    String?
+  photoUrls       String[]  @default([]) @map("photo_urls")
+  completedAt     DateTime? @map("completed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  quickJob QuickJob @relation(fields: [quickJobId], references: [id], onDelete: Cascade)
+
+  @@map("quick_job_reports")
+}
+
