@@ -119,25 +119,25 @@ export function InvoiceView({ project }: { project: InvoiceProject }) {
               </div>
             )}
 
-            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-3">
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-3 flex-col sm:flex-row">
               <a
-                href={`/api/pdf/factura/${project.id}`}
+                href={`/api/pdf/factura/${project.id}?lang=en`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-2 h-11 rounded-md border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 font-medium transition-colors"
+                className="flex-1 inline-flex items-center justify-center gap-2 h-11 rounded-md border-2 border-slate-200 dark:border-slate-700 hover:border-orange-400 dark:hover:border-orange-600 text-slate-700 dark:text-slate-300 font-medium transition-colors"
               >
-                <FileText className="h-5 w-5" />
-                Ver PDF
+                <FileText className="h-5 w-5 text-orange-500" />
+                PDF (English)
               </a>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(`${window.location.origin}/api/pdf/factura/${project.id}`);
-                  alert("Enlace de factura copiado al portapapeles");
-                }}
-                className="flex-1 inline-flex items-center justify-center gap-2 h-11 rounded-md border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 font-medium transition-colors"
+              <a
+                href={`/api/pdf/factura/${project.id}?lang=es`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 inline-flex items-center justify-center gap-2 h-11 rounded-md border-2 border-slate-200 dark:border-slate-700 hover:border-orange-400 dark:hover:border-orange-600 text-slate-700 dark:text-slate-300 font-medium transition-colors"
               >
-                Compartir
-              </button>
+                <FileText className="h-5 w-5 text-orange-500" />
+                PDF (Español)
+              </a>
             </div>
           </div>
 

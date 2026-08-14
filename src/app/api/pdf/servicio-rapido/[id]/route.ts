@@ -131,7 +131,6 @@ export async function GET(
       <div class="flex-col">
         <h2>${isEnglish ? "Service Details" : "Detalles del Servicio"}</h2>
         <div class="info-box" style="border-left-color: #e2521a;">
-          <span class="service-tag">${isEnglish ? "Quick Service" : "Servicio Rápido"}</span>
           <p class="name">${job.name}</p>
           <p>Ref: CALA-QJ-${id.slice(-6).toUpperCase()}</p>
           <div style="margin-top: 12px;">
@@ -188,7 +187,6 @@ export async function GET(
         <p>CALA Multiservices · © ${new Date().getFullYear()}</p>
         <p>${isEnglish ? "Thank you for your business." : "Gracias por su negocio."}</p>
       </div>
-      <span class="badge service">${isEnglish ? "Quick Service" : "Servicio Rápido"}</span>
     </div>
   </div>
 </body>

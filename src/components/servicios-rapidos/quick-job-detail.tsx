@@ -119,16 +119,16 @@ export function QuickJobDetail({ job: initialJob }: { job: Job }) {
         >
           <ArrowLeft className="h-4 w-4" /> Servicios Rápidos
         </Link>
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
           <div>
             <h1 className="text-2xl font-heading tracking-wider text-slate-900 dark:text-white flex items-center gap-2">
-              <Zap className="h-6 w-6 text-orange-500" /> {job.name}
+              <Zap className="h-6 w-6 text-orange-500 shrink-0" /> <span className="truncate">{job.name}</span>
             </h1>
             <p className="text-slate-500 mt-1 text-sm">
               {job.client.name} · {new Date(job.serviceDate).toLocaleDateString("es-CA", { dateStyle: "long" })}
             </p>
           </div>
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto shrink-0 bg-slate-50 dark:bg-slate-800/50 p-3 sm:p-0 rounded-lg sm:bg-transparent">
             <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColors[job.status]}`}>
               {statusLabels[job.status]}
             </span>
@@ -139,7 +139,7 @@ export function QuickJobDetail({ job: initialJob }: { job: Job }) {
 
       {/* Tabs */}
       <div className="border-b border-slate-200 dark:border-slate-800">
-        <nav className="flex gap-1">
+        <nav className="flex gap-1 overflow-x-auto hide-scrollbar">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -180,17 +180,19 @@ export function QuickJobDetail({ job: initialJob }: { job: Job }) {
             </div>
             <div className="divide-y divide-slate-100 dark:divide-slate-800">
               {job.items.map((item, i) => (
-                <div key={item.id} className="px-5 py-3 flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3 flex-1 min-w-0">
-                    <span className="text-xs text-slate-400 w-5">{i + 1}.</span>
+                <div key={item.id} className="px-5 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
+                    <span className="text-xs text-slate-400 w-5 mt-0.5 sm:mt-0">{i + 1}.</span>
                     <div>
-                      <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{item.description}</p>
+                      <p className="text-sm font-medium text-slate-800 dark:text-slate-200 break-words">{item.description}</p>
                       {item.hours && (
                         <p className="text-xs text-slate-400">{item.hours} hrs · {fmt(item.unitPrice)}/hr</p>
                       )}
                     </div>
                   </div>
-                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 shrink-0">{fmt(item.totalPrice)}</span>
+                  <div className="text-right sm:text-left ml-8 sm:ml-0">
+                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 shrink-0">{fmt(item.totalPrice)}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -322,14 +324,14 @@ export function QuickJobDetail({ job: initialJob }: { job: Job }) {
               </button>
             ) : (
               <div className="space-y-3 pt-3 border-t border-slate-800">
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <a
                     href={`/api/pdf/servicio-rapido/${job.id}?lang=en`}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center justify-center gap-2 h-10 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium transition-colors"
                   >
-                    <FileText className="h-4 w-4 text-orange-400" /> Ver PDF (EN)
+                    <FileText className="h-4 w-4 text-orange-400" /> Ver PDF (Inglés)
                   </a>
                   <a
                     href={`/api/pdf/servicio-rapido/${job.id}?lang=es`}
@@ -337,7 +339,7 @@ export function QuickJobDetail({ job: initialJob }: { job: Job }) {
                     rel="noreferrer"
                     className="inline-flex items-center justify-center gap-2 h-10 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium transition-colors"
                   >
-                    <FileText className="h-4 w-4 text-orange-400" /> Ver PDF (ES)
+                    <FileText className="h-4 w-4 text-orange-400" /> Ver PDF (Español)
                   </a>
                 </div>
                 {!job.paidAt ? (

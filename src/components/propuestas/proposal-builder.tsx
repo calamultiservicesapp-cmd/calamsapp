@@ -356,14 +356,24 @@ export function ProposalBuilder({ project }: { project: ProposalProject }) {
                   <span className="text-xs font-medium bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-full">
                     Descuento {rev.discountApplied}%
                   </span>
-                  <a
-                    href={`/api/pdf/propuesta/revision/${rev.id}?lang=en`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 h-8 px-3 rounded text-xs font-medium border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                  >
-                    <FileText className="h-3 w-3 text-orange-500" /> Ver PDF
-                  </a>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={`/api/pdf/propuesta/revision/${rev.id}?lang=en`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 h-8 px-3 rounded text-xs font-medium border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    >
+                      <FileText className="h-3 w-3 text-orange-500" /> PDF (EN)
+                    </a>
+                    <a
+                      href={`/api/pdf/propuesta/revision/${rev.id}?lang=es`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 h-8 px-3 rounded text-xs font-medium border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    >
+                      <FileText className="h-3 w-3 text-orange-500" /> PDF (ES)
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}

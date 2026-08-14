@@ -151,12 +151,12 @@ export function NuevoServicioForm({
 
       {/* Ítems */}
       <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-        <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 flex items-center justify-between">
+        <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <h2 className="font-heading tracking-wider text-slate-800 dark:text-white">Servicios Prestados</h2>
           <button
             type="button"
             onClick={addItem}
-            className="inline-flex items-center gap-1.5 text-sm text-orange-500 hover:text-orange-600 font-medium"
+            className="inline-flex items-center justify-center gap-1.5 text-sm text-orange-500 hover:text-orange-600 font-medium w-full sm:w-auto p-2 bg-orange-50/50 sm:bg-transparent rounded-lg sm:p-0"
           >
             <Plus className="h-4 w-4" /> Agregar Ítem
           </button>
@@ -201,7 +201,7 @@ export function NuevoServicioForm({
                 <p className="text-sm text-slate-600 dark:text-slate-400 ml-7">{item.description}</p>
               )}
 
-              <div className="flex items-center gap-3 ml-7">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 ml-7 mt-3">
                 <div className="flex-1">
                   <label className="text-xs text-slate-500 mb-1 block">Horas</label>
                   <input
@@ -241,7 +241,7 @@ export function NuevoServicioForm({
             <span className="flex items-center gap-1.5"><Calculator className="h-4 w-4" /> Total calculado</span>
             <span className="font-semibold text-slate-700 dark:text-slate-300">{fmt(computedTotal)}</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <label className="text-sm font-medium text-slate-700 dark:text-slate-300 shrink-0">Precio final (opcional):</label>
             <input
               type="number"
@@ -250,7 +250,7 @@ export function NuevoServicioForm({
               value={totalOverride}
               onChange={(e) => setTotalOverride(e.target.value)}
               placeholder={fmt(computedTotal)}
-              className="flex-1 h-9 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-3 text-sm"
+              className="w-full sm:flex-1 h-9 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-3 text-sm"
             />
           </div>
           <div className="flex justify-between items-center font-bold text-lg border-t border-slate-200 dark:border-slate-700 pt-3">

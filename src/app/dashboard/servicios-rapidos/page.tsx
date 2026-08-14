@@ -27,7 +27,7 @@ export default async function ServiciosRapidosPage() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-heading tracking-wider text-slate-900 dark:text-white flex items-center gap-3">
             <Zap className="h-7 w-7 text-orange-500" />
@@ -37,14 +37,14 @@ export default async function ServiciosRapidosPage() {
         </div>
         <Link
           href="/dashboard/servicios-rapidos/nuevo"
-          className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-medium transition-colors text-sm"
+          className="inline-flex items-center justify-center gap-2 h-10 px-5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-medium transition-colors text-sm w-full sm:w-auto"
         >
           <Plus className="h-4 w-4" /> Nuevo Servicio
         </Link>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4 flex items-center gap-3">
           <div className="p-2.5 bg-blue-50 dark:bg-blue-950/50 rounded-lg">
             <Zap className="h-5 w-5 text-blue-600" />
@@ -92,7 +92,7 @@ export default async function ServiciosRapidosPage() {
                 <Link
                   key={job.id}
                   href={`/dashboard/servicios-rapidos/${job.id}`}
-                  className="flex items-center justify-between px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group gap-3"
                 >
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
@@ -105,7 +105,7 @@ export default async function ServiciosRapidosPage() {
                     </div>
                     <p className="text-sm text-slate-500">{job.client.name} · {new Date(job.serviceDate).toLocaleDateString("es-CA")}</p>
                   </div>
-                  <div className="flex items-center gap-4 ml-4">
+                  <div className="flex items-center gap-4 sm:ml-4 justify-between sm:justify-end w-full sm:w-auto">
                     <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${st.color}`}>{st.label}</span>
                     <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{fmt(job.totalAmount.toString())}</span>
                     <FileText className="h-4 w-4 text-slate-300 group-hover:text-orange-400 transition-colors" />
