@@ -193,6 +193,23 @@ export async function GET(
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('download') === 'true') {
       window.onload = function() { window.print(); }
+    } else {
+      function fitPage() {
+        const page = document.querySelector('.page');
+        if (!page) return;
+        const availableWidth = window.innerWidth - 32;
+        const pageWidth = 816; // Approx 8.5in in pixels
+        const scale = availableWidth < pageWidth ? availableWidth / pageWidth : 1;
+        
+        page.style.transform = 'scale(' + scale + ')';
+        page.style.transformOrigin = 'top center';
+        
+        document.body.style.minHeight = (page.offsetHeight * scale + 60) + 'px';
+        document.body.style.overflowX = 'hidden';
+      }
+      window.addEventListener('resize', fitPage);
+      window.addEventListener('load', fitPage);
+      fitPage();
     }
   </script>
 </body>
