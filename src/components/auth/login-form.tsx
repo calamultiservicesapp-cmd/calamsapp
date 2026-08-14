@@ -23,7 +23,7 @@ export function LoginForm() {
     <div className="w-full">
       <div className="mb-10 text-center">
         {/* Logotipo */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-6 lg:hidden">
           <img
             src="/logoblanco.png"
             alt="CALA Multiservices Logo"
