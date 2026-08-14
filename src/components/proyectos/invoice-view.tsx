@@ -30,7 +30,7 @@ type InvoiceProject = {
   } | null;
 };
 
-const fmt = (n: any) => parseFloat(n.toString()).toLocaleString("en-CA", { style: "currency", currency: "CAD" });
+const fmt = (n: any) => parseFloat(n.toString()).toLocaleString("en-US", { style: "currency", currency: "USD" });
 
 export function InvoiceView({ project }: { project: InvoiceProject }) {
   const [isGenerating, startGenerating] = useTransition();

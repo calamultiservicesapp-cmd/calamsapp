@@ -18,7 +18,7 @@ type Item = {
 };
 
 const fmt = (n: number) =>
-  n.toLocaleString("en-CA", { style: "currency", currency: "CAD" });
+  n.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
 export function NuevoServicioForm({
   clients,

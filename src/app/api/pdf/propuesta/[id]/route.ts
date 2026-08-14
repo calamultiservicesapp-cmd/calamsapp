@@ -33,7 +33,7 @@ export async function GET(
   const isEnglish = lang === "en";
 
   // Generar HTML del PDF (limpio, sin costos internos)
-  const date = new Date().toLocaleDateString(isEnglish ? "en-CA" : "es-CA", {
+  const date = new Date().toLocaleDateString(isEnglish ? "en-US" : "es-CA", {
     year: "numeric", month: "long", day: "numeric",
   });
 
@@ -42,8 +42,8 @@ export async function GET(
   );
 
   const finalPrice = parseFloat(project.proposal.finalPrice.toString());
-  const fmtPrice = finalPrice.toLocaleString(isEnglish ? "en-CA" : "es-CA", {
-    style: "currency", currency: "CAD",
+  const fmtPrice = finalPrice.toLocaleString(isEnglish ? "en-US" : "es-CA", {
+    style: "currency", currency: "USD",
   });
 
   const html = `

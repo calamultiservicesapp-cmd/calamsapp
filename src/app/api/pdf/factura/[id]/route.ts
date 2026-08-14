@@ -32,13 +32,13 @@ export async function GET(
   const lang = request.nextUrl.searchParams.get("lang") ?? "es";
   const isEnglish = lang === "en";
 
-  const date = new Date(project.invoice.issuedAt).toLocaleDateString(isEnglish ? "en-CA" : "es-CA", {
+  const date = new Date(project.invoice.issuedAt).toLocaleDateString(isEnglish ? "en-US" : "es-CA", {
     year: "numeric", month: "long", day: "numeric",
   });
 
   const dueDateObj = new Date(project.invoice.issuedAt);
   dueDateObj.setDate(dueDateObj.getDate() + 15); // Default 15 days due date
-  const dueDate = dueDateObj.toLocaleDateString(isEnglish ? "en-CA" : "es-CA", {
+  const dueDate = dueDateObj.toLocaleDateString(isEnglish ? "en-US" : "es-CA", {
     year: "numeric", month: "long", day: "numeric",
   });
 
@@ -47,8 +47,8 @@ export async function GET(
   );
 
   const amount = parseFloat(project.invoice.amount.toString());
-  const fmtPrice = amount.toLocaleString(isEnglish ? "en-CA" : "es-CA", {
-    style: "currency", currency: "CAD",
+  const fmtPrice = amount.toLocaleString(isEnglish ? "en-US" : "es-CA", {
+    style: "currency", currency: "USD",
   });
 
   const html = `

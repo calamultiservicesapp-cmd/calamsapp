@@ -16,7 +16,7 @@ type InvoiceRow = {
 };
 
 const fmt = (n: number) =>
-  n.toLocaleString("en-CA", { style: "currency", currency: "CAD" });
+  n.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
 export function InvoicesTable({ invoices }: { invoices: InvoiceRow[] }) {
   const [selected, setSelected] = useState<InvoiceRow | null>(null);

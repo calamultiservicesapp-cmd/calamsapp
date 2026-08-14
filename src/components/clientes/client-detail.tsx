@@ -17,7 +17,7 @@ type ClientHistoryProps = {
 };
 
 const fmt = (n: number | string) =>
-  parseFloat(n.toString()).toLocaleString("en-CA", { style: "currency", currency: "CAD" });
+  parseFloat(n.toString()).toLocaleString("en-US", { style: "currency", currency: "USD" });
 
 export function ClientDetail({ client }: ClientHistoryProps) {
   // Combine and sort history

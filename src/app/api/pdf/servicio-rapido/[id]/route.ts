@@ -31,23 +31,23 @@ export async function GET(
   const lang = request.nextUrl.searchParams.get("lang") ?? "es";
   const isEnglish = lang === "en";
 
-  const date = new Date(job.serviceDate).toLocaleDateString(isEnglish ? "en-CA" : "es-CA", {
+  const date = new Date(job.serviceDate).toLocaleDateString(isEnglish ? "en-US" : "es-CA", {
     year: "numeric", month: "long", day: "numeric",
   });
 
-  const issuedDate = new Date().toLocaleDateString(isEnglish ? "en-CA" : "es-CA", {
+  const issuedDate = new Date().toLocaleDateString(isEnglish ? "en-US" : "es-CA", {
     year: "numeric", month: "long", day: "numeric",
   });
 
   const dueDateObj = new Date();
   dueDateObj.setDate(dueDateObj.getDate() + 15);
-  const dueDate = dueDateObj.toLocaleDateString(isEnglish ? "en-CA" : "es-CA", {
+  const dueDate = dueDateObj.toLocaleDateString(isEnglish ? "en-US" : "es-CA", {
     year: "numeric", month: "long", day: "numeric",
   });
 
   const amount = parseFloat(job.totalAmount.toString());
-  const fmtPrice = amount.toLocaleString(isEnglish ? "en-CA" : "es-CA", {
-    style: "currency", currency: "CAD",
+  const fmtPrice = amount.toLocaleString(isEnglish ? "en-US" : "es-CA", {
+    style: "currency", currency: "USD",
   });
 
   const html = `
@@ -157,7 +157,7 @@ export async function GET(
           <td>${i + 1}</td>
           <td>${item.activity ? (isEnglish ? item.activity.nameEn : item.activity.nameEs) : item.description}</td>
           <td>${item.hours ? parseFloat(item.hours.toString()).toFixed(1) : "—"}</td>
-          <td class="right">${parseFloat(item.totalPrice.toString()).toLocaleString(isEnglish ? "en-CA" : "es-CA", { style: "currency", currency: "CAD" })}</td>
+          <td class="right">${parseFloat(item.totalPrice.toString()).toLocaleString(isEnglish ? "en-US" : "es-CA", { style: "currency", currency: "USD" })}</td>
         </tr>`).join("")}
       </tbody>
     </table>

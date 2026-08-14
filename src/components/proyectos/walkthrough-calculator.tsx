@@ -134,7 +134,7 @@ export function WalkthroughCalculator({
   }
 
   const fmt = (n: number) =>
-    n.toLocaleString("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 2 });
+    n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
 
   return (
     <div className="space-y-6">

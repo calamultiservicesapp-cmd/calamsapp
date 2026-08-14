@@ -45,7 +45,7 @@ const personnelLabels: Record<string, string> = {
 };
 
 const fmt = (n: number | string) =>
-  parseFloat(n.toString()).toLocaleString("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 2 });
+  parseFloat(n.toString()).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
 
 export function ProposalBuilder({ project }: { project: ProposalProject }) {
   const [discount, setDiscount] = useState(

@@ -57,7 +57,7 @@ export default async function FacturacionPage() {
     .reduce((s, i) => s + i.amount, 0);
 
   const fmt = (n: number) =>
-    n.toLocaleString("en-CA", { style: "currency", currency: "CAD" });
+    n.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">

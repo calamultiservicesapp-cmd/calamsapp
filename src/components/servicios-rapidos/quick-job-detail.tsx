@@ -39,7 +39,7 @@ type Job = {
 };
 
 const fmt = (n: string | number) =>
-  parseFloat(n.toString()).toLocaleString("en-CA", { style: "currency", currency: "CAD" });
+  parseFloat(n.toString()).toLocaleString("en-US", { style: "currency", currency: "USD" });
 
 const tabs = [
   { id: "detalles", label: "Detalles", icon: Zap },
