@@ -16,29 +16,29 @@ export default function AuthLayout({
       {/* Fondo imagen — visible SOLO en mobile como overlay */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center lg:hidden"
-        style={{ backgroundImage: "url('/hero-bg.png')" }}
+        style={{ backgroundImage: "url('/fondologin.png')" }}
       />
       <div className="absolute inset-0 z-0 bg-slate-950/75 lg:hidden" />
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-slate-950/90 to-transparent lg:hidden" />
 
       {/* Lado izquierdo: Branding (oculto en móviles) */}
       <div className="hidden lg:flex lg:w-1/2 flex-col justify-between relative p-12 text-white overflow-hidden">
-        {/* Imagen de fondo generada por IA */}
+        {/* Imagen de fondo */}
         <div
           className="absolute inset-0 z-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/hero-bg.png')" }}
+          style={{ backgroundImage: "url('/fondologin.png')" }}
         />
-        {/* Overlay azul marino oscuro para que el texto resalte */}
-        <div className="absolute inset-0 z-0 bg-slate-950/70" />
-        <div className="absolute inset-0 z-0 bg-gradient-to-t from-slate-950/90 to-transparent" />
-        
-        <div className="relative z-10">
-          <h1 className="text-5xl font-heading tracking-wider text-white flex items-center gap-2">
-            <span className="text-orange-500">CALA</span> Multiservices
-          </h1>
-          <p className="mt-4 text-slate-300 max-w-md text-lg">
-            Plataforma integral de gestión de proyectos, presupuestos, seguimiento y facturación.
-          </p>
+        {/* Overlay oscuro para contraste */}
+        <div className="absolute inset-0 z-0 bg-slate-950/60" />
+        <div className="absolute inset-0 z-0 bg-gradient-to-t from-slate-950/80 to-transparent" />
+
+        {/* Logo blanco centrado */}
+        <div className="relative z-10 flex flex-1 items-center justify-center">
+          <img
+            src="/logoblanco.png"
+            alt="CALA Multiservices"
+            className="w-64 h-auto object-contain drop-shadow-2xl"
+          />
         </div>
         
         <div className="relative z-10 space-y-6">
