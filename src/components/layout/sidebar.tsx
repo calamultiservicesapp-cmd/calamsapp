@@ -14,6 +14,7 @@ import {
   X,
   HardHat,
   UserCog,
+  Zap,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -23,6 +24,7 @@ const navItems = [
   { label: "Catálogo de Servicios",href: "/dashboard/catalogo",     icon: BookOpen },
   { label: "Clientes",             href: "/dashboard/clientes",     icon: Users },
   { label: "Proyectos",            href: "/dashboard/proyectos",    icon: FolderKanban },
+  { label: "Servicios Rápidos",    href: "/dashboard/servicios-rapidos", icon: Zap },
   { label: "Citas",                href: "/dashboard/citas",        icon: CalendarDays },
   { label: "Personal",             href: "/dashboard/personal",     icon: UserCog },
   { label: "Facturación",          href: "/dashboard/facturacion",  icon: Receipt },

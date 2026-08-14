@@ -59,9 +59,11 @@ export async function GET(
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${isEnglish ? "Invoice" : "Factura"} — ${project.invoice.invoiceNumber}</title>
   <style>
+    @page { size: letter; margin: 0.75in; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 8.5in; }
     body { font-family: 'Segoe UI', system-ui, sans-serif; color: #1e293b; background: #f1f5f9; padding: 40px 20px; }
-    .page { max-width: 800px; margin: 0 auto; background: #fff; padding: 48px 56px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .page { max-width: 7in; margin: 0 auto; background: #fff; padding: 40px 48px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 3px solid #e2521a; }
     .logo-img { max-height: 70px; width: auto; object-fit: contain; }
     .doc-info { text-align: right; }
@@ -90,8 +92,8 @@ export async function GET(
     .badge.paid { background: #dcfce7; color: #166534; }
     .badge.pending { background: #fef08a; color: #854d0e; }
     @media print { 
-      body { padding: 0; background: #fff; }
-      .page { box-shadow: none; max-width: 100%; margin: 0; padding: 0; border-radius: 0; }
+      body { padding: 0; background: #fff; width: auto; }
+      .page { box-shadow: none; width: 100%; max-width: 100%; margin: 0; padding: 0; border-radius: 0; }
       .header { padding-top: 0; }
     }
   </style>

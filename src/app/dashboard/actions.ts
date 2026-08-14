@@ -7,7 +7,8 @@ export async function getDashboardStats() {
     totalProyectosActivos,
     totalClientes,
     proyectos,
-    citasEstaSemana
+    citasEstaSemana,
+    totalQuickJobsActivos
   ] = await Promise.all([
     prisma.project.count({
       where: {
@@ -31,6 +32,11 @@ export async function getDashboardStats() {
           gte: new Date(new Date().setDate(new Date().getDate() - new Date().getDay())), // Sunday of current week
           lt: new Date(new Date().setDate(new Date().getDate() - new Date().getDay() + 7)) // Next Sunday
         }
+      }
+    }),
+    prisma.quickJob.count({
+      where: {
+        status: { notIn: ["facturado"] }
       }
     })
   ]);
@@ -60,7 +66,8 @@ export async function getDashboardStats() {
       proyectosActivos: totalProyectosActivos,
       clientes: totalClientes,
       propuestasPendientes,
-      citasEstaSemana
+      citasEstaSemana,
+      quickJobsActivos: totalQuickJobsActivos
     },
     pipeline: pipelineCounts
   };

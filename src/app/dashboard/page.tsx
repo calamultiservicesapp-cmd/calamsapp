@@ -5,6 +5,7 @@ import {
   CalendarDays,
   TrendingUp,
   Clock,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import { getDashboardStats } from "./actions";
@@ -14,9 +15,9 @@ export default async function DashboardPage() {
 
   const stats = [
     { label: "Proyectos Activos", value: data.stats.proyectosActivos, icon: FolderKanban, href: "/dashboard/proyectos", color: "text-blue-600 bg-blue-50 dark:bg-blue-950/50" },
+    { label: "Servicios Rápidos", value: data.stats.quickJobsActivos, icon: Zap, href: "/dashboard/servicios-rapidos", color: "text-orange-500 bg-orange-50 dark:bg-orange-950/50" },
     { label: "Clientes", value: data.stats.clientes, icon: Users, href: "/dashboard/clientes", color: "text-violet-600 bg-violet-50 dark:bg-violet-950/50" },
-    { label: "Propuestas Pendientes", value: data.stats.propuestasPendientes, icon: DollarSign, href: "/dashboard/proyectos", color: "text-orange-600 bg-orange-50 dark:bg-orange-950/50" },
-    { label: "Citas Esta Semana", value: data.stats.citasEstaSemana, icon: CalendarDays, href: "/dashboard/proyectos", color: "text-green-600 bg-green-50 dark:bg-green-950/50" },
+    { label: "Citas Esta Semana", value: data.stats.citasEstaSemana, icon: CalendarDays, href: "/dashboard/citas", color: "text-green-600 bg-green-50 dark:bg-green-950/50" },
   ];
 
   const pipeline = [
