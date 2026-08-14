@@ -174,18 +174,13 @@ export async function GET(
       window.onload = function() { window.print(); }
     } else {
       function fitPage() {
-        const page = document.querySelector('.page');
-        if (!page) return;
-        const availableWidth = window.innerWidth - 32;
-        const pageWidth = 816; // Approx 8.5in in pixels
-        const scale = availableWidth < pageWidth ? availableWidth / pageWidth : 1;
-        
-        page.style.transform = 'scale(' + scale + ')';
-        page.style.transformOrigin = 'top center';
-        
-        // Adjust body height so the scrolling matches the scaled page
-        document.body.style.minHeight = (page.offsetHeight * scale + 60) + 'px';
-        document.body.style.overflowX = 'hidden';
+        const availableWidth = window.innerWidth;
+        const scale = availableWidth < 816 ? availableWidth / 816 : 1;
+        document.body.style.transform = 'scale(' + scale + ')';
+        document.body.style.transformOrigin = 'top left';
+        // Adjust the html height to prevent massive blank space at the bottom
+        document.documentElement.style.height = (document.body.offsetHeight * scale) + 'px';
+        document.documentElement.style.overflowX = 'hidden';
       }
       window.addEventListener('resize', fitPage);
       window.addEventListener('load', fitPage);
