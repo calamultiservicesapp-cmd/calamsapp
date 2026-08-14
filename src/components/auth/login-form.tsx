@@ -24,17 +24,17 @@ export function LoginForm() {
       <div className="mb-10 text-center">
         {/* Logotipo */}
         <div className="flex justify-center mb-6">
-          <img 
-            src="/logotipo.png" 
-            alt="CALA Multiservices Logo" 
+          <img
+            src="/logotipo.png"
+            alt="CALA Multiservices Logo"
             className="h-16 w-auto object-contain"
           />
         </div>
-        
-        <h2 className="text-3xl font-heading tracking-wider text-slate-700 dark:text-slate-300">
+
+        <h2 className="text-3xl font-heading tracking-wider text-white lg:text-slate-700 lg:dark:text-slate-300">
           Bienvenido
         </h2>
-        <p className="text-sm text-slate-500 mt-2">
+        <p className="text-sm text-slate-300 lg:text-slate-500 mt-2">
           Ingresa tus credenciales para acceder al sistema
         </p>
       </div>
@@ -50,7 +50,7 @@ export function LoginForm() {
         <div className="space-y-2">
           <label
             htmlFor="email"
-            className="text-sm font-medium leading-none text-slate-700 dark:text-slate-300"
+            className="text-sm font-medium leading-none text-white lg:text-slate-700 lg:dark:text-slate-300"
           >
             Correo Electrónico
           </label>
@@ -62,7 +62,7 @@ export function LoginForm() {
               type="email"
               placeholder="tu@email.com"
               required
-              className="flex h-11 w-full rounded-md border border-slate-300 dark:border-slate-700 bg-transparent px-3 py-2 pl-10 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:cursor-not-allowed disabled:opacity-50 dark:text-white"
+              className="flex h-11 w-full rounded-md border border-white/30 lg:border-slate-300 lg:dark:border-slate-700 bg-white/10 lg:bg-transparent px-3 py-2 pl-10 text-sm text-white lg:text-slate-900 lg:dark:text-white placeholder:text-slate-300 lg:placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:cursor-not-allowed disabled:opacity-50"
             />
           </div>
         </div>
@@ -71,7 +71,7 @@ export function LoginForm() {
           <div className="flex items-center justify-between">
             <label
               htmlFor="password"
-              className="text-sm font-medium leading-none text-slate-700 dark:text-slate-300"
+              className="text-sm font-medium leading-none text-white lg:text-slate-700 lg:dark:text-slate-300"
             >
               Contraseña
             </label>
@@ -83,7 +83,7 @@ export function LoginForm() {
               name="password"
               type={showPassword ? "text" : "password"}
               required
-              className="flex h-11 w-full rounded-md border border-slate-300 dark:border-slate-700 bg-transparent px-3 py-2 pl-10 pr-10 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:cursor-not-allowed disabled:opacity-50 dark:text-white"
+              className="flex h-11 w-full rounded-md border border-white/30 lg:border-slate-300 lg:dark:border-slate-700 bg-white/10 lg:bg-transparent px-3 py-2 pl-10 pr-10 text-sm text-white lg:text-slate-900 lg:dark:text-white placeholder:text-slate-300 lg:placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:cursor-not-allowed disabled:opacity-50"
             />
             <button
               type="button"
