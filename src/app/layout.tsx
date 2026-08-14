@@ -17,12 +17,33 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "CALA Multiservices",
-  description: "Plataforma integral de gestión de proyectos y presupuestos",
+  description: "Plataforma integral de gestión de proyectos, presupuestos, seguimiento y facturación.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "CALA",
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    title: "CALA Multiservices",
+    description: "Plataforma integral de gestión de proyectos, presupuestos, seguimiento y facturación.",
+    siteName: "CALA Multiservices",
+    images: [
+      {
+        url: "/fondologin.png",
+        width: 1200,
+        height: 630,
+        alt: "CALA Multiservices - Plataforma de gestión",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CALA Multiservices",
+    description: "Plataforma integral de gestión de proyectos, presupuestos, seguimiento y facturación.",
+    images: ["/fondologin.png"],
   },
 };
 
