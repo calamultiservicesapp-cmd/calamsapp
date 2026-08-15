@@ -7,6 +7,7 @@ export function InstallPrompt() {
   const [isIOS, setIsIOS] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
   useEffect(() => {
     // Register service worker for PWA support
@@ -26,12 +27,26 @@ export function InstallPrompt() {
     setIsIOS(isMobileDevice); // Reuse state
     setIsStandalone(isStandaloneMode);
 
-    // Show prompt on mobile if not installed
-    if (isMobileDevice && !isStandaloneMode) {
+    // Capture native install prompt
+    const handleBeforeInstallPrompt = (e: any) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      setDeferredPrompt(e);
+      // Update UI notify the user they can install the PWA
+      setShowPrompt(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // Show prompt on iOS if not installed (since iOS doesn't support beforeinstallprompt)
+    if (isMobileDevice && !isStandaloneMode && userAgent.includes('iphone')) {
       setTimeout(() => {
         setShowPrompt(true);
       }, 1500);
     }
+
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   }, []);
 
   if (!showPrompt || !isIOS || isStandalone) return null;
@@ -53,14 +68,33 @@ export function InstallPrompt() {
       <p className="text-sm text-slate-300 mb-3">
         Para la mejor experiencia a pantalla completa, instala la aplicación en tu celular.
       </p>
-      <div className="bg-slate-800 rounded-lg p-3 text-sm flex flex-col gap-2">
-        <div>
-          1. Toca el botón <strong>Compartir</strong> (en iPhone) o los <strong>3 puntos</strong> (en Android).
+      
+      {deferredPrompt ? (
+        <button
+          onClick={async () => {
+            // Show the install prompt
+            deferredPrompt.prompt();
+            // Wait for the user to respond to the prompt
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+              setDeferredPrompt(null);
+              setShowPrompt(false);
+            }
+          }}
+          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+        >
+          Instalar Ahora
+        </button>
+      ) : (
+        <div className="bg-slate-800 rounded-lg p-3 text-sm flex flex-col gap-2">
+          <div>
+            1. Toca el botón <strong>Compartir</strong> (en iPhone) o los <strong>3 puntos</strong> (en Android).
+          </div>
+          <div>
+            2. Selecciona <strong>"Agregar a inicio"</strong> o <strong>"Instalar aplicación"</strong>.
+          </div>
         </div>
-        <div>
-          2. Selecciona <strong>"Agregar a inicio"</strong> o <strong>"Instalar aplicación"</strong>.
-        </div>
-      </div>
+      )}
     </div>
   );
 }
