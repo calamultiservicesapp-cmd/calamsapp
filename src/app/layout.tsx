@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "CALA Multiservices",
     images: [
       {
-        url: "/logo.png",
+        url: "/iconocala.png",
         width: 1200,
         height: 630,
         alt: "CALA Multiservices - Plataforma de gestión",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CALA Multiservices",
     description: "Plataforma integral de gestión de proyectos, presupuestos, seguimiento y facturación.",
-    images: ["/logo.png"],
+    images: ["/iconocala.png"],
   },
 };
 
@@ -65,7 +65,7 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${poppins.variable} h-full antialiased`}
     >
       <head>
-        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/iconocala.png" />
       </head>
       <body className="min-h-full flex flex-col font-sans">
         {children}
