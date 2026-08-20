@@ -79,20 +79,21 @@ export default async function ServiciosRapidosPage() {
       <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
         <QuickJobList jobs={jobs.map((job) => ({
           ...job,
-          createdAt: job.createdAt.toISOString(),
-          updatedAt: job.updatedAt.toISOString(),
-          serviceDate: job.serviceDate.toISOString(),
+          createdAt: job.createdAt ? job.createdAt.toISOString() : new Date().toISOString(),
+          updatedAt: job.updatedAt ? job.updatedAt.toISOString() : new Date().toISOString(),
+          serviceDate: job.serviceDate ? job.serviceDate.toISOString() : new Date().toISOString(),
           totalAmount: job.totalAmount?.toString() || "0",
-          paidAt: job.paidAt?.toISOString() || null,
-          items: job.items.map((i) => ({
+          paidAt: job.paidAt ? job.paidAt.toISOString() : null,
+          client: job.client ? { ...job.client } : { name: "Cliente Desconocido" },
+          items: Array.isArray(job.items) ? job.items.map((i) => ({
             ...i,
             unitPrice: i.unitPrice?.toString() || "0",
             totalPrice: i.totalPrice?.toString() || "0",
             hours: i.hours?.toString() || null,
-          })),
+          })) : [],
           report: job.report ? {
             ...job.report,
-            completedAt: job.report.completedAt?.toISOString() || null,
+            completedAt: job.report.completedAt ? job.report.completedAt.toISOString() : null,
           } : null,
         }))} />
       </div>
