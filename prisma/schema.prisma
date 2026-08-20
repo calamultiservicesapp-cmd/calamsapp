@@ -408,6 +408,7 @@ enum QuickJobStatus {
   activo
   informe
   facturado
+  cerrado
 }
 
 model QuickJob {
