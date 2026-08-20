@@ -37,6 +37,7 @@ async function getNextInvoiceNumber(): Promise<string> {
 
 export async function getQuickJobs() {
   return await prisma.quickJob.findMany({
+    where: { status: { not: "cerrado" } },
     orderBy: { createdAt: "desc" },
     include: {
       client: { select: { name: true } },
@@ -217,5 +218,49 @@ export async function markQuickJobPaid(quickJobId: string) {
     return { success: true };
   } catch {
     return { error: "Error al marcar como cobrado." };
+  }
+}
+
+// ─── Archive & Delete ─────────────────────────────────────────────────────────
+
+export async function archiveQuickJob(quickJobId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: "No autorizado" };
+
+  try {
+    await prisma.quickJob.update({
+      where: { id: quickJobId },
+      data: { status: "cerrado" },
+    });
+    revalidatePath("/dashboard/servicios-rapidos");
+    return { success: true };
+  } catch (err) {
+    console.error("Error al archivar servicio rápido:", err);
+    return { error: "Error al archivar." };
+  }
+}
+
+export async function deleteQuickJob(quickJobId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: "No autorizado" };
+
+  try {
+    await prisma.$transaction(async (tx) => {
+      // Borrar reporte
+      await tx.quickJobReport.deleteMany({ where: { quickJobId } });
+      
+      // Borrar items
+      await tx.quickJobItem.deleteMany({ where: { quickJobId } });
+      
+      // Borrar el quick job
+      await tx.quickJob.delete({ where: { id: quickJobId } });
+    });
+    revalidatePath("/dashboard/servicios-rapidos");
+    return { success: true };
+  } catch (err) {
+    console.error("Error al eliminar servicio rápido:", err);
+    return { error: "Error al eliminar permanentemente." };
   }
 }

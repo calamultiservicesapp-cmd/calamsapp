@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { getQuickJobs } from "./actions";
 import { Zap, Plus, CheckCircle2, Clock, FileText } from "lucide-react";
+import { QuickJobList } from "@/components/servicios-rapidos/quick-job-list";
 
 export const metadata: Metadata = {
   title: "Servicios Rápidos | CALA Multiservices",
@@ -76,45 +77,7 @@ export default async function ServiciosRapidosPage() {
 
       {/* List */}
       <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-        {jobs.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-slate-400 gap-3">
-            <Zap className="h-10 w-10 opacity-30" />
-            <p className="text-sm">No hay servicios rápidos aún.</p>
-            <Link href="/dashboard/servicios-rapidos/nuevo" className="text-orange-500 hover:underline text-sm font-medium">
-              Crear el primero →
-            </Link>
-          </div>
-        ) : (
-          <div className="divide-y divide-slate-100 dark:divide-slate-800">
-            {jobs.map((job) => {
-              const st = statusConfig[job.status];
-              return (
-                <Link
-                  key={job.id}
-                  href={`/dashboard/servicios-rapidos/${job.id}`}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group gap-3"
-                >
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <p className="font-medium text-slate-800 dark:text-slate-200 truncate group-hover:text-orange-500 transition-colors">
-                        {job.name}
-                      </p>
-                      {job.invoiceNumber && (
-                        <span className="text-xs font-mono text-slate-400">{job.invoiceNumber}</span>
-                      )}
-                    </div>
-                    <p className="text-sm text-slate-500">{job.client.name} · {new Date(job.serviceDate).toLocaleDateString("es-CA")}</p>
-                  </div>
-                  <div className="flex items-center gap-4 sm:ml-4 justify-between sm:justify-end w-full sm:w-auto">
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${st.color}`}>{st.label}</span>
-                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{fmt(job.totalAmount.toString())}</span>
-                    <FileText className="h-4 w-4 text-slate-300 group-hover:text-orange-400 transition-colors" />
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        )}
+        <QuickJobList jobs={jobs} />
       </div>
     </div>
   );
