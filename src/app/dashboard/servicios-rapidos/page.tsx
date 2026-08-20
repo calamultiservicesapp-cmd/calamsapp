@@ -77,7 +77,24 @@ export default async function ServiciosRapidosPage() {
 
       {/* List */}
       <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-        <QuickJobList jobs={jobs} />
+        <QuickJobList jobs={jobs.map((job) => ({
+          ...job,
+          createdAt: job.createdAt.toISOString(),
+          updatedAt: job.updatedAt.toISOString(),
+          serviceDate: job.serviceDate.toISOString(),
+          totalAmount: job.totalAmount?.toString() || "0",
+          paidAt: job.paidAt?.toISOString() || null,
+          items: job.items.map((i) => ({
+            ...i,
+            unitPrice: i.unitPrice?.toString() || "0",
+            totalPrice: i.totalPrice?.toString() || "0",
+            hours: i.hours?.toString() || null,
+          })),
+          report: job.report ? {
+            ...job.report,
+            completedAt: job.report.completedAt?.toISOString() || null,
+          } : null,
+        }))} />
       </div>
     </div>
   );
