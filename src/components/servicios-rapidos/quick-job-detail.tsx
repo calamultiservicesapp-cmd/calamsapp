@@ -29,7 +29,7 @@ type Job = {
   id: string;
   name: string;
   serviceDate: string;
-  status: "activo" | "informe" | "facturado";
+  status: "activo" | "informe" | "facturado" | "cerrado";
   totalAmount: string;
   invoiceNumber: string | null;
   paidAt: string | null;
@@ -106,8 +106,9 @@ export function QuickJobDetail({ job: initialJob }: { job: Job }) {
     activo:    "bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
     informe:   "bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-300",
     facturado: "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300",
+    cerrado:   "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
   };
-  const statusLabels = { activo: "Activo", informe: "Informe", facturado: "Facturado" };
+  const statusLabels = { activo: "Activo", informe: "Informe", facturado: "Facturado", cerrado: "Archivado" };
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
