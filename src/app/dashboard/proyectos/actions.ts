@@ -123,12 +123,52 @@ export async function deleteProject(projectId: string) {
   if (!user) return { error: "No autorizado" };
 
   try {
-    await prisma.project.delete({
-      where: { id: projectId },
+    await prisma.$transaction(async (tx) => {
+      // 1. Borrar fotos de informe de campo
+      const fieldReport = await tx.fieldReport.findUnique({
+        where: { projectId },
+        include: { items: { include: { photos: true } } },
+      });
+      if (fieldReport) {
+        const itemIds = fieldReport.items.map((i) => i.id);
+        if (itemIds.length > 0) {
+          await tx.fieldReportPhoto.deleteMany({ where: { fieldReportItemId: { in: itemIds } } });
+          await tx.fieldReportItem.deleteMany({ where: { fieldReportId: fieldReport.id } });
+        }
+        await tx.fieldReport.delete({ where: { id: fieldReport.id } });
+      }
+
+      // 2. Borrar factura
+      await tx.invoice.deleteMany({ where: { projectId } });
+
+      // 3. Borrar evaluación de campo (y sus inspecciones via Cascade en DB)
+      const fieldEval = await tx.fieldEvaluation.findUnique({ where: { projectId } });
+      if (fieldEval) {
+        await tx.systemInspection.deleteMany({ where: { fieldEvaluationId: fieldEval.id } });
+        await tx.fieldEvaluation.delete({ where: { id: fieldEval.id } });
+      }
+
+      // 4. Borrar propuesta y revisiones
+      await tx.proposalRevision.deleteMany({ where: { projectId } });
+      await tx.proposal.deleteMany({ where: { projectId } });
+
+      // 5. Borrar asignaciones de personal
+      await tx.projectAssignment.deleteMany({ where: { projectId } });
+
+      // 6. Borrar ítems de caminata
+      await tx.walkthroughItem.deleteMany({ where: { projectId } });
+
+      // 7. Borrar cita
+      await tx.appointment.deleteMany({ where: { projectId } });
+
+      // 8. Finalmente borrar el proyecto
+      await tx.project.delete({ where: { id: projectId } });
     });
+
     revalidatePath("/dashboard/proyectos");
     return { success: true };
-  } catch {
-    return { error: "Error al eliminar el proyecto." };
+  } catch (err) {
+    console.error("Error al eliminar proyecto:", err);
+    return { error: "Error al eliminar el proyecto. Intenta de nuevo." };
   }
 }

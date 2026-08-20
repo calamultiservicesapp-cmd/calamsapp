@@ -199,10 +199,17 @@ function ArchiveConfirm({ id, name, onClose }: { id: string; name: string; onClo
 
 function DeleteProjectConfirm({ id, name, onClose }: { id: string; name: string; onClose: () => void }) {
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   async function handleDelete() {
     setLoading(true);
-    await deleteProject(id);
-    onClose();
+    setErrorMsg(null);
+    const result = await deleteProject(id);
+    if (result?.error) {
+      setErrorMsg(result.error);
+      setLoading(false);
+    } else {
+      onClose();
+    }
   }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
@@ -212,6 +219,9 @@ function DeleteProjectConfirm({ id, name, onClose }: { id: string; name: string;
           <h3 className="font-heading text-slate-800 dark:text-white">Eliminar Proyecto</h3>
         </div>
         <p className="text-sm text-slate-600 dark:text-slate-400">¿Estás seguro de eliminar el proyecto <strong>"{name}"</strong>? Esta acción borrará permanentemente todos sus datos asociados y no se puede deshacer.</p>
+        {errorMsg && (
+          <p className="text-sm text-red-600 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md px-3 py-2">{errorMsg}</p>
+        )}
         <div className="flex justify-end gap-3">
           <button onClick={onClose} className="px-4 h-9 rounded-md border border-slate-300 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Cancelar</button>
           <button onClick={handleDelete} disabled={loading} className="inline-flex items-center gap-2 h-9 px-4 rounded-md bg-red-600 hover:bg-red-700 text-white text-sm font-medium transition-colors disabled:opacity-50">
