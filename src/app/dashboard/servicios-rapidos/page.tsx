@@ -22,9 +22,9 @@ export default async function ServiciosRapidosPage() {
 
   const totalActivos   = jobs.filter((j) => j.status === "activo").length;
   const totalFacturado = jobs.filter((j) => j.status === "facturado")
-    .reduce((s, j) => s + parseFloat(j.totalAmount.toString()), 0);
+    .reduce((s, j) => s + parseFloat(j.totalAmount?.toString() || "0"), 0);
   const totalPendiente = jobs.filter((j) => j.status !== "facturado" || !j.paidAt)
-    .reduce((s, j) => s + parseFloat(j.totalAmount.toString()), 0);
+    .reduce((s, j) => s + parseFloat(j.totalAmount?.toString() || "0"), 0);
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">

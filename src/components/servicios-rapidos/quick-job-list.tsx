@@ -148,7 +148,7 @@ export function QuickJobList({ jobs }: { jobs: any[] }) {
               
               <div className="flex items-center gap-4 sm:ml-4 justify-between sm:justify-end w-full sm:w-auto z-10">
                 <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${st.color}`}>{st.label}</span>
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{fmt(job.totalAmount.toString())}</span>
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">{fmt(job.totalAmount?.toString() || "0")}</span>
                 <FileText className="h-4 w-4 text-slate-300 group-hover:text-orange-400 transition-colors pointer-events-none" />
                 
                 {/* Menu */}

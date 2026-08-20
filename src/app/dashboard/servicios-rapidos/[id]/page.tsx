@@ -20,14 +20,14 @@ export default async function QuickJobPage({
   const serialized = {
     ...job,
     serviceDate: job.serviceDate.toISOString(),
-    totalAmount: job.totalAmount.toString(),
+    totalAmount: job.totalAmount?.toString() || "0",
     paidAt: job.paidAt?.toISOString() ?? null,
     createdAt: job.createdAt.toISOString(),
     items: job.items.map((i) => ({
       ...i,
       hours: i.hours?.toString() ?? null,
-      unitPrice: i.unitPrice.toString(),
-      totalPrice: i.totalPrice.toString(),
+      unitPrice: i.unitPrice?.toString() || "0",
+      totalPrice: i.totalPrice?.toString() || "0",
     })),
     report: job.report
       ? {
